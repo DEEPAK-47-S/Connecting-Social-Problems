@@ -662,7 +662,7 @@ export default function AdminDashboardPage() {
                           </button>
                         </td>
 
-                        <td className="p-4 max-w-xs">
+                        <td className="p-4 min-w-[300px]">
                           <p className={`font-bold text-xs sm:text-sm text-foreground`}>{post.title}</p>
                           <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">{post.description}</p>
                           {post.category && (
@@ -672,32 +672,32 @@ export default function AdminDashboardPage() {
                           )}
                         </td>
 
-                        <td className="p-4 text-zinc-900 dark:text-zinc-100 whitespace-nowrap">
+                        <td className="p-4 text-zinc-900 dark:text-zinc-100 min-w-[250px]">
                           <div className="flex items-center gap-1.5">
                             <MapPin className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400 flex-shrink-0" />
                             <span className="font-bold">{post.district || "Tamil Nadu"}</span>
                           </div>
                           {post.location && (
-                            <p className="text-[10px] text-zinc-500 max-w-[160px] mt-0.5">{post.location}</p>
+                            <p className="text-[10px] text-zinc-500 mt-1 leading-relaxed">{post.location}</p>
                           )}
                         </td>
 
-                        <td className="p-4 text-zinc-900 dark:text-zinc-100 whitespace-nowrap">
+                        <td className="p-4 text-zinc-900 dark:text-zinc-100 min-w-[150px]">
                           <p className={`font-bold text-xs text-foreground`}>{post.user?.name || "Citizen"}</p>
-                          <p className="text-[10px] text-zinc-500 font-mono">{post.user?.email || "N/A"}</p>
+                          <p className="text-[10px] text-zinc-500 font-mono mt-0.5 break-all">{post.user?.email || "N/A"}</p>
                         </td>
 
-                        <td className="p-4 whitespace-nowrap">
+                        <td className="p-4 min-w-[180px]">
                           <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold border ${statusInfo.color}`}>
                             {statusInfo.label}
                           </span>
                           {post.acceptedCollegeName && (
-                            <p className="text-[10px] text-blue-600 dark:text-blue-400 font-semibold mt-1 max-w-[150px]">
+                            <p className="text-[10px] text-blue-600 dark:text-blue-400 font-semibold mt-2 leading-relaxed">
                               🎓 {post.acceptedCollegeName}
                             </p>
                           )}
                           {post.acceptedIndustryName && (
-                            <p className="text-[10px] text-pink-600 dark:text-pink-400 font-semibold mt-0.5 max-w-[150px]">
+                            <p className="text-[10px] text-pink-600 dark:text-pink-400 font-semibold mt-1 leading-relaxed">
                               🤝 {post.acceptedIndustryName}
                             </p>
                           )}
