@@ -24,19 +24,19 @@ function formatTime(dateStr: string) {
 }
 
 const STATUS_BADGES: Record<string, { label: string; color: string }> = {
-  SUBMITTED: { label: "Submitted", color: "bg-zinc-800 text-zinc-900 dark:text-zinc-100 border-zinc-700" },
-  AI_ANALYZING: { label: "AI Analysing", color: "bg-amber-950/60 text-amber-700 dark:text-amber-300 border-amber-800/60" },
-  UNIVERSITY_MATCHING: { label: "Finding University", color: "bg-blue-950/60 text-blue-700 dark:text-blue-300 border-blue-800/60" },
-  UNIVERSITY_ACCEPTED: { label: "University Accepted", color: "bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border-indigo-800/60" },
-  INDUSTRY_MATCHING: { label: "Finding Industry", color: "bg-purple-950/60 text-purple-700 dark:text-purple-300 border-purple-800/60" },
-  INDUSTRY_ACCEPTED: { label: "Industry Locked", color: "bg-pink-950/60 text-pink-700 dark:text-pink-300 border-pink-800/60" },
-  PROTOTYPING: { label: "Prototyping", color: "bg-sky-950/60 text-sky-700 dark:text-sky-300 border-sky-800/60" },
-  TESTING: { label: "Testing", color: "bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border-cyan-800/60" },
-  GOVT_REVIEW: { label: "Govt Review", color: "bg-orange-950/60 text-orange-700 dark:text-orange-300 border-orange-800/60" },
-  GOVT_APPROVED: { label: "Govt Approved", color: "bg-teal-950/60 text-teal-700 dark:text-teal-300 border-teal-800/60" },
-  IMPLEMENTATION: { label: "Implementing", color: "bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-800/60" },
-  COMPLETED: { label: "Completed", color: "bg-green-950/60 text-green-700 dark:text-green-300 border-green-800/60" },
-  REJECTED: { label: "Rejected", color: "bg-rose-950/60 text-rose-700 dark:text-rose-300 border-rose-800/60" },
+  SUBMITTED: { label: "Submitted", color: "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700" },
+  AI_ANALYZING: { label: "AI Analysing", color: "bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border-amber-200 dark:border-amber-800/60" },
+  UNIVERSITY_MATCHING: { label: "Finding University", color: "bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-200 dark:border-blue-800/60" },
+  UNIVERSITY_ACCEPTED: { label: "University Accepted", color: "bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/60" },
+  INDUSTRY_MATCHING: { label: "Finding Industry", color: "bg-purple-100 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 border-purple-200 dark:border-purple-800/60" },
+  INDUSTRY_ACCEPTED: { label: "Industry Locked", color: "bg-pink-100 text-pink-700 dark:bg-pink-950/60 dark:text-pink-300 border-pink-200 dark:border-pink-800/60" },
+  PROTOTYPING: { label: "Prototyping", color: "bg-sky-100 text-sky-700 dark:bg-sky-950/60 dark:text-sky-300 border-sky-200 dark:border-sky-800/60" },
+  TESTING: { label: "Testing", color: "bg-cyan-100 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800/60" },
+  GOVT_REVIEW: { label: "Govt Review", color: "bg-orange-100 text-orange-700 dark:bg-orange-950/60 dark:text-orange-300 border-orange-200 dark:border-orange-800/60" },
+  GOVT_APPROVED: { label: "Govt Approved", color: "bg-teal-100 text-teal-700 dark:bg-teal-950/60 dark:text-teal-300 border-teal-200 dark:border-teal-800/60" },
+  IMPLEMENTATION: { label: "Implementing", color: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800/60" },
+  COMPLETED: { label: "Completed", color: "bg-green-100 text-green-700 dark:bg-green-950/60 dark:text-green-300 border-green-200 dark:border-green-800/60" },
+  REJECTED: { label: "Rejected", color: "bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 border-rose-200 dark:border-rose-800/60" },
 };
 
 export default function AdminDashboardPage() {
@@ -666,7 +666,7 @@ export default function AdminDashboardPage() {
                           <p className={`font-bold text-xs sm:text-sm text-foreground`}>{post.title}</p>
                           <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">{post.description}</p>
                           {post.category && (
-                            <span className="inline-block px-2 py-0.5 rounded-md bg-zinc-800 text-zinc-900 dark:text-zinc-100 text-[9px] font-bold mt-1">
+                            <span className="inline-block px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 text-[9px] font-bold mt-1">
                               #{post.category}
                             </span>
                           )}
@@ -711,7 +711,7 @@ export default function AdminDashboardPage() {
                           <div className="flex items-center justify-end gap-2">
                             <button
                               onClick={() => setInspectPost(post)}
-                              className="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 transition"
+                              className="p-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-300 transition"
                               title="Inspect Complaint Details"
                             >
                               <Eye className="h-3.5 w-3.5" />
@@ -719,7 +719,7 @@ export default function AdminDashboardPage() {
 
                             <button
                               onClick={() => setPostToDelete(post)}
-                              className={`p-2 rounded-xl bg-rose-950/50 hover:bg-rose-900 border border-rose-500/40 text-rose-300 hover: transition text-foreground`}
+                              className={`p-2 rounded-xl bg-rose-100 hover:bg-rose-200 border border-rose-200 text-rose-600 dark:bg-rose-950/50 dark:hover:bg-rose-900 dark:border-rose-500/40 dark:text-rose-300 transition`}
                               title="Delete Complaint from Database"
                             >
                               <Trash2 className="h-3.5 w-3.5" />
