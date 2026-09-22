@@ -368,7 +368,7 @@ export default function CollegePortal() {
 
   if (authChecking) {
     return (
-      <div className={`min-h-screen flex flex-col items-center justify-center gap-4 bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100`}>
+      <div className={`min-h-screen flex flex-col items-center justify-center gap-4 bg-background text-foreground`}>
         <Loader2 className="h-10 w-10 animate-spin text-indigo-500" />
         <p className={`text-sm font-semibold text-slate-600 dark:text-slate-400`}>
           Verifying Academic Lab Session...
@@ -378,7 +378,7 @@ export default function CollegePortal() {
   }
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-indigo-500 selection:text-foreground transition-colors duration-200 bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100`}>
+    <div className={`min-h-screen font-sans selection:bg-indigo-500 selection:text-foreground transition-colors duration-200 bg-background text-foreground`}>
       
       {/* Toast Notification */}
       {notification && (
@@ -495,7 +495,7 @@ export default function CollegePortal() {
         </div>
 
         {/* Banner with Stats */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-950/60 via-purple-950/40 to-slate-900/80 border border-indigo-500/20 p-8 sm:p-10 mb-10 shadow-2xl">
+        <div className="relative overflow-hidden rounded-3xl bg-card text-card-foreground border-border p-8 sm:p-10 mb-10 shadow-2xl">
           <div className="absolute top-0 right-0 -mt-8 -mr-8 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 max-w-3xl">
             <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-xs font-semibold border border-indigo-500/30 mb-4`}>

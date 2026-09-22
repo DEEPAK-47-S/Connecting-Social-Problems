@@ -232,7 +232,7 @@ function InstagramPost({
         ) : (
           /* Sleek Graphic Fallback when no photo attached */
           <div
-            className={`w-full py-16 px-6 flex flex-col items-center justify-center text-center border-y bg-gradient-to-br from-zinc-50 via-zinc-100 to-zinc-200 border-zinc-200 dark:bg-gradient-to-br dark:from-zinc-900 dark:via-zinc-950 dark:to-black dark:border-zinc-800/60`}
+            className={`w-full py-16 px-6 flex flex-col items-center justify-center text-center border-y bg-card text-card-foreground border-border`}
           >
             <div className="h-14 w-14 rounded-2xl bg-gradient-to-tr from-rose-500 to-indigo-600 flex items-center justify-center mb-3 shadow-lg shadow-rose-500/20">
               <Activity className="h-7 w-7 text-white" />
@@ -625,7 +625,7 @@ export default function HomePage() {
 
   return (
     <div
-      className={`min-h-screen flex flex-col font-sans transition-colors duration-200 bg-zinc-50 text-zinc-900 selection:bg-rose-500/20 dark:bg-black dark:text-white dark:selection:bg-rose-500/30`}
+      className={`min-h-screen flex flex-col font-sans transition-colors duration-200 bg-background text-foreground selection:bg-rose-500/20 dark:selection:bg-rose-500/30`}
     >
       {/* Toast Notification */}
       {deleteSuccessToast && (

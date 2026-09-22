@@ -250,7 +250,7 @@ export default function GovernmentPortal() {
 
   if (authChecking) {
     return (
-      <div className={`min-h-screen flex flex-col items-center justify-center gap-4 bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100`}>
+      <div className={`min-h-screen flex flex-col items-center justify-center gap-4 bg-background text-foreground`}>
         <Loader2 className="h-10 w-10 animate-spin text-teal-500" />
         <p className={`text-sm font-semibold text-slate-600 dark:text-slate-400`}>
           Verifying Civic Authority Session...
@@ -260,7 +260,7 @@ export default function GovernmentPortal() {
   }
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-teal-500 selection:text-foreground transition-colors duration-200 bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100`}>
+    <div className={`min-h-screen font-sans selection:bg-teal-500 selection:text-foreground transition-colors duration-200 bg-background text-foreground`}>
       
       {/* Toast Notification */}
       {notification && (
@@ -333,7 +333,7 @@ export default function GovernmentPortal() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Hero Banner */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-950/50 via-emerald-950/30 to-slate-900/90 border border-teal-500/20 p-8 sm:p-10 mb-10 shadow-2xl">
+        <div className="relative overflow-hidden rounded-3xl bg-card text-card-foreground border-border p-8 sm:p-10 mb-10 shadow-2xl">
           <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 max-w-3xl">
             <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-700 dark:text-teal-300 text-xs font-semibold border border-teal-500/30 mb-4`}>

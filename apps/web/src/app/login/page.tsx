@@ -80,7 +80,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50/50 via-purple-50/40 to-pink-50/40 dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950 p-4 transition-colors">
+    <div className="min-h-screen flex items-center justify-center bg-background p-4 transition-colors">
       <div className="w-full max-w-md">
         
         {/* Brand Header */}

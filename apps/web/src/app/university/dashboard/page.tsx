@@ -3,7 +3,7 @@ import { Users, FileText, Activity } from "lucide-react";
 
 export default function UniversityDashboard() {
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 p-8">
+    <div className="min-h-screen bg-background p-8">
       <div className="max-w-7xl mx-auto">
         <header className="mb-8 flex items-center justify-between">
           <div>

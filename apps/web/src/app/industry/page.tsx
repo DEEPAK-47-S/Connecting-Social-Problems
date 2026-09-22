@@ -334,7 +334,7 @@ export default function IndustryPortal() {
 
   if (authChecking) {
     return (
-      <div className={`min-h-screen flex flex-col items-center justify-center gap-4 bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100`}>
+      <div className={`min-h-screen flex flex-col items-center justify-center gap-4 bg-background text-foreground`}>
         <Loader2 className="h-10 w-10 animate-spin text-pink-500" />
         <p className={`text-sm font-semibold text-zinc-600 dark:text-zinc-400`}>
           Verifying Corporate Partner Session...
@@ -344,7 +344,7 @@ export default function IndustryPortal() {
   }
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-pink-500 selection:text-white transition-colors duration-200 bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100`}>
+    <div className={`min-h-screen font-sans selection:bg-pink-500 selection:text-white transition-colors duration-200 bg-background text-foreground`}>
       
       {/* Toast Notification */}
       {notification && (
@@ -436,7 +436,7 @@ export default function IndustryPortal() {
         </div>
 
         {/* Hero Banner */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pink-950/40 via-purple-950/40 to-zinc-900/90 border border-pink-500/20 p-8 sm:p-10 mb-10 shadow-2xl">
+        <div className="relative overflow-hidden rounded-3xl bg-card text-card-foreground border-border p-8 sm:p-10 mb-10 shadow-2xl">
           <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-semibold border border-pink-500/30 mb-4">

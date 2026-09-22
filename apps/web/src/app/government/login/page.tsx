@@ -105,7 +105,7 @@ export default function GovernmentLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-950 via-slate-950 to-emerald-950 text-slate-100 p-4 selection:bg-teal-500 selection:text-white py-12">
+    <div className="min-h-screen flex items-center justify-center bg-background text-foreground p-4 selection:bg-teal-500 selection:text-white py-12">
       <div className="w-full max-w-lg">
         
         {/* Brand Header */}

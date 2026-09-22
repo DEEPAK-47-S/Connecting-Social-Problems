@@ -263,7 +263,7 @@ export default function CollegeLoginPage() {
   };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 via-slate-950 to-purple-950 text-slate-100 p-4 selection:bg-indigo-500 selection: py-12 text-foreground`}>
+    <div className={`min-h-screen flex items-center justify-center bg-background text-foreground p-4 selection:bg-indigo-500 py-12`}>
       <div className="w-full max-w-lg">
         
         {/* Brand Header */}

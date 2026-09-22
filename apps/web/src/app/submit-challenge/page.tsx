@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function SubmitChallengePage() {
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background py-12 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
         <div className="mb-8">
           <Link href="/" className="text-sm font-medium text-blue-600 hover:text-blue-500">

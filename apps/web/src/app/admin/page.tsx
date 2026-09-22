@@ -289,7 +289,7 @@ export default function AdminDashboardPage() {
   }, [posts]);
 
   return (
-    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-200 bg-zinc-50 text-zinc-900 selection:bg-rose-500/20 dark:bg-black dark:text-white dark:selection:bg-rose-500/30`}>
+    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-200 bg-background text-foreground selection:bg-rose-500/20 dark:selection:bg-rose-500/30`}>
       {/* Toast Notification */}
       {toastMessage && (
         <div className={`fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-emerald-600  px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-bold animate-in fade-in slide-in-from-top-4 text-foreground`}>
