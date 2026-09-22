@@ -673,19 +673,19 @@ export default function HomePage() {
  </div>
  )}
 
- {/* 1. Instagram-Style Top Navigation */}
- <header
- className={`px-4 sm:px-8 h-16 flex items-center border-b backdrop-blur-md sticky top-0 z-40 bg-white/90 border-zinc-200 text-zinc-900 shadow-sm dark:bg-black/90 dark:border-zinc-800/80 dark:text-white`}
- >
- <div className="max-w-xl mx-auto w-full flex items-center justify-between">
- <Link href="/" className="flex items-center gap-2.5 group">
- <div className="h-9 w-9 rounded-2xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center shadow-lg shadow-rose-500/20 group-hover:scale-105 transition-transform">
- <Activity className="h-5 w-5 text-white" />
- </div>
- <span className="font-black text-xl tracking-tight italic">
- Connecting Social Problem
- </span>
- </Link>
+  {/* 1. Instagram-Style Top Navigation */}
+  <header
+  className={`px-4 sm:px-8 py-3 md:py-0 min-h-[4rem] md:h-16 flex items-center border-b backdrop-blur-md sticky top-0 z-40 bg-white/90 border-zinc-200 text-zinc-900 shadow-sm dark:bg-black/90 dark:border-zinc-800/80 dark:text-white`}
+  >
+  <div className="max-w-xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0">
+  <Link href="/" className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 group w-full sm:w-auto">
+  <div className="h-9 w-9 rounded-2xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center shadow-lg shadow-rose-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+  <Activity className="h-5 w-5 text-white" />
+  </div>
+  <span className="font-black text-lg sm:text-xl tracking-tight italic text-center sm:text-left break-words">
+  Connecting Social Problem
+  </span>
+  </Link>
 
  <div className="flex items-center gap-2.5">
  {/* Theme Toggle (Dark / Light) */}
@@ -719,11 +719,11 @@ export default function HomePage() {
  </Link>
  )}
  </div>
- </div>
- </header>
+  </div>
+  </header>
 
- {/* 2. Main Feed Container */}
- <main className="flex-1 max-w-xl mx-auto w-full py-5 px-3 sm:px-0">
+  {/* 2. Main Feed Container */}
+  <main className="flex-1 max-w-xl mx-auto w-full py-5 px-3 sm:px-0 overflow-x-hidden">
  
  {/* Instagram-Style Story Filter Bar & Search */}
  <div className="mb-5 space-y-3">

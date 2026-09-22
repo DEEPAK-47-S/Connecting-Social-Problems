@@ -358,19 +358,19 @@ export default function IndustryPortal() {
  </div>
  )}
 
- {/* Top Header */}
- <header className={`border-b sticky top-0 z-40 transition-colors border-zinc-200 bg-white text-zinc-900 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/75 dark:text-white`}>
- <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
- 
- <div className="flex items-center gap-3">
+  {/* Top Header */}
+  <header className={`border-b sticky top-0 z-40 transition-colors border-zinc-200 bg-white text-zinc-900 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/75 dark:text-white`}>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-0 min-h-[5rem] md:h-20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0">
+  
+  <div className="flex items-center gap-3">
  <div className="h-11 w-11 rounded-2xl bg-gradient-to-tr from-pink-500 via-rose-500 to-amber-500 flex items-center justify-center shadow-lg shadow-pink-500/20">
  <Factory className="h-6 w-6 text-zinc-900 dark:text-white" />
  </div>
- <div>
- <div className="flex items-center gap-2">
- <span className="font-black text-xl tracking-tight bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 bg-clip-text text-transparent">
- Industry &amp; CSR Innovation Hub
- </span>
+  <div>
+  <div className="flex flex-wrap items-center gap-2">
+  <span className="font-black text-xl tracking-tight break-words bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 bg-clip-text text-transparent">
+  Industry &amp; CSR Innovation Hub
+  </span>
  <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-pink-500/20 text-pink-400 border border-pink-500/30">
  Corporate Portal
  </span>
@@ -387,11 +387,11 @@ export default function IndustryPortal() {
  <div className="flex items-center gap-3">
  <ThemeToggle />
 
- {/* Dedicated Industry User Profile & Logout */}
- <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs shadow-inner bg-white border-zinc-300 text-zinc-900 dark:bg-zinc-900/75 dark:border-zinc-800 dark:text-white`}>
- <div className="h-2 w-2 rounded-full bg-pink-400 animate-pulse" />
- <span className="font-bold max-w-[150px]">{industryUser?.companyName || currentCompany}</span>
- <button
+  {/* Dedicated Industry User Profile & Logout */}
+  <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs shadow-inner bg-white border-zinc-300 text-zinc-900 dark:bg-zinc-900/75 dark:border-zinc-800 dark:text-white`}>
+  <div className="h-2 w-2 rounded-full bg-pink-400 animate-pulse flex-shrink-0" />
+  <span className="font-bold max-w-[120px] sm:max-w-[150px] truncate">{industryUser?.companyName || currentCompany}</span>
+  <button
  onClick={() => setShowProfile(true)}
  className={`flex items-center gap-1 text-pink-500 hover:text-pink-400 ml-2 pl-2 border-l transition-colors border-zinc-200 dark:border-zinc-800`}
  title="Edit Corporate Profile"
@@ -405,9 +405,9 @@ export default function IndustryPortal() {
  </div>
 
  </div>
- </header>
+  </header>
 
- <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-x-hidden">
 
  {/* Corporate Active Bar */}
  <div className="mb-8 p-4 bg-white dark:bg-zinc-900/75 rounded-2xl border border-pink-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
@@ -432,21 +432,21 @@ export default function IndustryPortal() {
  <div className="relative overflow-hidden rounded-3xl bg-card text-card-foreground border-border p-8 sm:p-10 mb-10 shadow-md">
  <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
  <div className="relative z-10 max-w-3xl">
- <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-semibold border border-pink-500/30 mb-4">
- <Bot className="h-3.5 w-3.5 text-pink-400" />
- <span>Multi-Industry AI Dispatch &amp; First-Come Lock Workflow</span>
- </div>
- <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-zinc-900 dark:text-white leading-tight">
- 10 Industry Candidates AI-Matched Per University Project
- </h1>
- <p className="mt-3 text-zinc-900 dark:text-zinc-100 text-base leading-relaxed">
- When a university takes on a citizen problem, the AI Engine selects the <strong>Top 10 matched industries</strong> and invites them simultaneously. The <strong>first industry to accept</strong> exclusively locks the project, while others receive automated lock notifications.
- </p>
+ <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-semibold border border-pink-500/30 mb-4 whitespace-normal text-center">
+  <Bot className="h-3.5 w-3.5 text-pink-400 flex-shrink-0" />
+  <span>Multi-Industry AI Dispatch &amp; First-Come Lock Workflow</span>
+  </div>
+  <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-zinc-900 dark:text-white leading-tight break-words">
+  10 Industry Candidates AI-Matched Per University Project
+  </h1>
+  <p className="mt-3 text-zinc-900 dark:text-zinc-100 text-sm sm:text-base leading-relaxed">
+  When a university takes on a citizen problem, the AI Engine selects the <strong>Top 10 matched industries</strong> and invites them simultaneously. The <strong>first industry to accept</strong> exclusively locks the project, while others receive automated lock notifications.
+  </p>
  </div>
 
- {/* Quick Metrics */}
- <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-zinc-800">
- <div className="bg-white dark:bg-zinc-900/75 rounded-2xl p-4 border border-zinc-800">
+  {/* Quick Metrics */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 pt-8 border-t border-zinc-800">
+  <div className="bg-white dark:bg-zinc-900/75 rounded-2xl p-4 border border-zinc-800">
  <p className="text-xs text-zinc-600 dark:text-zinc-400 font-medium">Invited R&amp;D Opportunities</p>
  <p className="text-2xl font-black text-pink-400 mt-1">{oppsCount}</p>
  </div>

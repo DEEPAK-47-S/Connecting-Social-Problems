@@ -85,15 +85,15 @@ export default function LoginPage() {
  
  {/* Brand Header */}
  <div className="text-center mb-8">
- <Link
- href="/"
- className="inline-flex items-center gap-2 text-3xl font-black italic tracking-tight text-zinc-900 dark:text-white group"
- >
- <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-rose-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-rose-500/20 group-hover:scale-105 transition-transform">
- <Activity className="h-5 w-5 text-white" />
- </div>
- <span>Connecting Social Problem</span>
- </Link>
+  <Link
+  href="/"
+  className="inline-flex flex-wrap justify-center items-center gap-2 text-2xl sm:text-3xl font-black italic tracking-tight text-zinc-900 dark:text-white group"
+  >
+  <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-rose-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-rose-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+  <Activity className="h-5 w-5 text-white" />
+  </div>
+  <span className="break-words text-center">Connecting Social Problem</span>
+  </Link>
  <p className="mt-2 text-sm font-medium text-zinc-500 dark:text-zinc-400">
  Citizen Voice &amp; Public Problem Solver Portal
  </p>

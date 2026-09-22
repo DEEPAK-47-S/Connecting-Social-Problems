@@ -189,9 +189,9 @@ export default function ProfileModal({
             <div className="h-10 w-10 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center">
               <IconComponent className="h-5 w-5 text-white" />
             </div>
-            <div>
-              <h2 className="text-lg font-black tracking-tight">{roleMeta.title}</h2>
-              <p className="text-xs text-white/80">Manage your credentials &amp; contact details</p>
+            <div className="flex-1 min-w-0">
+              <h2 className="text-base sm:text-lg font-black tracking-tight break-words leading-tight">{roleMeta.title}</h2>
+              <p className="text-[10px] sm:text-xs text-white/80 mt-0.5">Manage your credentials &amp; contact details</p>
             </div>
           </div>
           <button
@@ -290,10 +290,11 @@ export default function ProfileModal({
                 <select
                   value={district}
                   onChange={(e) => setDistrict(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900/75 rounded-xl border border-slate-300 dark:border-slate-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900/75 rounded-xl border border-slate-300 dark:border-slate-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none font-medium break-words"
                 >
+                  <option value="" className="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white">Select District</option>
                   {TAMIL_NADU_DISTRICTS.map((d) => (
-                    <option key={d} value={d}>
+                    <option key={d} value={d} className="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white break-words">
                       {d} District
                     </option>
                   ))}

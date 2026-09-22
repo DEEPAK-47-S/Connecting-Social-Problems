@@ -275,15 +275,15 @@ export default function GovernmentPortal() {
  )}
 
  {/* Top Header */}
- <header className={`border-b sticky top-0 z-40 transition-colors border-slate-200 bg-white text-slate-900 shadow-sm dark:border-slate-800 dark:bg-zinc-900/75 dark:text-white`}>
- <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+ <header className={`border-b sticky top-0 z-40 transition-colors border-emerald-200 bg-white text-zinc-900 shadow-sm dark:border-emerald-800/40 dark:bg-zinc-900/75 dark:text-white`}>
+ <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-0 min-h-[5rem] md:h-20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0">
  <div className="flex items-center gap-3">
  <div className="h-11 w-11 rounded-2xl bg-gradient-to-tr from-teal-500 via-emerald-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-teal-500/20">
  <Landmark className={`h-6 w-6 text-foreground`} />
  </div>
  <div>
- <div className="flex items-center gap-2">
- <span className="font-black text-xl tracking-tight bg-gradient-to-r from-teal-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+ <div className="flex flex-wrap items-center gap-2">
+ <span className="font-black text-xl tracking-tight break-words bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
  Government &amp; Municipal Authority Hub
  </span>
  <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-teal-500/20 text-teal-600 dark:text-teal-400 border border-teal-500/30">
@@ -302,12 +302,12 @@ export default function GovernmentPortal() {
  <div className="flex items-center gap-3">
  <ThemeToggle />
 
- {/* Dedicated Municipal Authority Profile & Logout */}
- <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs shadow-inner bg-white border-slate-300 text-slate-900 dark:bg-zinc-900/75 dark:border-slate-800 dark:text-white`}>
- <div className="h-2 w-2 rounded-full bg-teal-400 animate-pulse" />
- <div className="text-left">
- <p className="font-bold max-w-[160px]">{govtUser?.officerName || officerName}</p>
- <p className="text-[10px] text-teal-500 max-w-[160px]">{govtUser?.authorityName || department}</p>
+ {/* Dedicated Government User Profile & Logout */}
+ <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs shadow-inner bg-white border-zinc-300 text-zinc-900 dark:bg-zinc-900/75 dark:border-zinc-800 dark:text-white`}>
+ <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
+ <div className="flex flex-col">
+ <span className="font-bold max-w-[120px] sm:max-w-[150px] truncate leading-tight">{govtUser?.officerName || "S. Ramaswamy, IAS"}</span>
+ <span className="text-[10px] text-emerald-500 max-w-[150px] truncate leading-tight">({govtUser?.authorityName || "City Municipal Corporation"})</span>
  </div>
  <button
  onClick={() => setShowProfile(true)}
@@ -323,31 +323,31 @@ export default function GovernmentPortal() {
  </div>
  </header>
 
- <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+ <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-x-hidden">
 
- {/* Hero Banner */}
+ {/* Government Context Bar */}
  <div className="relative overflow-hidden rounded-3xl bg-card text-card-foreground border-border p-8 sm:p-10 mb-10 shadow-md">
  <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
  <div className="relative z-10 max-w-3xl">
- <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-700 dark:text-teal-300 text-xs font-semibold border border-teal-500/30 mb-4`}>
- <ShieldCheck className="h-3.5 w-3.5 text-teal-600 dark:text-teal-400" />
+ <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-semibold border border-emerald-500/30 mb-4 whitespace-normal text-center">
+ <ShieldCheck className="h-3.5 w-3.5 text-emerald-500 flex-shrink-0" />
  <span>Official Municipal &amp; State Administrative Portal</span>
  </div>
- <h1 className={`text-3xl sm:text-4xl font-black tracking-tight leading-tight text-foreground`}>
+ <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-zinc-900 dark:text-white leading-tight break-words">
  Sanction Verified Academic-Industry Solutions for Citizen Relief
  </h1>
- <p className="mt-3 text-zinc-900 dark:text-zinc-100 text-base leading-relaxed">
+ <p className="mt-3 text-zinc-900 dark:text-zinc-100 text-sm sm:text-base leading-relaxed">
  Review engineering solutions engineered by universities and backed by industry partners. Issue administrative clearances, connect projects to official national welfare schemes, and certify ground resolution.
  </p>
  </div>
 
- {/* Metrics Grid */}
- <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-800">
- <div className={`/70 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-zinc-900/75 dark:border-slate-800`}>
+ {/* Quick Metrics */}
+ <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 pt-8 border-t border-emerald-900/20">
+ <div className="bg-white dark:bg-zinc-900/75 rounded-2xl p-4 border border-zinc-300 dark:border-emerald-900/30 shadow-sm">
  <p className={`text-xs font-medium text-slate-600 dark:text-slate-400`}>Pending Sanctions &amp; Permits</p>
  <p className="text-2xl font-black text-teal-600 dark:text-teal-400 mt-1">{reviewsCount}</p>
  </div>
- <div className={`/70 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-zinc-900/75 dark:border-slate-800`}>
+ <div className="bg-white dark:bg-zinc-900/75 rounded-2xl p-4 border border-zinc-300 dark:border-emerald-900/30 shadow-sm">
  <p className={`text-xs font-medium text-slate-600 dark:text-slate-400`}>Active Ground Deployments</p>
  <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400 mt-1">{implementationCount}</p>
  </div>

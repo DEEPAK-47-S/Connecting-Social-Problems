@@ -299,17 +299,17 @@ export default function AdminDashboardPage() {
  )}
 
  {/* Header */}
- <header className={`px-4 sm:px-8 h-18 flex items-center justify-between border-b sticky top-0 z-40 bg-white border-zinc-200 shadow-sm dark:bg-zinc-900/75 dark:border-zinc-800`}>
+ <header className={`px-4 sm:px-8 py-4 md:py-0 min-h-[4.5rem] md:h-18 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0 border-b sticky top-0 z-40 bg-white border-zinc-200 shadow-sm dark:bg-zinc-900/75 dark:border-zinc-800`}>
  <div className="flex items-center gap-3">
  <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-rose-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-rose-500/20">
  <ShieldCheck className={`h-5 w-5 text-foreground`} />
  </div>
  <div>
- <div className="flex items-center gap-2">
- <span className="font-black text-base sm:text-lg tracking-tight">
+ <div className="flex flex-wrap items-center gap-2">
+ <span className="font-black text-base sm:text-lg tracking-tight break-words">
  Admin Moderation Portal
  </span>
- <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/30 uppercase">
+ <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/30 uppercase whitespace-normal text-center">
  Database Authority
  </span>
  </div>
@@ -348,10 +348,10 @@ export default function AdminDashboardPage() {
  </header>
 
  {/* Main Container */}
- <main className="flex-1 max-w-7xl mx-auto w-full p-4 sm:p-6 lg:p-8">
+ <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 overflow-x-hidden">
  
- {/* Metrics Grid */}
- <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+ {/* Metrics */}
+ <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
  <div className={`p-5 rounded-3xl bg-white dark:bg-zinc-900/75 shadow-md border border-zinc-200 dark:border-zinc-800`}>
  <div className="flex items-center justify-between text-zinc-600 dark:text-zinc-400 mb-2">
  <span className="text-xs font-bold uppercase tracking-wider">Total Complaints</span>
