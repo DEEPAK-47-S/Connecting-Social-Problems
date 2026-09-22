@@ -400,18 +400,6 @@ export default function GovernmentPortal() {
  <BadgeCheck className="h-4 w-4" />
  <span>Certified Solved ({completedCount})</span>
  </button>
-
- <button
- onClick={() => setActiveTab("schemes")}
- className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
- activeTab === "schemes"
- ? "bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 text-foreground shadow-lg shadow-teal-500/25"
- : "text-slate-600 dark:text-slate-400 hover:text-foreground"
- }`}
- >
- <ScrollText className="h-4 w-4" />
- 
- </button>
  </div>
 
  <div className="relative w-full sm:w-72">
@@ -427,38 +415,7 @@ export default function GovernmentPortal() {
  </div>
 
  {/* Content Section */}
- {activeTab === "schemes" ? (
- /* National Schemes Alignment Hub */
- <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
- {[
- { scheme: "Smart Cities Mission (MoHUA)", budget: "₹48,000 Cr", projects: 24, focus: "Intelligent street lighting, automated flood sensors, digital grievance redressal" },
- { scheme: "Jal Jeevan Mission (JJM)", budget: "₹60,000 Cr", projects: 31, focus: "Tap water quality monitoring, underground pipeline burst telemetry, rural water ATMs" },
- { scheme: "Swachh Bharat Urban 2.0", budget: "₹15,000 Cr", projects: 19, focus: "Decentralized organic composters, smart garbage bins, wastewater remediation" },
- ].map((s, idx) => (
- <div key={idx} className={`/80 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between bg-white border-slate-200 shadow-sm dark:bg-zinc-900/75 dark:border-slate-800`}>
- <div>
- <div className="flex items-center justify-between mb-4">
- <span className="px-2.5 py-1 rounded-lg text-xs font-bold bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20">
- Central Scheme
- </span>
- <span className="text-xs text-amber-600 dark:text-amber-400 font-bold">{s.budget} Outlay</span>
- </div>
- <h3 className={`text-lg font-bold text-foreground`}>{s.scheme}</h3>
-
- <div className={`mt-4 p-3 /60 rounded-xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-zinc-900/75 dark:border-slate-800`}>
- <p className={`text-xs text-slate-600 dark:text-slate-400`}>Target Action Areas:</p>
- <p className="text-xs font-medium text-zinc-900 dark:text-zinc-100 mt-1">{s.focus}</p>
- <p className="mt-3 text-xs font-semibold text-teal-600 dark:text-teal-400">✓ {s.projects} Municipal Solutions Aligned</p>
- </div>
- </div>
-
- <button className={`mt-6 w-full py-2.5 text-xs font-bold rounded-xl bg-teal-600 hover:bg-teal-500 transition text-foreground`}>
- Map Civic Project to Scheme
- </button>
- </div>
- ))}
- </div>
- ) : loading ? (
+ {loading ? (
  <div className="py-24 text-center">
  <Loader2 className="h-10 w-10 animate-spin text-teal-500 mx-auto mb-4" />
  <p className={`text-sm text-slate-600 dark:text-slate-400`}>Loading municipal administrative queue...</p>
