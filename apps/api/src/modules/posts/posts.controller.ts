@@ -290,14 +290,7 @@ export const createPost = async (req: AuthRequest, res: Response) => {
     }
     let imageUrl: string | undefined;
     if (req.file) {
-      try {
-        const fileData = fs.readFileSync(req.file.path);
-        const base64Str = fileData.toString('base64');
-        imageUrl = `data:${req.file.mimetype};base64,${base64Str}`;
-        fs.unlinkSync(req.file.path); // clean up ephemeral file
-      } catch (e) {
-        console.error('Image processing error:', e);
-      }
+      imageUrl = `/uploads/${req.file.filename}`;
     }
 
     const post = await prisma.post.create({

@@ -225,7 +225,7 @@ function InstagramPost({
  >
  {post.imageUrl ? (
  <img
- src={post.imageUrl.startsWith("data:") ? post.imageUrl : `${API}${post.imageUrl}`}
+ src={post.imageUrl.startsWith("data:") || post.imageUrl.startsWith("http") ? post.imageUrl : `${API}${post.imageUrl.startsWith("/") ? "" : "/"}${post.imageUrl}`}
  alt={post.title}
  className="w-full object-cover max-h-[550px] min-h-[280px]"
  loading="lazy"
