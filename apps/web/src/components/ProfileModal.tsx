@@ -290,7 +290,7 @@ export default function ProfileModal({
                 <select
                   value={district}
                   onChange={(e) => setDistrict(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900/75 rounded-xl border border-slate-800 text-white focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900/75 rounded-xl border border-slate-300 dark:border-slate-800 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
                 >
                   {TAMIL_NADU_DISTRICTS.map((d) => (
                     <option key={d} value={d}>
