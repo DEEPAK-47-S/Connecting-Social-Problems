@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Government & Municipal Authority Hub | SocialImpact",
+  title: "Government & Municipal Authority Hub | Connecting Social Problem",
   description: "Official Municipal Sanctions, Scheme Alignment & Ground Grievance Verification",
 };
 

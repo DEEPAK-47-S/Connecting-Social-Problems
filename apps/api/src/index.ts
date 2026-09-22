@@ -30,7 +30,7 @@ app.get('/health', (_req, res) => res.json({ status: 'ok', time: new Date().toIS
 // Root route info — fixes "Cannot GET /"
 app.get('/', (_req, res) => {
   res.json({
-    name: 'SocialImpact API',
+    name: 'Connecting Social Problem API',
     version: '1.0.0',
     status: 'running',
     endpoints: {

@@ -105,7 +105,7 @@ export default function ApprovalMemoCard({
                 isIndustryTheme ? "text-pink-400" : "text-indigo-400"
               }`}
             >
-              Sanction Order &bull; SocialImpact Tamil Nadu
+              Sanction Order &bull; Connecting Social Problem Tamil Nadu
             </span>
           </div>
         </div>

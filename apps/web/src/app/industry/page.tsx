@@ -870,8 +870,8 @@ export default function IndustryPortal() {
 
  if (isAi) {
  return (
- <div key={i} className="p-3.5 bg-purple-950/30 border border-purple-500/20 rounded-2xl text-xs text-purple-200">
- <div className="flex items-center gap-1.5 font-bold text-pink-400 mb-1">
+ <div key={i} className="p-3.5 bg-purple-100 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-500/20 rounded-2xl text-xs text-purple-900 dark:text-purple-200">
+ <div className="flex items-center gap-1.5 font-bold text-pink-600 dark:text-pink-400 mb-1">
  <Bot className="h-3.5 w-3.5" />
  <span>{msg.senderName}</span>
  </div>
@@ -891,8 +891,8 @@ export default function IndustryPortal() {
  <div
  className={`max-w-[80%] p-3.5 rounded-2xl text-xs leading-relaxed ${
  isInd
- ? "bg-pink-600 text-zinc-900 dark:text-white rounded-tr-none shadow-md shadow-pink-600/20"
- : "bg-zinc-800 text-zinc-100 rounded-tl-none border border-zinc-700"
+ ? "bg-pink-600 text-white rounded-tr-none shadow-md shadow-pink-600/20"
+ : "bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 rounded-tl-none border border-zinc-300 dark:border-zinc-700"
  }`}
  >
  {msg.text}

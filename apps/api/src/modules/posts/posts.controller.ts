@@ -40,7 +40,7 @@ export function get10IndustryCandidates(category: string, title: string): Standa
     return [
       { name: 'Tata Power Solar Systems', sector: 'Clean Energy & Microgrids', cin: 'L28920MH1919PLC000567', grantRange: '₹20L – ₹50L', facilities: 'Solar PV Test Bed & Microgrid Lab', mentorLead: 'Dr. Alok Verma (VP - Renewable Engineering)', score: 98 },
       { name: 'Adani Green Energy Ltd', sector: 'Renewable Utilities', cin: 'L40106GJ2015PLC082007', grantRange: '₹25L – ₹60L', facilities: 'Grid Synchronization & High Capacity Inverters', mentorLead: 'Prashant Sen (Director - Clean Energy)', score: 96 },
-      { name: 'ReNew Power Ventures', sector: 'Clean Tech Solutions', cin: 'U40300DL2011PTC291527', grantRange: '₹15L – ₹35L', facilities: 'Decentralized Microgrid & Battery Storage', mentorLead: 'Sunita Narain (Head of Social Impact)', score: 94 },
+      { name: 'ReNew Power Ventures', sector: 'Clean Tech Solutions', cin: 'U40300DL2011PTC291527', grantRange: '₹15L – ₹35L', facilities: 'Decentralized Microgrid & Battery Storage', mentorLead: 'Sunita Narain (Head of Connecting Social Problem)', score: 94 },
       { name: 'Hero Future Energies', sector: 'Decentralized Solar', cin: 'U40108DL2012PLC231718', grantRange: '₹12L – ₹28L', facilities: 'Rooftop Solar & Smart Street Lighting Lab', mentorLead: 'Rahul Munjal (Innovation Lead)', score: 92 },
       { name: 'Schneider Electric India CSR', sector: 'Smart Power Distribution', cin: 'U31900DL1995PTC063991', grantRange: '₹18L – ₹40L', facilities: 'Automated Switchgear & Power Telemetry', mentorLead: 'Marc Dupont (Global Access to Energy)', score: 90 },
       { name: 'Vikram Solar Innovations', sector: 'PV Modules & R&D', cin: 'U18109WB2005PLC106557', grantRange: '₹10L – ₹25L', facilities: 'High Efficiency Monocrystalline PV Lab', mentorLead: 'Gyanesh Chaudhary (MD & CSR Chair)', score: 89 },
@@ -146,7 +146,7 @@ export async function ensureIndustryMatches(postId: string, category: string, ti
       data: {
         postId,
         senderRole: 'AI',
-        senderName: 'SocialImpact AI Engine',
+        senderName: 'Connecting Social Problem AI Engine',
         text: `🤖 AI Matcher analyzed this challenge and dispatched R&D collaboration invitations to 10 top-matched industry partners (Leading candidates: ${candidates.slice(0, 3).map((c) => c.name).join(', ')}). The first industry partner to accept will lock exclusive sponsorship for this project.`,
       },
     });
@@ -535,7 +535,7 @@ export const acceptIndustryChallenge = async (req: AuthRequest, res: Response) =
       data: {
         postId,
         senderRole: 'AI',
-        senderName: 'SocialImpact AI Engine',
+        senderName: 'Connecting Social Problem AI Engine',
         text: `🔒 Challenge Exclusively Locked: ${cleanCompany} was the FIRST industry partner to accept this challenge. All other 9 invited industry partners have been notified that this opportunity is now closed.\n\n${approvalMemo}`,
       },
     });

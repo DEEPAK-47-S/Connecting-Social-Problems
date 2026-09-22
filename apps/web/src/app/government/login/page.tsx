@@ -117,7 +117,7 @@ export default function GovernmentLoginPage() {
  <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-teal-500 via-emerald-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-teal-500/25 group-hover:scale-105 transition-transform">
  <Landmark className="h-5 w-5 text-zinc-900 dark:text-white" />
  </div>
- <span>SocialImpact</span>
+ <span>Connecting Social Problem</span>
  </Link>
  <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-teal-500/10 border border-teal-500/20 text-xs font-bold text-teal-400">
  <ShieldCheck className="h-3.5 w-3.5" />

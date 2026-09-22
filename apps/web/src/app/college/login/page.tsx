@@ -275,7 +275,7 @@ export default function CollegeLoginPage() {
  <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform">
  <GraduationCap className={`h-5 w-5 text-foreground`} />
  </div>
- <span>SocialImpact</span>
+ <span>Connecting Social Problem</span>
  </Link>
  <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-bold text-indigo-400">
  <BookOpen className="h-3.5 w-3.5" />

@@ -683,7 +683,7 @@ export default function HomePage() {
  <Activity className="h-5 w-5 text-white" />
  </div>
  <span className="font-black text-xl tracking-tight italic">
- SocialImpact
+ Connecting Social Problem
  </span>
  </Link>
 

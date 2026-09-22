@@ -92,7 +92,7 @@ export default function LoginPage() {
  <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-rose-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-rose-500/20 group-hover:scale-105 transition-transform">
  <Activity className="h-5 w-5 text-white" />
  </div>
- <span>SocialImpact</span>
+ <span>Connecting Social Problem</span>
  </Link>
  <p className="mt-2 text-sm font-medium text-zinc-500 dark:text-zinc-400">
  Citizen Voice &amp; Public Problem Solver Portal
