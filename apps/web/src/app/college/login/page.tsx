@@ -583,7 +583,7 @@ export default function CollegeLoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950  placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
-                    placeholder="professor@university.edu.in"
+                    placeholder="Enter Username or Email"
                   />
                 </div>
               </div>

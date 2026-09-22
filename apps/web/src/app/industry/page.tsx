@@ -399,14 +399,7 @@ export default function IndustryPortal() {
                 <UserCheck className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline text-[11px] font-semibold">Profile</span>
               </button>
-              <button
-                onClick={handleLogout}
-                className={`flex items-center gap-1 hover:text-rose-500 ml-2 pl-2 border-l transition-colors text-zinc-500 border-zinc-200 dark:text-zinc-400 dark:border-zinc-800`}
-                title="Logout from Industry Portal"
-              >
-                <LogOut className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline text-[11px] font-semibold">Logout</span>
-              </button>
+              
             </div>
 
           </div>

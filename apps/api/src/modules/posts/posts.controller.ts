@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { AuthRequest } from '../../middleware/auth.middleware';
 import { matchCollegesForProblem } from '../../data/tamilNaduColleges';
+import { io } from '../../index';
+import fs from 'fs';
 
 const prisma = new PrismaClient();
 
@@ -286,8 +288,17 @@ export const createPost = async (req: AuthRequest, res: Response) => {
     if (!title || !description) {
       return res.status(400).json({ error: 'Title and description are required.' });
     }
-
-    const imageUrl = req.file ? `/uploads/${req.file.filename}` : undefined;
+    let imageUrl: string | undefined;
+    if (req.file) {
+      try {
+        const fileData = fs.readFileSync(req.file.path);
+        const base64Str = fileData.toString('base64');
+        imageUrl = `data:${req.file.mimetype};base64,${base64Str}`;
+        fs.unlinkSync(req.file.path); // clean up ephemeral file
+      } catch (e) {
+        console.error('Image processing error:', e);
+      }
+    }
 
     const post = await prisma.post.create({
       data: {
@@ -313,6 +324,9 @@ export const createPost = async (req: AuthRequest, res: Response) => {
 
     await ensureIndustryMatches(post.id, post.category, post.title);
     triggerAiAnalysis(post.id).catch((e) => console.error('[AI TRIGGER ERROR]', e));
+
+    // Emit real-time event
+    io.emit('new-post', post);
 
     res.status(201).json({ message: 'Complaint posted successfully!', post });
   } catch (err) {
@@ -622,7 +636,9 @@ export const toggleLike = async (req: AuthRequest, res: Response) => {
         data: { likeCount: { decrement: 1 } },
         select: { likeCount: true },
       });
-      res.json({ liked: false, likeCount: Math.max(0, updated.likeCount) });
+      const finalCount = Math.max(0, updated.likeCount);
+      io.emit('post-liked', { postId, likeCount: finalCount, delta: -1 });
+      res.json({ liked: false, likeCount: finalCount });
     } else {
       await prisma.like.create({ data: { userId, postId } });
       const updated = await prisma.post.update({
@@ -630,7 +646,9 @@ export const toggleLike = async (req: AuthRequest, res: Response) => {
         data: { likeCount: { increment: 1 } },
         select: { likeCount: true },
       });
-      res.json({ liked: true, likeCount: Math.max(0, updated.likeCount) });
+      const finalCount = Math.max(0, updated.likeCount);
+      io.emit('post-liked', { postId, likeCount: finalCount, delta: 1 });
+      res.json({ liked: true, likeCount: finalCount });
     }
   } catch (err) {
     res.status(500).json({ error: 'Failed to update like.' });
@@ -752,13 +770,18 @@ export const addComment = async (req: AuthRequest, res: Response) => {
       data: { commentCount: { increment: 1 } },
     }).catch(() => {});
 
+    const newComment = {
+      ...comment,
+      likeCount: 0,
+      likedByMe: false,
+      replies: [],
+    };
+
+    // Emit real-time event
+    io.emit('new-comment', { postId, comment: newComment });
+
     res.status(201).json({
-      comment: {
-        ...comment,
-        likeCount: 0,
-        likedByMe: false,
-        replies: [],
-      },
+      comment: newComment,
     });
   } catch (err) {
     console.error('[ADD COMMENT ERROR]', err);

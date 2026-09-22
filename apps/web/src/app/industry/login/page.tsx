@@ -555,7 +555,7 @@ export default function IndustryLoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950  placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
-                    placeholder="csr@company.com"
+                    placeholder="Enter Username or Email"
                   />
                 </div>
               </div>

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon --watch src --ext ts --exec ts-node src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "start:cluster": "npx pm2 start ecosystem.config.js"
   },
   "dependencies": {
     "@types/nodemailer": "^8.0.2",

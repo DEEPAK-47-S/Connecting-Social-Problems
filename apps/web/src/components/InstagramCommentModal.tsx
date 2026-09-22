@@ -6,6 +6,7 @@ import {
   ShieldCheck, Loader2, Sparkles, User, Smile
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import { useSocket } from "@/context/SocketContext";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
@@ -61,6 +62,8 @@ export default function InstagramCommentModal({
   const [replyingTo, setReplyingTo] = useState<{ id: string; name: string } | null>(null);
   const [expandedReplies, setExpandedReplies] = useState<Record<string, boolean>>({});
 
+  const { socket } = useSocket();
+
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -87,6 +90,39 @@ export default function InstagramCommentModal({
       loadComments();
     }
   }, [isOpen, post?.id]);
+
+  useEffect(() => {
+    if (!socket || !isOpen || !post) return;
+
+    const handleNewComment = ({ postId, comment }: any) => {
+      // Avoid duplicating the comment we just posted (we add it optimistically in handleAddComment)
+      // Actually, since we optimistically add it, we should check if it exists or we can just ignore optimistic and rely on socket
+      // But we already do optimistic. A simple dedupe check by ID:
+      if (postId === post.id) {
+        setComments((prev) => {
+          // Check if already exists in top level
+          if (prev.some((c) => c.id === comment.id)) return prev;
+          
+          if (!comment.parentId) {
+            return [comment, ...prev];
+          } else {
+            return prev.map((c) => {
+              if (c.id === comment.parentId) {
+                if (c.replies?.some((r) => r.id === comment.id)) return c;
+                return { ...c, replies: [...(c.replies || []), comment] };
+              }
+              return c;
+            });
+          }
+        });
+      }
+    };
+
+    socket.on("new-comment", handleNewComment);
+    return () => {
+      socket.off("new-comment", handleNewComment);
+    };
+  }, [socket, isOpen, post]);
 
   if (!isOpen || !post) return null;
 

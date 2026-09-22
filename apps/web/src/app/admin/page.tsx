@@ -861,7 +861,7 @@ export default function AdminDashboardPage() {
                   <div>
                     <span className="text-zinc-500 font-bold uppercase tracking-wider text-[10px]">Attached Photo</span>
                     <img
-                      src={`${API}${inspectPost.imageUrl}`}
+                      src={inspectPost.imageUrl.startsWith("data:") ? inspectPost.imageUrl : `${API}${inspectPost.imageUrl}`}
                       alt={inspectPost.title}
                       className="rounded-2xl mt-1 w-full max-h-60 object-cover border border-zinc-800"
                     />

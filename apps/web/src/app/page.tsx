@@ -16,6 +16,7 @@ import InstagramCommentModal from "@/components/InstagramCommentModal";
 import LikesModal from "@/components/LikesModal";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useTheme } from "@/context/ThemeContext";
+import { useSocket } from "@/context/SocketContext";
 import { TAMIL_NADU_DISTRICTS } from "@/data/tamilNaduDistricts";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
@@ -224,7 +225,7 @@ function InstagramPost({
       >
         {post.imageUrl ? (
           <img
-            src={`${API}${post.imageUrl}`}
+            src={post.imageUrl.startsWith("data:") ? post.imageUrl : `${API}${post.imageUrl}`}
             alt={post.title}
             className="w-full object-cover max-h-[550px] min-h-[280px]"
             loading="lazy"
@@ -475,6 +476,43 @@ export default function HomePage() {
   const [deleting, setDeleting] = useState(false);
   const [deleteSuccessToast, setDeleteSuccessToast] = useState("");
 
+  const { socket } = useSocket();
+
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleNewPost = (post: any) => {
+      setPosts((prev) => [post, ...prev]);
+    };
+
+    const handlePostLiked = ({ postId, likeCount }: any) => {
+      setPosts((prev) => prev.map((p) => (p.id === postId ? { ...p, likeCount } : p)));
+    };
+
+    const handleNewComment = ({ postId }: any) => {
+      setPosts((prev) =>
+        prev.map((p) =>
+          p.id === postId ? { ...p, commentCount: Math.max(0, (p.commentCount || 0) + 1) } : p
+        )
+      );
+      setActiveCommentPost((prev: any) =>
+        prev && prev.id === postId
+          ? { ...prev, commentCount: Math.max(0, (prev.commentCount || 0) + 1) }
+          : prev
+      );
+    };
+
+    socket.on("new-post", handleNewPost);
+    socket.on("post-liked", handlePostLiked);
+    socket.on("new-comment", handleNewComment);
+
+    return () => {
+      socket.off("new-post", handleNewPost);
+      socket.off("post-liked", handlePostLiked);
+      socket.off("new-comment", handleNewComment);
+    };
+  }, [socket]);
+
   const fetchPosts = useCallback(async (authToken?: string | null) => {
     setLoading(true);
     setError("");
@@ -670,12 +708,7 @@ export default function HomePage() {
                   {(user.name || user.email || "?")[0].toUpperCase()}
                 </button>
 
-                <button
-                  onClick={handleLogout}
-                  className={`text-xs font-semibold text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white`}
-                >
-                  Logout
-                </button>
+                
               </>
             ) : (
               <Link

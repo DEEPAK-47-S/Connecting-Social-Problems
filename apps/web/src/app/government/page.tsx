@@ -317,14 +317,7 @@ export default function GovernmentPortal() {
                 <UserCheck className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline text-[11px] font-semibold">Profile</span>
               </button>
-              <button
-                onClick={handleLogout}
-                className={`flex items-center gap-1 hover:text-rose-500 ml-2 pl-2 border-l transition-colors text-slate-500 border-slate-200 dark:text-slate-400 dark:border-slate-800`}
-                title="Logout from Municipal Portal"
-              >
-                <LogOut className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline text-[11px] font-semibold">Logout</span>
-              </button>
+              
             </div>
           </div>
         </div>
@@ -524,7 +517,7 @@ export default function GovernmentPortal() {
                   {post.imageUrl && (
                     <div className="px-6 py-2">
                       <img
-                        src={`${API}${post.imageUrl}`}
+                        src={post.imageUrl.startsWith("data:") ? post.imageUrl : `${API}${post.imageUrl}`}
                         alt={post.title}
                         className="w-full h-36 object-cover rounded-2xl border border-slate-800"
                       />
@@ -781,7 +774,7 @@ export default function GovernmentPortal() {
 
               {selectedPost.imageUrl && (
                 <img
-                  src={`${API}${selectedPost.imageUrl}`}
+                  src={selectedPost.imageUrl.startsWith("data:") ? selectedPost.imageUrl : `${API}${selectedPost.imageUrl}`}
                   alt={selectedPost.title}
                   className="w-full max-h-72 object-cover rounded-2xl border border-slate-800"
                 />

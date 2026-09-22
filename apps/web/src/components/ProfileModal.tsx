@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
   X,
   User,
+  LogOut,
   Mail,
   Building,
   GraduationCap,
@@ -33,6 +35,7 @@ export default function ProfileModal({
   currentUser,
   onUpdateUser,
 }: ProfileModalProps) {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -122,6 +125,26 @@ export default function ProfileModal({
       setSavedSuccess(false);
       onClose();
     }, 900);
+  };
+
+  const handleLogout = () => {
+    if (role === "UNIVERSITY") {
+      localStorage.removeItem("college_token");
+      localStorage.removeItem("college_user");
+      router.push("/college/login");
+    } else if (role === "INDUSTRY") {
+      localStorage.removeItem("industry_token");
+      localStorage.removeItem("industry_user");
+      router.push("/industry/login");
+    } else if (role === "GOVERNMENT") {
+      localStorage.removeItem("government_token");
+      localStorage.removeItem("government_user");
+      router.push("/government/login");
+    } else {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      router.push("/login");
+    }
   };
 
   const roleMeta = {
@@ -350,20 +373,31 @@ export default function ProfileModal({
         <div className="p-4 bg-slate-950 border-t border-slate-800 flex items-center justify-between">
           <button
             type="button"
-            onClick={onClose}
-            className="px-4 py-2 text-slate-400 hover:text-white transition font-medium text-xs"
+            onClick={handleLogout}
+            className="px-4 py-2 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-xl transition font-bold text-xs flex items-center gap-2"
           >
-            Cancel
+            <LogOut className="h-3.5 w-3.5" />
+            <span>Sign Out</span>
           </button>
-          <button
-            type="button"
-            disabled={saving}
-            onClick={handleSave}
-            className={`px-5 py-2.5 bg-gradient-to-r ${roleMeta.color} text-white font-bold rounded-xl shadow-lg hover:opacity-95 active:scale-95 transition flex items-center gap-2 text-xs`}
-          >
-            <Save className="h-3.5 w-3.5" />
-            <span>{saving ? "Saving..." : "Save Profile"}</span>
-          </button>
+          
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-slate-400 hover:text-white transition font-medium text-xs"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              disabled={saving}
+              onClick={handleSave}
+              className={`px-5 py-2.5 bg-gradient-to-r ${roleMeta.color} text-white font-bold rounded-xl shadow-lg hover:opacity-95 active:scale-95 transition flex items-center gap-2 text-xs`}
+            >
+              <Save className="h-3.5 w-3.5" />
+              <span>{saving ? "Saving..." : "Save Profile"}</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

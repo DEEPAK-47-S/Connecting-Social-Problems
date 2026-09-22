@@ -41,7 +41,7 @@ model User {
 model Otp {
   id        String   @id @default(uuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   code      String
   expiresAt DateTime
   used      Boolean  @default(false)
@@ -56,7 +56,7 @@ model Otp {
 model Post {
   id                   String   @id @default(uuid())
   userId               String
-  user                 User     @relation(fields: [userId], references: [id])
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   title                String
   description          String
@@ -103,7 +103,7 @@ model Post {
 model PostStatusHistory {
   id        String   @id @default(uuid())
   postId    String
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   status    String
   message   String?
   actor     String?
@@ -118,7 +118,7 @@ model PostStatusHistory {
 model IndustryMatch {
   id             String   @id @default(uuid())
   postId         String
-  post           Post     @relation(fields: [postId], references: [id])
+  post           Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   industryName   String
   industrySector String?
   matchScore     Int      @default(90) // e.g. 96
@@ -136,7 +136,7 @@ model IndustryMatch {
 model CollaborationMessage {
   id         String   @id @default(uuid())
   postId     String
-  post       Post     @relation(fields: [postId], references: [id])
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   senderRole String   // "COLLEGE" | "INDUSTRY" | "AI"
   senderName String
   text       String
@@ -152,9 +152,9 @@ model CollaborationMessage {
 model Like {
   id        String   @id @default(uuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId    String
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 
   @@unique([userId, postId])
@@ -167,12 +167,12 @@ model Like {
 model Comment {
   id        String   @id @default(uuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId    String
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   text      String
   parentId  String?
-  parent    Comment? @relation("CommentReplies", fields: [parentId], references: [id])
+  parent    Comment? @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
   replies   Comment[] @relation("CommentReplies")
 
   likeCount Int      @default(0)
@@ -192,9 +192,9 @@ model Comment {
 model CommentLike {
   id        String   @id @default(uuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   commentId String
-  comment   Comment  @relation(fields: [commentId], references: [id])
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 
   @@unique([userId, commentId])
