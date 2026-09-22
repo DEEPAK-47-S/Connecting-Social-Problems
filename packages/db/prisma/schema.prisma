@@ -1,0 +1,196 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USER & AUTH
+// ============================================
+model User {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  password    String
+  name        String?
+  avatarUrl   String?
+  role        String   @default("CITIZEN") // CITIZEN, UNIVERSITY, INDUSTRY, GOVERNMENT
+  companyName String?  // For Industry users
+  sector      String?  // For Industry users
+  isVerified  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  otps         Otp[]
+  posts        Post[]
+  likes        Like[]
+  comments     Comment[]
+  commentLikes CommentLike[]
+
+  @@index([email])
+  @@index([role])
+}
+
+// OTP Verification
+model Otp {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  code      String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+// ============================================
+// POSTS / COMPLAINTS
+// ============================================
+model Post {
+  id                   String   @id @default(uuid())
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id])
+
+  title                String
+  description          String
+  imageUrl             String?
+  videoUrl             String?
+
+  location             String?
+  district             String?
+  state                String?
+
+  category             String   @default("General")
+  status               String   @default("SUBMITTED")
+  statusMessage        String?
+  aiAnalysis           String?
+
+  acceptedCollegeName  String?
+  acceptedIndustryName String?
+
+  likeCount            Int      @default(0)
+  commentCount         Int      @default(0)
+  shareCount           Int      @default(0)
+  viewCount            Int      @default(0)
+
+  beneficiaries        String?
+  benefitCount         Int?
+
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  likes                 Like[]
+  comments              Comment[]
+  statusHistory         PostStatusHistory[]
+  industryMatches       IndustryMatch[]
+  collaborationMessages CollaborationMessage[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model PostStatusHistory {
+  id        String   @id @default(uuid())
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+  status    String
+  message   String?
+  actor     String?
+  createdAt DateTime @default(now())
+
+  @@index([postId])
+}
+
+// ============================================
+// INDUSTRY AI MATCHING & FIRST-COME LOCKING
+// ============================================
+model IndustryMatch {
+  id             String   @id @default(uuid())
+  postId         String
+  post           Post     @relation(fields: [postId], references: [id])
+  industryName   String
+  industrySector String?
+  matchScore     Int      @default(90) // e.g. 96
+  status         String   @default("INVITED") // "INVITED" | "ACCEPTED" | "LOCKED_OUT"
+  lockMessage    String?
+  createdAt      DateTime @default(now())
+
+  @@index([postId])
+  @@index([industryName])
+}
+
+// ============================================
+// COLLEGE <-> INDUSTRY COLLABORATION MESSAGING
+// ============================================
+model CollaborationMessage {
+  id         String   @id @default(uuid())
+  postId     String
+  post       Post     @relation(fields: [postId], references: [id])
+  senderRole String   // "COLLEGE" | "INDUSTRY" | "AI"
+  senderName String
+  text       String
+  createdAt  DateTime @default(now())
+
+  @@index([postId])
+  @@index([createdAt])
+}
+
+// ============================================
+// LIKES
+// ============================================
+model Like {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, postId])
+  @@index([postId])
+}
+
+// ============================================
+// COMMENTS & REPLIES
+// ============================================
+model Comment {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+  text      String
+  parentId  String?
+  parent    Comment? @relation("CommentReplies", fields: [parentId], references: [id])
+  replies   Comment[] @relation("CommentReplies")
+
+  likeCount Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  commentLikes CommentLike[]
+
+  @@index([postId])
+  @@index([userId])
+  @@index([parentId])
+}
+
+// ============================================
+// COMMENT LIKES
+// ============================================
+model CommentLike {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  commentId String
+  comment   Comment  @relation(fields: [commentId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, commentId])
+  @@index([commentId])
+}
