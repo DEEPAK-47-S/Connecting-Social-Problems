@@ -4,11 +4,11 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
-  const router = useRouter();
+ const router = useRouter();
 
-  useEffect(() => {
-    router.replace("/login");
-  }, [router]);
+ useEffect(() => {
+ router.replace("/login");
+ }, [router]);
 
-  return null;
+ return null;
 }
