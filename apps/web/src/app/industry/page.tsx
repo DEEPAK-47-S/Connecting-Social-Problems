@@ -847,25 +847,6 @@ export default function IndustryPortal() {
  </div>
 
  <div className="flex items-center gap-3">
- <div className="flex items-center bg-white dark:bg-zinc-900/75 p-1 rounded-xl border border-zinc-800 text-[11px]">
- <button
- onClick={() => setSenderRole("INDUSTRY")}
- className={`px-2.5 py-1 rounded-lg font-bold transition ${
- senderRole === "INDUSTRY" ? "bg-pink-600 text-zinc-900 dark:text-white" : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white"
- }`}
- >
- Industry Rep
- </button>
- <button
- onClick={() => setSenderRole("COLLEGE")}
- className={`px-2.5 py-1 rounded-lg font-bold transition ${
- senderRole === "COLLEGE" ? "bg-indigo-600 text-white" : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white"
- }`}
- >
- College Lead
- </button>
- </div>
-
  <button onClick={() => setActionModalType(null)} className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white text-sm">✕</button>
  </div>
  </div>
