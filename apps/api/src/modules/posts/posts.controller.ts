@@ -231,8 +231,10 @@ export const getPosts = async (req: AuthRequest, res: Response) => {
       }
     }
 
-    const mapped = posts.map((post) => ({
+    const mapped = posts.map((post: any) => ({
       ...post,
+      likeCount: post._count?.likes || 0,
+      commentCount: post._count?.comments || 0,
       likedByMe: likedPostIds.has(post.id),
       approvalMemo: generateProblemSpecificApprovalMemo(post),
       matchedTamilNaduColleges: matchCollegesForProblem(post.category, post.title, 5),
@@ -352,6 +354,8 @@ export const getPost = async (req: AuthRequest, res: Response) => {
     res.json({
       post: {
         ...post,
+        likeCount: (post as any)._count?.likes || 0,
+        commentCount: (post as any)._count?.comments || 0,
         approvalMemo: generateProblemSpecificApprovalMemo(post),
         matchedTamilNaduColleges: matchCollegesForProblem(post.category, post.title, 5),
       },
@@ -624,22 +628,12 @@ export const toggleLike = async (req: AuthRequest, res: Response) => {
 
     if (existing) {
       await prisma.like.delete({ where: { id: existing.id } });
-      const updated = await prisma.post.update({
-        where: { id: postId },
-        data: { likeCount: { decrement: 1 } },
-        select: { likeCount: true },
-      });
-      const finalCount = Math.max(0, updated.likeCount);
+      const finalCount = await prisma.like.count({ where: { postId } });
       io.emit('post-liked', { postId, likeCount: finalCount, delta: -1 });
       res.json({ liked: false, likeCount: finalCount });
     } else {
       await prisma.like.create({ data: { userId, postId } });
-      const updated = await prisma.post.update({
-        where: { id: postId },
-        data: { likeCount: { increment: 1 } },
-        select: { likeCount: true },
-      });
-      const finalCount = Math.max(0, updated.likeCount);
+      const finalCount = await prisma.like.count({ where: { postId } });
       io.emit('post-liked', { postId, likeCount: finalCount, delta: 1 });
       res.json({ liked: true, likeCount: finalCount });
     }
@@ -694,11 +688,13 @@ export const getComments = async (req: AuthRequest, res: Response) => {
       take: 100,
       include: {
         user: { select: { id: true, name: true, email: true, avatarUrl: true, role: true } },
+        _count: { select: { commentLikes: true } },
         replies: {
           orderBy: { createdAt: 'asc' },
           include: {
             user: { select: { id: true, name: true, email: true, avatarUrl: true, role: true } },
             commentLikes: userId ? { where: { userId } } : false,
+            _count: { select: { commentLikes: true } },
           },
         },
         commentLikes: userId ? { where: { userId } } : false,
@@ -712,7 +708,7 @@ export const getComments = async (req: AuthRequest, res: Response) => {
       text: c.text,
       createdAt: c.createdAt,
       updatedAt: c.updatedAt,
-      likeCount: c.likeCount || 0,
+      likeCount: c._count?.commentLikes || 0,
       likedByMe: Array.isArray(c.commentLikes) && c.commentLikes.length > 0,
       user: c.user,
       replies: (c.replies || []).map((r: any) => ({
@@ -722,7 +718,7 @@ export const getComments = async (req: AuthRequest, res: Response) => {
         text: r.text,
         createdAt: r.createdAt,
         updatedAt: r.updatedAt,
-        likeCount: r.likeCount || 0,
+        likeCount: r._count?.commentLikes || 0,
         likedByMe: Array.isArray(r.commentLikes) && r.commentLikes.length > 0,
         user: r.user,
       })),
@@ -758,10 +754,7 @@ export const addComment = async (req: AuthRequest, res: Response) => {
       },
     });
 
-    await prisma.post.update({
-      where: { id: postId },
-      data: { commentCount: { increment: 1 } },
-    }).catch(() => {});
+    // Removed cached commentCount increment
 
     const newComment = {
       ...comment,
@@ -794,20 +787,14 @@ export const toggleCommentLike = async (req: AuthRequest, res: Response) => {
 
     if (existing) {
       await prisma.commentLike.delete({ where: { id: existing.id } });
-      const updated = await prisma.comment.update({
-        where: { id: commentId },
-        data: { likeCount: { decrement: 1 } },
-      });
-      res.json({ liked: false, likeCount: Math.max(0, updated.likeCount) });
+      const count = await prisma.commentLike.count({ where: { commentId } });
+      res.json({ liked: false, likeCount: count });
     } else {
       await prisma.commentLike.create({
         data: { userId, commentId },
       });
-      const updated = await prisma.comment.update({
-        where: { id: commentId },
-        data: { likeCount: { increment: 1 } },
-      });
-      res.json({ liked: true, likeCount: updated.likeCount });
+      const count = await prisma.commentLike.count({ where: { commentId } });
+      res.json({ liked: true, likeCount: count });
     }
   } catch (err: any) {
     console.error('[COMMENT LIKE ERROR]', err);
@@ -833,11 +820,7 @@ export const deleteComment = async (req: AuthRequest, res: Response) => {
     await prisma.commentLike.deleteMany({ where: { commentId } });
     await prisma.comment.deleteMany({ where: { parentId: commentId } });
     await prisma.comment.delete({ where: { id: commentId } });
-
-    await prisma.post.update({
-      where: { id: comment.postId },
-      data: { commentCount: { decrement: 1 } },
-    }).catch(() => {});
+    // Removed cached commentCount decrement
 
     res.json({ message: 'Comment deleted.', commentId });
   } catch (err: any) {
