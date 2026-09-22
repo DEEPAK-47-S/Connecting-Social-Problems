@@ -163,11 +163,11 @@ function InstagramPost({
   return (
     <article
       id={`post-${post.id}`}
-      className={`border rounded-3xl overflow-hidden shadow-xl mb-6 transition duration-200 bg-white border-zinc-200 text-zinc-900 shadow-sm dark:bg-zinc-950 dark:border-zinc-800/80 dark:text-white`}
+      className={`border rounded-3xl overflow-hidden shadow-xl mb-6 transition duration-200 bg-white border-zinc-200 text-zinc-900 shadow-sm dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 dark:border-zinc-800/80 dark:text-white`}
     >
       {/* 1. Instagram Post Header */}
       <div
-        className={`flex items-center justify-between p-3.5 sm:p-4 border-b bg-zinc-50/80 border-zinc-200 text-zinc-900 dark:bg-zinc-950 dark:border-zinc-800/80 dark:text-white`}
+        className={`flex items-center justify-between p-3.5 sm:p-4 border-b bg-zinc-50/80 border-zinc-200 text-zinc-900 dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 dark:border-zinc-800/80 dark:text-white`}
       >
         <div className="flex items-center gap-3">
           {/* Instagram Story-style Gradient Ring Avatar */}
@@ -194,7 +194,7 @@ function InstagramPost({
             {/* Location Subtitle */}
             <div className={`flex items-center gap-1 text-[11px] text-zinc-500 dark:text-zinc-400`}>
               <MapPin className="h-3 w-3 text-rose-500 flex-shrink-0" />
-              <span className="truncate max-w-[200px] sm:max-w-xs font-medium">
+              <span className=" max-w-[200px] sm:max-w-xs font-medium">
                 {post.location || post.district || "Tamil Nadu, India"}
               </span>
             </div>
@@ -221,7 +221,7 @@ function InstagramPost({
 
       {/* 2. Instagram Main Media Section */}
       <div
-        className={`relative flex items-center justify-center bg-zinc-100 dark:bg-zinc-950`}
+        className={`relative flex items-center justify-center bg-zinc-100 dark:bg-white dark:bg-white dark:bg-zinc-900/75/75`}
       >
         {post.imageUrl ? (
           <img
@@ -244,7 +244,7 @@ function InstagramPost({
               "{post.title}"
             </h4>
             <p
-              className={`text-xs mt-2 max-w-sm line-clamp-2 text-zinc-600 dark:text-zinc-400`}
+              className={`text-xs mt-2 max-w-sm text-zinc-600 dark:text-zinc-400`}
             >
               {post.description}
             </p>
@@ -261,7 +261,7 @@ function InstagramPost({
 
       {/* 3. Instagram Action Bar (Aligned Icons & Counters) */}
       <div
-        className={`px-4 py-3 flex items-center justify-between border-t bg-white border-zinc-100 text-zinc-800 dark:bg-zinc-950 dark:border-zinc-800/40 dark:text-white`}
+        className={`px-4 py-3 flex items-center justify-between border-t bg-white border-zinc-100 text-zinc-800 dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 dark:border-zinc-800/40 dark:text-white`}
       >
         <div className="flex items-center gap-6">
           {/* Like Action */}
@@ -274,22 +274,22 @@ function InstagramPost({
             <div className="h-6 w-6 flex items-center justify-center">
               <Heart
                 className={`h-6 w-6 transition-colors ${
-                  likedByMe
-                    ? "fill-rose-500 text-rose-500 animate-in zoom-in-75 duration-200"
-                    : (theme === "dark")
-                    ? "text-white group-hover:text-rose-400"
-                    : "text-zinc-700 group-hover:text-rose-600"
-                }`}
+ likedByMe
+ ? "fill-rose-500 text-rose-500 animate-in zoom-in-75 duration-200"
+ : (theme === "dark")
+ ? "text-white group-hover:text-rose-400"
+ : "text-zinc-700 group-hover:text-rose-600"
+ }`}
               />
             </div>
             <span
               className={`text-[11px] font-bold mt-1 leading-none transition-colors ${
-                likedByMe
-                  ? "text-rose-500"
-                  : (theme === "dark")
-                  ? "text-zinc-400 group-hover:text-white"
-                  : "text-zinc-600 group-hover:text-zinc-900"
-              }`}
+ likedByMe
+ ? "text-rose-500"
+ : (theme === "dark")
+ ? "text-zinc-400 group-hover:text-white"
+ : "text-zinc-600 group-hover:text-zinc-900"
+ }`}
             >
               {likeCount}
             </span>
@@ -349,14 +349,14 @@ function InstagramPost({
           <div className="h-6 w-6 flex items-center justify-center">
             <Bookmark
               className={`h-6 w-6 transition-colors ${
-                saved
-                  ? (theme === "dark")
-                    ? "fill-white text-white"
-                    : "fill-zinc-900 text-zinc-900"
-                  : (theme === "dark")
-                  ? "text-white group-hover:text-zinc-400"
-                  : "text-zinc-700 group-hover:text-zinc-900"
-              }`}
+ saved
+ ? (theme === "dark")
+ ? "fill-white text-white"
+ : "fill-zinc-900 text-zinc-900"
+ : (theme === "dark")
+ ? "text-white group-hover:text-zinc-400"
+ : "text-zinc-700 group-hover:text-zinc-900"
+ }`}
             />
           </div>
           <span
@@ -368,7 +368,7 @@ function InstagramPost({
       </div>
 
       {/* 4. Likes & Engagement Counter (Clickable to view list of people who liked) */}
-      <div className={`px-4 pb-1 bg-white dark:bg-zinc-950`}>
+      <div className={`px-4 pb-1 bg-white dark:bg-white dark:bg-white dark:bg-zinc-900/75/75`}>
         <button
           type="button"
           onClick={() => onOpenLikes?.(post.id, post.title)}
@@ -381,7 +381,7 @@ function InstagramPost({
 
       {/* 5. Caption Section (Username + Problem Title + Description + Hashtags) */}
       <div
-        className={`px-4 py-1.5 text-xs leading-relaxed space-y-1 bg-white text-zinc-800 dark:bg-zinc-950 dark:text-zinc-200`}
+        className={`px-4 py-1.5 text-xs leading-relaxed space-y-1 bg-white text-zinc-800 dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 dark:text-zinc-200`}
       >
         <div>
           <span className="font-extrabold mr-2 cursor-pointer hover:underline">
@@ -392,7 +392,7 @@ function InstagramPost({
           </span>
         </div>
 
-        <p className={`mt-1 whitespace-pre-line ${!showFullCaption ? "line-clamp-2" : ""} text-zinc-700 dark:text-zinc-300`}>
+        <p className={`mt-1 whitespace-pre-line ${!showFullCaption ? "" : ""} text-zinc-900 dark:text-zinc-100`}>
           {post.description}
         </p>
 
@@ -415,7 +415,7 @@ function InstagramPost({
 
       {/* 6. Embedded Official Sanction / R&D Scope Card (if accepted) */}
       {post.status !== "SUBMITTED" && post.status !== "AI_ANALYZING" && post.status !== "UNIVERSITY_MATCHING" && (
-        <div className={`p-4 pt-2 bg-white dark:bg-zinc-950`}>
+        <div className={`p-4 pt-2 bg-white dark:bg-white dark:bg-white dark:bg-zinc-900/75/75`}>
           <ApprovalMemoCard
             post={post}
             variant="default"
@@ -425,7 +425,7 @@ function InstagramPost({
       )}
 
       {/* 7. View All Comments Trigger Sub-Block */}
-      <div className={`px-4 py-2 bg-white dark:bg-zinc-950`}>
+      <div className={`px-4 py-2 bg-white dark:bg-white dark:bg-white dark:bg-zinc-900/75/75`}>
         <button
           onClick={() => onOpenComments(post)}
           className={`text-xs font-semibold hover:underline flex items-center gap-1.5 transition text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200`}
@@ -440,7 +440,7 @@ function InstagramPost({
       </div>
 
       {/* 8. Timestamp */}
-      <div className={`px-4 pb-3 pt-1 bg-white dark:bg-zinc-950`}>
+      <div className={`px-4 pb-3 pt-1 bg-white dark:bg-white dark:bg-white dark:bg-zinc-900/75/75`}>
         <span className={`text-[9px] font-bold tracking-wider text-zinc-400 dark:text-zinc-500`}>
           {formatTime(post.createdAt)}
         </span>
@@ -729,19 +729,19 @@ export default function HomePage() {
         <div className="mb-5 space-y-3">
           {/* Tabs */}
           <div
-            className={`flex p-1 rounded-2xl border text-xs font-bold bg-zinc-100 border-zinc-200 dark:bg-zinc-900/90 dark:border-zinc-800`}
+            className={`flex p-1 rounded-2xl border text-xs font-bold bg-zinc-100 border-zinc-200 dark:bg-white dark:bg-zinc-900/75/90 dark:border-zinc-800`}
           >
             <button
               onClick={() => setActiveTab("feed")}
               className={`flex-1 py-2 rounded-xl transition ${
-                activeTab === "feed"
-                  ? (theme === "dark")
-                    ? "bg-zinc-800 text-white shadow-sm"
-                    : "bg-white text-zinc-900 shadow-sm"
-                  : (theme === "dark")
-                  ? "text-zinc-400 hover:text-white"
-                  : "text-zinc-600 hover:text-zinc-900"
-              }`}
+ activeTab === "feed"
+ ? (theme === "dark")
+ ? "bg-zinc-800 text-white shadow-sm"
+ : "bg-white text-zinc-900 shadow-sm"
+ : (theme === "dark")
+ ? "text-zinc-400 hover:text-white"
+ : "text-zinc-600 hover:text-zinc-900"
+ }`}
             >
               Feed ({posts.length})
             </button>
@@ -754,14 +754,14 @@ export default function HomePage() {
                 setActiveTab("myActivity");
               }}
               className={`flex-1 py-2 rounded-xl transition flex items-center justify-center gap-1.5 ${
-                activeTab === "myActivity"
-                  ? (theme === "dark")
-                    ? "bg-zinc-800 text-white shadow-sm"
-                    : "bg-white text-zinc-900 shadow-sm"
-                  : (theme === "dark")
-                  ? "text-zinc-400 hover:text-white"
-                  : "text-zinc-600 hover:text-zinc-900"
-              }`}
+ activeTab === "myActivity"
+ ? (theme === "dark")
+ ? "bg-zinc-800 text-white shadow-sm"
+ : "bg-white text-zinc-900 shadow-sm"
+ : (theme === "dark")
+ ? "text-zinc-400 hover:text-white"
+ : "text-zinc-600 hover:text-zinc-900"
+ }`}
             >
               <span>My Activity</span>
               {user && (
@@ -780,7 +780,7 @@ export default function HomePage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search community posts, landmarks, districts..."
-              className={`w-full pl-10 pr-9 py-2 rounded-2xl text-xs outline-none border transition bg-white text-zinc-900 placeholder-zinc-400 border-zinc-300 focus:border-zinc-400 shadow-sm dark:bg-zinc-900 dark:text-white dark:placeholder-zinc-500 dark:border-zinc-800 dark:focus:border-zinc-700`}
+              className={`w-full pl-10 pr-9 py-2 rounded-2xl text-xs outline-none border transition bg-white text-zinc-900 placeholder-zinc-400 border-zinc-300 focus:border-zinc-400 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:text-white dark:placeholder-zinc-500 dark:border-zinc-800 dark:focus:border-zinc-700`}
             />
             {searchQuery && (
               <button
@@ -795,7 +795,7 @@ export default function HomePage() {
           {/* District & Category Scroll Bar */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-xs">
             <div
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-full border flex-shrink-0 bg-white border-zinc-300 text-zinc-900 shadow-sm dark:bg-zinc-900 dark:border-zinc-800 dark:text-white`}
+              className={`flex items-center gap-1 px-3 py-1.5 rounded-full border flex-shrink-0 bg-white border-zinc-300 text-zinc-900 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-zinc-800 dark:text-white`}
             >
               <MapPin className="h-3 w-3 text-rose-500" />
               <select
@@ -803,9 +803,9 @@ export default function HomePage() {
                 onChange={(e) => setSelectedDistrict(e.target.value)}
                 className={`bg-transparent font-bold text-xs outline-none cursor-pointer text-zinc-900 dark:text-white`}
               >
-                <option value="All" className="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white">All Districts</option>
+                <option value="All" className="bg-white text-zinc-900 dark:bg-white dark:bg-zinc-900/75 dark:text-white">All Districts</option>
                 {TAMIL_NADU_DISTRICTS.map((d) => (
-                  <option key={d} value={d} className="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white">{d}</option>
+                  <option key={d} value={d} className="bg-white text-zinc-900 dark:bg-white dark:bg-zinc-900/75 dark:text-white">{d}</option>
                 ))}
               </select>
             </div>
@@ -815,14 +815,14 @@ export default function HomePage() {
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1.5 rounded-full whitespace-nowrap font-bold text-xs transition flex-shrink-0 ${
-                  selectedCategory === cat
-                    ? (theme === "dark")
-                      ? "bg-white text-black"
-                      : "bg-zinc-900 text-white shadow-sm"
-                    : (theme === "dark")
-                    ? "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
-                    : "bg-white text-zinc-600 border border-zinc-200 hover:text-zinc-900 shadow-sm"
-                }`}
+ selectedCategory === cat
+ ? (theme === "dark")
+ ? "bg-white text-black"
+ : "bg-white dark:bg-zinc-900/75 text-white shadow-sm"
+ : (theme === "dark")
+ ? "bg-white dark:bg-zinc-900/75 text-zinc-400 border border-zinc-800 hover:text-white"
+ : "bg-white text-zinc-600 border border-zinc-200 hover:text-zinc-900 shadow-sm"
+ }`}
               >
                 {cat}
               </button>
@@ -838,20 +838,20 @@ export default function HomePage() {
           </div>
         ) : error ? (
           <div
-            className={`text-center py-16 rounded-3xl border p-6 bg-white border-rose-200 shadow-md dark:bg-zinc-950 dark:border-rose-500/30`}
+            className={`text-center py-16 rounded-3xl border p-6 bg-white border-rose-200 shadow-md dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 dark:border-rose-500/30`}
           >
             <AlertTriangle className="h-8 w-8 text-rose-500 mx-auto mb-2" />
             <p className="text-rose-500 font-bold text-xs mb-3">{error}</p>
             <button
               onClick={() => fetchPosts()}
-              className={`px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-800 dark:text-white dark:hover:bg-zinc-700`}
+              className={`px-4 py-2 rounded-xl text-xs font-bold bg-white dark:bg-zinc-900/75 text-white hover:bg-zinc-800 dark:bg-zinc-800 dark:text-white dark:hover:bg-zinc-700`}
             >
               Retry
             </button>
           </div>
         ) : filteredPosts.length === 0 ? (
           <div
-            className={`text-center py-20 rounded-3xl border p-8 bg-white border-zinc-200 shadow-sm dark:bg-zinc-950 dark:border-zinc-900`}
+            className={`text-center py-20 rounded-3xl border p-8 bg-white border-zinc-200 shadow-sm dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 dark:border-zinc-900`}
           >
             <Sparkles className="h-8 w-8 text-zinc-400 mx-auto mb-2" />
             <h3 className="font-bold text-sm">
@@ -919,7 +919,7 @@ export default function HomePage() {
       {postToDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in">
           <div
-            className={`rounded-3xl max-w-md w-full p-6 border shadow-2xl bg-white border-zinc-200 text-zinc-900 dark:bg-zinc-900 dark:border-zinc-800 dark:text-white`}
+            className={`rounded-3xl max-w-md w-full p-6 border shadow-2xl bg-white border-zinc-200 text-zinc-900 dark:bg-white dark:bg-zinc-900/75 dark:border-zinc-800 dark:text-white`}
           >
             <div className="h-12 w-12 rounded-2xl bg-rose-500/20 text-rose-500 flex items-center justify-center mb-4">
               <Trash2 className="h-6 w-6" />

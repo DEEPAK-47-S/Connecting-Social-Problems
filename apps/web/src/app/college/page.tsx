@@ -383,17 +383,17 @@ export default function CollegePortal() {
       {/* Toast Notification */}
       {notification && (
         <div className={`fixed top-6 right-6 z-50 px-5 py-3 rounded-2xl shadow-md border text-sm font-semibold flex items-center gap-3 animate-in slide-in-from-top duration-300 ${
-          notification.type === "success"
-            ? "bg-emerald-950/90 border-emerald-500/50 text-emerald-700 dark:text-emerald-200"
-            : "bg-rose-950/90 border-rose-500/50 text-rose-700 dark:text-rose-200"
-        }`}>
+ notification.type === "success"
+ ? "bg-emerald-950/90 border-emerald-500/50 text-emerald-700 dark:text-emerald-200"
+ : "bg-rose-950/90 border-rose-500/50 text-rose-700 dark:text-rose-200"
+ }`}>
           {notification.type === "success" ? <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" /> : <AlertCircle className="h-5 w-5 text-rose-600 dark:text-rose-400" />}
           <span>{notification.text}</span>
         </div>
       )}
 
       {/* Top Academic Header */}
-      <header className={`border-b sticky top-0 z-40 transition-colors border-slate-200 bg-white text-slate-900 shadow-sm dark:border-slate-800 dark:bg-slate-950 dark:text-white`}>
+      <header className={`border-b sticky top-0 z-40 transition-colors border-slate-200 bg-white text-slate-900 shadow-sm dark:border-slate-800 dark:bg-white dark:bg-zinc-900/75 dark:text-white`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-11 w-11 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
@@ -421,11 +421,11 @@ export default function CollegePortal() {
             <ThemeToggle />
 
             {/* Dedicated College User Profile & Logout */}
-            <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs shadow-inner bg-white border-slate-300 text-slate-900 dark:bg-slate-900 dark:border-slate-800 dark:text-white`}>
+            <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs shadow-inner bg-white border-slate-300 text-slate-900 dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800 dark:text-white`}>
               <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               <div className="text-left">
-                <p className="font-bold truncate max-w-[160px]">{collegeUser?.collegeName || "Academic Lab"}</p>
-                <p className="text-[10px] text-indigo-500 truncate max-w-[160px]">{collegeUser?.facultyName || facultyGuide}</p>
+                <p className="font-bold max-w-[160px]">{collegeUser?.collegeName || "Academic Lab"}</p>
+                <p className="text-[10px] text-indigo-500 max-w-[160px]">{collegeUser?.facultyName || facultyGuide}</p>
               </div>
               <button
                 onClick={() => setShowProfile(true)}
@@ -444,7 +444,7 @@ export default function CollegePortal() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         {/* Active Institution Specialization Profile Bar */}
-        <div className="mb-8 p-5 bg-gradient-to-r from-indigo-950/60 via-purple-950/40 to-slate-900/90 rounded-3xl border border-indigo-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
+        <div className="mb-8 p-5 bg-white dark:bg-zinc-900/75 rounded-3xl border border-indigo-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
           <div className="flex items-center gap-3.5">
             <div className="h-12 w-12 rounded-2xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold shadow-lg shadow-indigo-500/10">
               <GraduationCap className="h-6 w-6" />
@@ -498,26 +498,26 @@ export default function CollegePortal() {
             <h1 className={`text-3xl sm:text-4xl font-black tracking-tight leading-tight text-foreground`}>
               Solve Community Grievances Matching Your College Skills
             </h1>
-            <p className="mt-3 text-slate-700 dark:text-slate-300 text-base leading-relaxed">
+            <p className="mt-3 text-zinc-900 dark:text-zinc-100 text-base leading-relaxed">
               When your academic lab accepts a problem, AI analyzes and matches the <strong>Top 10 industry partners</strong>. The first industry partner to accept locks the project, enabling real-time collaboration messaging with your team.
             </p>
           </div>
 
           {/* Quick Metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-800">
-            <div className={`/60 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <div className={`/60 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               <p className={`text-xs font-medium text-slate-600 dark:text-slate-400`}>Challenges for Intake</p>
               <p className="text-2xl font-black text-amber-600 dark:text-amber-400 mt-1">{intakeCount}</p>
             </div>
-            <div className={`/60 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <div className={`/60 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               <p className={`text-xs font-medium text-slate-600 dark:text-slate-400`}>Active Lab Projects</p>
               <p className="text-2xl font-black text-indigo-600 dark:text-indigo-400 mt-1">{activeCount}</p>
             </div>
-            <div className={`/60 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <div className={`/60 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               <p className={`text-xs font-medium text-slate-600 dark:text-slate-400`}>Industry Partner Labs</p>
               <p className="text-2xl font-black text-pink-600 dark:text-pink-400 mt-1">10 Per Project</p>
             </div>
-            <div className={`/60 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <div className={`/60 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               <p className={`text-xs font-medium text-slate-600 dark:text-slate-400`}>Deployed Solutions</p>
               <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400 mt-1">{completedCount}</p>
             </div>
@@ -526,14 +526,14 @@ export default function CollegePortal() {
 
         {/* Tab & Filter Bar */}
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-8 pb-4 border-b border-slate-800">
-          <div className={`flex /90 p-1.5 rounded-2xl border border-slate-800 w-full sm:w-auto overflow-x-auto bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+          <div className={`flex /90 p-1.5 rounded-2xl border border-slate-800 w-full sm:w-auto overflow-x-auto bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
             <button
               onClick={() => setActiveTab("intake")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
-                activeTab === "intake"
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-foreground shadow-lg shadow-indigo-500/25"
-                  : "text-slate-600 dark:text-slate-400 hover:text-foreground"
-              }`}
+ activeTab === "intake"
+ ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-foreground shadow-lg shadow-indigo-500/25"
+ : "text-slate-600 dark:text-slate-400 hover:text-foreground"
+ }`}
             >
               <Sparkles className="h-4 w-4" />
               <span>Intake Queue ({intakeCount})</span>
@@ -542,10 +542,10 @@ export default function CollegePortal() {
             <button
               onClick={() => setActiveTab("active")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
-                activeTab === "active"
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-foreground shadow-lg shadow-indigo-500/25"
-                  : "text-slate-600 dark:text-slate-400 hover:text-foreground"
-              }`}
+ activeTab === "active"
+ ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-foreground shadow-lg shadow-indigo-500/25"
+ : "text-slate-600 dark:text-slate-400 hover:text-foreground"
+ }`}
             >
               <Layers className="h-4 w-4" />
               <span>Active Projects ({activeCount})</span>
@@ -554,10 +554,10 @@ export default function CollegePortal() {
             <button
               onClick={() => setActiveTab("completed")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
-                activeTab === "completed"
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-foreground shadow-lg shadow-indigo-500/25"
-                  : "text-slate-600 dark:text-slate-400 hover:text-foreground"
-              }`}
+ activeTab === "completed"
+ ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-foreground shadow-lg shadow-indigo-500/25"
+ : "text-slate-600 dark:text-slate-400 hover:text-foreground"
+ }`}
             >
               <Award className="h-4 w-4" />
               <span>Solved &amp; Deployed ({completedCount})</span>
@@ -571,7 +571,7 @@ export default function CollegePortal() {
               placeholder="Search challenges..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className={`w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-sm placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition text-foreground`}
+              className={`w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-xl text-sm placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition text-foreground`}
             />
           </div>
         </div>
@@ -583,7 +583,7 @@ export default function CollegePortal() {
             <p className={`text-sm text-slate-600 dark:text-slate-400`}>Loading university challenge queue...</p>
           </div>
         ) : filteredPosts.length === 0 ? (
-          <div className={`py-24 text-center /40 rounded-3xl border border-slate-800 p-8 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+          <div className={`py-24 text-center /40 rounded-3xl border border-slate-800 p-8 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
             <CheckCircle2 className="h-12 w-12 text-slate-600 mx-auto mb-3" />
             <h3 className={`text-lg font-bold text-foreground`}>No challenges found in this section</h3>
             <p className={`text-sm max-w-md mx-auto mt-1 text-slate-600 dark:text-slate-400`}>
@@ -605,7 +605,7 @@ export default function CollegePortal() {
               return (
                 <div
                   key={post.id}
-                  className={`/90 rounded-3xl border border-slate-800 overflow-hidden flex flex-col justify-between hover:border-indigo-500/40 transition shadow-xl group bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}
+                  className={`/90 rounded-3xl border border-slate-800 overflow-hidden flex flex-col justify-between hover:border-indigo-500/40 transition shadow-xl group bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}
                 >
                   <div className="p-6 sm:p-7">
                     
@@ -640,7 +640,7 @@ export default function CollegePortal() {
                             </span>
                           </div>
 
-                          <h3 className={`text-xl font-black group-hover:text-indigo-300 transition line-clamp-2 text-foreground`}>
+                          <h3 className={`text-xl font-black group-hover:text-indigo-300 transition text-foreground`}>
                             {post.title}
                           </h3>
 
@@ -671,7 +671,7 @@ export default function CollegePortal() {
                       );
                     })()}
 
-                    <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed line-clamp-3 mb-5">
+                    <p className="text-xs text-zinc-900 dark:text-zinc-100 leading-relaxed mb-5">
                       {post.description}
                     </p>
 
@@ -701,8 +701,8 @@ export default function CollegePortal() {
                         </button>
                       </div>
                     ) : (
-                      <div className={`p-3.5 /80 rounded-2xl border border-slate-800 mb-4 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
-                        <div className="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
+                      <div className={`p-3.5 /80 rounded-2xl border border-slate-800 mb-4 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
+                        <div className="flex items-center justify-between text-xs font-bold text-zinc-900 dark:text-zinc-100">
                           <div className="flex items-center gap-1.5">
                             <Sparkles className="h-4 w-4 text-pink-600 dark:text-pink-400" />
                             <span>CSR Industry Sponsorship</span>
@@ -718,7 +718,7 @@ export default function CollegePortal() {
                   </div>
 
                   {/* Actions Footer with Accept & REJECT (Task 2) */}
-                  <div className={`p-6 pt-4 border-t border-slate-800 /40 flex items-center gap-2 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+                  <div className={`p-6 pt-4 border-t border-slate-800 /40 flex items-center gap-2 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
                     {isOpen ? (
                       <>
                         <button
@@ -738,7 +738,7 @@ export default function CollegePortal() {
                             setSelectedPost(post);
                             setActionModalType("reject");
                           }}
-                          className={`py-3 px-4 bg-slate-800 hover:bg-rose-950/50 hover:text-rose-700 dark:text-rose-300 hover:border-rose-500/30 border border-slate-700/60 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold transition flex items-center gap-1.5`}
+                          className={`py-3 px-4 bg-slate-800 hover:bg-rose-950/50 hover:text-rose-700 dark:text-rose-300 hover:border-rose-500/30 border border-slate-700/60 text-zinc-900 dark:text-zinc-100 rounded-xl text-xs font-bold transition flex items-center gap-1.5`}
                           title="Reject this challenge"
                         >
                           <XCircle className="h-4 w-4 text-rose-600 dark:text-rose-400" />
@@ -774,7 +774,7 @@ export default function CollegePortal() {
                         setSelectedPost(post);
                         setActionModalType("details");
                       }}
-                      className="p-3 bg-slate-800 hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl transition"
+                      className="p-3 bg-slate-800 hover:bg-slate-700 text-zinc-900 dark:text-zinc-100 rounded-xl transition"
                       title="View details"
                     >
                       <ChevronRight className="h-4 w-4" />
@@ -791,8 +791,8 @@ export default function CollegePortal() {
 
       {/* MODAL 1: ACCEPT CHALLENGE */}
       {actionModalType === "accept" && selectedPost && (
-        <div className="fixed inset-0 z-50 bg-white dark:bg-zinc-950 flex items-center justify-center p-4">
-          <div className={`border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+        <div className="fixed inset-0 z-50 bg-white dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 flex items-center justify-center p-4">
+          <div className={`border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
               <div className="flex items-center gap-2">
                 <GraduationCap className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
@@ -801,34 +801,34 @@ export default function CollegePortal() {
               <button onClick={() => setActionModalType(null)} className={`text-slate-600 dark:text-slate-400 hover: text-sm text-foreground`}>✕</button>
             </div>
 
-            <div className={`my-5 p-4 rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <div className={`my-5 p-4 rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               <p className="text-xs text-indigo-600 dark:text-indigo-400 font-bold uppercase tracking-wider">Problem Statement</p>
               <h4 className={`font-bold text-sm mt-1 text-foreground`}>{selectedPost.title}</h4>
-              <p className={`text-xs mt-1 line-clamp-2 text-slate-600 dark:text-slate-400`}>{selectedPost.description}</p>
+              <p className={`text-xs mt-1 text-slate-600 dark:text-slate-400`}>{selectedPost.description}</p>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider mb-1.5">
                   Assign Student Team Name
                 </label>
                 <input
                   type="text"
                   value={teamName}
                   onChange={(e) => setTeamName(e.target.value)}
-                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-indigo-500 text-foreground`}
+                  className={`w-full px-4 py-2.5 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-indigo-500 text-foreground`}
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider mb-1.5">
                   Faculty Guide / Professor
                 </label>
                 <input
                   type="text"
                   value={facultyGuide}
                   onChange={(e) => setFacultyGuide(e.target.value)}
-                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-indigo-500 text-foreground`}
+                  className={`w-full px-4 py-2.5 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-indigo-500 text-foreground`}
                 />
               </div>
             </div>
@@ -836,7 +836,7 @@ export default function CollegePortal() {
             <div className="mt-8 flex gap-3">
               <button
                 onClick={() => setActionModalType(null)}
-                className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl text-xs transition"
+                className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-zinc-900 dark:text-zinc-100 font-bold rounded-xl text-xs transition"
               >
                 Cancel
               </button>
@@ -855,24 +855,24 @@ export default function CollegePortal() {
 
       {/* Task 2: MODAL 2 — REJECT CHALLENGE */}
       {actionModalType === "reject" && selectedPost && (
-        <div className="fixed inset-0 z-50 bg-white dark:bg-zinc-950 flex items-center justify-center p-4">
-          <div className={`border border-slate-800 rounded-3xl max-w-md w-full p-6 text-center shadow-md animate-in zoom-in-95 duration-200 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+        <div className="fixed inset-0 z-50 bg-white dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 flex items-center justify-center p-4">
+          <div className={`border border-slate-800 rounded-3xl max-w-md w-full p-6 text-center shadow-md animate-in zoom-in-95 duration-200 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
             <div className="h-12 w-12 rounded-2xl bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center mx-auto mb-4 border border-rose-500/30">
               <XCircle className="h-6 w-6" />
             </div>
             <h3 className={`text-lg font-black text-foreground`}>Decline Citizen Challenge</h3>
-            <p className="text-xs text-slate-700 dark:text-slate-300 mt-1 leading-relaxed truncate">
+            <p className="text-xs text-zinc-900 dark:text-zinc-100 mt-1 leading-relaxed ">
               "{selectedPost.title}"
             </p>
 
             <div className="my-5 text-left">
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider mb-1.5">
                 Reason for Declining
               </label>
               <select
                 value={rejectReason}
                 onChange={(e) => setRejectReason(e.target.value)}
-                className={`w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs focus:outline-none focus:border-rose-500 text-foreground`}
+                className={`w-full px-3 py-2.5 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-xl text-xs focus:outline-none focus:border-rose-500 text-foreground`}
               >
                 <option>Outside Department Specialization &amp; Scope</option>
                 <option>Lab Capacity &amp; Research Cohort Full</option>
@@ -884,7 +884,7 @@ export default function CollegePortal() {
             <div className="flex gap-3">
               <button
                 onClick={() => setActionModalType(null)}
-                className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl text-xs transition"
+                className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-zinc-900 dark:text-zinc-100 font-bold rounded-xl text-xs transition"
               >
                 Cancel
               </button>
@@ -903,8 +903,8 @@ export default function CollegePortal() {
 
       {/* MODAL 3: ADVANCE PROGRESS */}
       {actionModalType === "progress" && selectedPost && (
-        <div className="fixed inset-0 z-50 bg-white dark:bg-zinc-950 flex items-center justify-center p-4">
-          <div className={`border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+        <div className="fixed inset-0 z-50 bg-white dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 flex items-center justify-center p-4">
+          <div className={`border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
               <div className="flex items-center gap-2">
                 <Zap className="h-6 w-6 text-amber-600 dark:text-amber-400" />
@@ -920,13 +920,13 @@ export default function CollegePortal() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider mb-1.5">
                   Select Next Stage
                 </label>
                 <select
                   value={nextStage}
                   onChange={(e) => setNextStage(e.target.value)}
-                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-indigo-500 text-foreground`}
+                  className={`w-full px-4 py-2.5 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-indigo-500 text-foreground`}
                 >
                   <option value="PROTOTYPING">🔧 Prototyping (Lab testing started)</option>
                   <option value="TESTING">🧪 Field Testing (Validating on site)</option>
@@ -937,14 +937,14 @@ export default function CollegePortal() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider mb-1.5">
                   Progress Notes / Prototype Findings
                 </label>
                 <textarea
                   rows={3}
                   value={progressNotes}
                   onChange={(e) => setProgressNotes(e.target.value)}
-                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-indigo-500 placeholder-slate-500 text-foreground`}
+                  className={`w-full px-4 py-2.5 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-indigo-500 placeholder-slate-500 text-foreground`}
                   placeholder="e.g. Completed initial 3D design and circuit testing with 94% efficiency."
                 />
               </div>
@@ -953,7 +953,7 @@ export default function CollegePortal() {
             <div className="mt-8 flex gap-3">
               <button
                 onClick={() => setActionModalType(null)}
-                className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl text-xs transition"
+                className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-zinc-900 dark:text-zinc-100 font-bold rounded-xl text-xs transition"
               >
                 Cancel
               </button>
@@ -972,16 +972,16 @@ export default function CollegePortal() {
 
       {/* TASK 5: LIVE COLLABORATION MESSENGER */}
       {actionModalType === "chat" && selectedPost && (
-        <div className="fixed inset-0 z-50 bg-white dark:bg-zinc-950 flex items-center justify-center p-4">
-          <div className={`border border-slate-800 rounded-3xl max-w-2xl w-full h-[85vh] flex flex-col shadow-md animate-in zoom-in-95 duration-200 overflow-hidden bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+        <div className="fixed inset-0 z-50 bg-white dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 flex items-center justify-center p-4">
+          <div className={`border border-slate-800 rounded-3xl max-w-2xl w-full h-[85vh] flex flex-col shadow-md animate-in zoom-in-95 duration-200 overflow-hidden bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
             
-            <div className={`p-5 border-b border-slate-800 /70 flex items-center justify-between bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <div className={`p-5 border-b border-slate-800 /70 flex items-center justify-between bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               <div>
                 <div className="flex items-center gap-2">
                   <MessageSquare className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
                   <h3 className={`font-black text-base text-foreground`}>University &amp; Industry Collaboration Channel</h3>
                 </div>
-                <p className={`text-xs mt-0.5 truncate max-w-md text-slate-600 dark:text-slate-400`}>
+                <p className={`text-xs mt-0.5 max-w-md text-slate-600 dark:text-slate-400`}>
                   Project: <strong className={` text-foreground`}>{selectedPost.title}</strong>
                 </p>
               </div>
@@ -994,7 +994,7 @@ export default function CollegePortal() {
               </div>
             </div>
 
-            <div className={`flex-1 p-5 overflow-y-auto space-y-4 /40 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <div className={`flex-1 p-5 overflow-y-auto space-y-4 /40 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               {chatLoading ? (
                 <div className="py-20 text-center">
                   <Loader2 className="h-8 w-8 animate-spin text-indigo-500 mx-auto mb-2" />
@@ -1032,10 +1032,10 @@ export default function CollegePortal() {
                       </span>
                       <div
                         className={`max-w-[80%] p-3.5 rounded-2xl text-xs leading-relaxed ${
-                          isCol
-                            ? "bg-indigo-600 text-foreground rounded-tr-none shadow-md shadow-indigo-600/20"
-                            : "bg-pink-950/60 border border-pink-500/40 text-pink-100 rounded-tl-none"
-                        }`}
+ isCol
+ ? "bg-indigo-600 text-foreground rounded-tr-none shadow-md shadow-indigo-600/20"
+ : "bg-pink-950/60 border border-pink-500/40 text-pink-100 rounded-tl-none"
+ }`}
                       >
                         {msg.text}
                       </div>
@@ -1045,13 +1045,13 @@ export default function CollegePortal() {
               )}
             </div>
 
-            <form onSubmit={handleSendMessage} className={`p-4 border-t border-slate-800 flex items-center gap-2 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <form onSubmit={handleSendMessage} className={`p-4 border-t border-slate-800 flex items-center gap-2 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               <input
                 type="text"
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
                 placeholder="Message the Industry Partner (prototype specs, funding release, meeting request)..."
-                className={`flex-1 bg-slate-900 border border-slate-800 rounded-2xl px-4 py-3 text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition text-foreground`}
+                className={`flex-1 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-2xl px-4 py-3 text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition text-foreground`}
               />
               <button
                 type="submit"
@@ -1068,8 +1068,8 @@ export default function CollegePortal() {
 
       {/* MODAL 4: FULL DETAILS */}
       {actionModalType === "details" && selectedPost && (
-        <div className="fixed inset-0 z-50 bg-white dark:bg-zinc-950 flex items-center justify-center p-4">
-          <div className={`border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+        <div className="fixed inset-0 z-50 bg-white dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 flex items-center justify-center p-4">
+          <div className={`border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
               <h3 className={`text-xl font-black text-foreground`}>{selectedPost.title}</h3>
               <button onClick={() => setActionModalType(null)} className={`text-slate-600 dark:text-slate-400 hover: text-sm text-foreground`}>✕</button>
@@ -1084,7 +1084,7 @@ export default function CollegePortal() {
                 <span>Category: <strong className="text-indigo-600 dark:text-indigo-400">{selectedPost.category}</strong></span>
               </div>
 
-              <div className={`p-4 rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+              <div className={`p-4 rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
                 <p className={`text-xs font-bold uppercase tracking-wider mb-1 text-slate-600 dark:text-slate-400`}>Citizen Problem Description</p>
                 <p className="text-sm text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">{selectedPost.description}</p>
               </div>

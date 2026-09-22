@@ -265,17 +265,17 @@ export default function GovernmentPortal() {
       {/* Toast Notification */}
       {notification && (
         <div className={`fixed top-6 right-6 z-50 px-5 py-3 rounded-2xl shadow-md border text-sm font-semibold flex items-center gap-3 animate-in slide-in-from-top duration-300 ${
-          notification.type === "success"
-            ? "bg-emerald-950/80 border-emerald-500/50 text-emerald-700 dark:text-emerald-200"
-            : "bg-rose-950/80 border-rose-500/50 text-rose-700 dark:text-rose-200"
-        }`}>
+ notification.type === "success"
+ ? "bg-emerald-950/80 border-emerald-500/50 text-emerald-700 dark:text-emerald-200"
+ : "bg-rose-950/80 border-rose-500/50 text-rose-700 dark:text-rose-200"
+ }`}>
           {notification.type === "success" ? <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" /> : <AlertCircle className="h-5 w-5 text-rose-600 dark:text-rose-400" />}
           <span>{notification.text}</span>
         </div>
       )}
 
       {/* Top Header */}
-      <header className={`border-b sticky top-0 z-40 transition-colors border-slate-200 bg-white text-slate-900 shadow-sm dark:border-slate-800 dark:bg-slate-950 dark:text-white`}>
+      <header className={`border-b sticky top-0 z-40 transition-colors border-slate-200 bg-white text-slate-900 shadow-sm dark:border-slate-800 dark:bg-white dark:bg-zinc-900/75 dark:text-white`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-11 w-11 rounded-2xl bg-gradient-to-tr from-teal-500 via-emerald-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-teal-500/20">
@@ -303,11 +303,11 @@ export default function GovernmentPortal() {
             <ThemeToggle />
 
             {/* Dedicated Municipal Authority Profile & Logout */}
-            <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs shadow-inner bg-white border-slate-300 text-slate-900 dark:bg-slate-900 dark:border-slate-800 dark:text-white`}>
+            <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs shadow-inner bg-white border-slate-300 text-slate-900 dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800 dark:text-white`}>
               <div className="h-2 w-2 rounded-full bg-teal-400 animate-pulse" />
               <div className="text-left">
-                <p className="font-bold truncate max-w-[160px]">{govtUser?.officerName || officerName}</p>
-                <p className="text-[10px] text-teal-500 truncate max-w-[160px]">{govtUser?.authorityName || department}</p>
+                <p className="font-bold max-w-[160px]">{govtUser?.officerName || officerName}</p>
+                <p className="text-[10px] text-teal-500 max-w-[160px]">{govtUser?.authorityName || department}</p>
               </div>
               <button
                 onClick={() => setShowProfile(true)}
@@ -336,26 +336,26 @@ export default function GovernmentPortal() {
             <h1 className={`text-3xl sm:text-4xl font-black tracking-tight leading-tight text-foreground`}>
               Sanction Verified Academic-Industry Solutions for Citizen Relief
             </h1>
-            <p className="mt-3 text-slate-700 dark:text-slate-300 text-base leading-relaxed">
+            <p className="mt-3 text-zinc-900 dark:text-zinc-100 text-base leading-relaxed">
               Review engineering solutions engineered by universities and backed by industry partners. Issue administrative clearances, connect projects to official national welfare schemes, and certify ground resolution.
             </p>
           </div>
 
           {/* Metrics Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-800">
-            <div className={`/70 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <div className={`/70 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               <p className={`text-xs font-medium text-slate-600 dark:text-slate-400`}>Pending Sanctions &amp; Permits</p>
               <p className="text-2xl font-black text-teal-600 dark:text-teal-400 mt-1">{reviewsCount}</p>
             </div>
-            <div className={`/70 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <div className={`/70 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               <p className={`text-xs font-medium text-slate-600 dark:text-slate-400`}>Active Ground Deployments</p>
               <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400 mt-1">{implementationCount}</p>
             </div>
-            <div className={`/70 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <div className={`/70 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               <p className={`text-xs font-medium text-slate-600 dark:text-slate-400`}>Verified Solved Grievances</p>
               <p className="text-2xl font-black text-cyan-600 dark:text-cyan-400 mt-1">{completedCount}</p>
             </div>
-            <div className={`/70 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <div className={`/70 rounded-2xl p-4 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               <p className={`text-xs font-medium text-slate-600 dark:text-slate-400`}>Citizen Resolution Rate</p>
               <p className="text-2xl font-black text-amber-600 dark:text-amber-400 mt-1">98.4%</p>
             </div>
@@ -364,14 +364,14 @@ export default function GovernmentPortal() {
 
         {/* Tab & Search Bar */}
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-8 pb-4 border-b border-slate-800">
-          <div className={`flex /90 p-1.5 rounded-2xl border border-slate-800 w-full sm:w-auto overflow-x-auto bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+          <div className={`flex /90 p-1.5 rounded-2xl border border-slate-800 w-full sm:w-auto overflow-x-auto bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
             <button
               onClick={() => setActiveTab("reviews")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
-                activeTab === "reviews"
-                  ? "bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 text-foreground shadow-lg shadow-teal-500/25"
-                  : "text-slate-600 dark:text-slate-400 hover:text-foreground"
-              }`}
+ activeTab === "reviews"
+ ? "bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 text-foreground shadow-lg shadow-teal-500/25"
+ : "text-slate-600 dark:text-slate-400 hover:text-foreground"
+ }`}
             >
               <Stamp className="h-4 w-4" />
               <span>Pending Clearance ({reviewsCount})</span>
@@ -380,10 +380,10 @@ export default function GovernmentPortal() {
             <button
               onClick={() => setActiveTab("implementation")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
-                activeTab === "implementation"
-                  ? "bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 text-foreground shadow-lg shadow-teal-500/25"
-                  : "text-slate-600 dark:text-slate-400 hover:text-foreground"
-              }`}
+ activeTab === "implementation"
+ ? "bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 text-foreground shadow-lg shadow-teal-500/25"
+ : "text-slate-600 dark:text-slate-400 hover:text-foreground"
+ }`}
             >
               <FileCheck2 className="h-4 w-4" />
               <span>Active Civic Works ({implementationCount})</span>
@@ -392,10 +392,10 @@ export default function GovernmentPortal() {
             <button
               onClick={() => setActiveTab("completed")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
-                activeTab === "completed"
-                  ? "bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 text-foreground shadow-lg shadow-teal-500/25"
-                  : "text-slate-600 dark:text-slate-400 hover:text-foreground"
-              }`}
+ activeTab === "completed"
+ ? "bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 text-foreground shadow-lg shadow-teal-500/25"
+ : "text-slate-600 dark:text-slate-400 hover:text-foreground"
+ }`}
             >
               <BadgeCheck className="h-4 w-4" />
               <span>Certified Solved ({completedCount})</span>
@@ -404,13 +404,13 @@ export default function GovernmentPortal() {
             <button
               onClick={() => setActiveTab("schemes")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
-                activeTab === "schemes"
-                  ? "bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 text-foreground shadow-lg shadow-teal-500/25"
-                  : "text-slate-600 dark:text-slate-400 hover:text-foreground"
-              }`}
+ activeTab === "schemes"
+ ? "bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 text-foreground shadow-lg shadow-teal-500/25"
+ : "text-slate-600 dark:text-slate-400 hover:text-foreground"
+ }`}
             >
               <ScrollText className="h-4 w-4" />
-              <span>National Mission Schemes</span>
+              
             </button>
           </div>
 
@@ -421,7 +421,7 @@ export default function GovernmentPortal() {
               placeholder="Search by area or grievance..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className={`w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-sm placeholder-slate-500 focus:outline-none focus:border-teal-500 transition text-foreground`}
+              className={`w-full pl-10 pr-4 py-2 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-xl text-sm placeholder-slate-500 focus:outline-none focus:border-teal-500 transition text-foreground`}
             />
           </div>
         </div>
@@ -435,7 +435,7 @@ export default function GovernmentPortal() {
               { scheme: "Jal Jeevan Mission (JJM)", budget: "₹60,000 Cr", projects: 31, focus: "Tap water quality monitoring, underground pipeline burst telemetry, rural water ATMs" },
               { scheme: "Swachh Bharat Urban 2.0", budget: "₹15,000 Cr", projects: 19, focus: "Decentralized organic composters, smart garbage bins, wastewater remediation" },
             ].map((s, idx) => (
-              <div key={idx} className={`/80 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+              <div key={idx} className={`/80 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="px-2.5 py-1 rounded-lg text-xs font-bold bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20">
@@ -445,9 +445,9 @@ export default function GovernmentPortal() {
                   </div>
                   <h3 className={`text-lg font-bold text-foreground`}>{s.scheme}</h3>
 
-                  <div className={`mt-4 p-3 /60 rounded-xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+                  <div className={`mt-4 p-3 /60 rounded-xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
                     <p className={`text-xs text-slate-600 dark:text-slate-400`}>Target Action Areas:</p>
-                    <p className="text-xs font-medium text-slate-700 dark:text-slate-300 mt-1">{s.focus}</p>
+                    <p className="text-xs font-medium text-zinc-900 dark:text-zinc-100 mt-1">{s.focus}</p>
                     <p className="mt-3 text-xs font-semibold text-teal-600 dark:text-teal-400">✓ {s.projects} Municipal Solutions Aligned</p>
                   </div>
                 </div>
@@ -464,7 +464,7 @@ export default function GovernmentPortal() {
             <p className={`text-sm text-slate-600 dark:text-slate-400`}>Loading municipal administrative queue...</p>
           </div>
         ) : filteredPosts.length === 0 ? (
-          <div className={`py-24 text-center /40 rounded-3xl border border-slate-800 p-8 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+          <div className={`py-24 text-center /40 rounded-3xl border border-slate-800 p-8 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
             <CheckCircle2 className="h-12 w-12 text-slate-600 mx-auto mb-3" />
             <h3 className={`text-lg font-bold text-foreground`}>No items in this administrative view</h3>
             <p className={`text-sm max-w-md mx-auto mt-1 text-slate-600 dark:text-slate-400`}>
@@ -479,7 +479,7 @@ export default function GovernmentPortal() {
             {filteredPosts.map((post) => (
               <div
                 key={post.id}
-                className={`/90 rounded-3xl border border-slate-800 overflow-hidden flex flex-col justify-between hover:border-slate-700 transition shadow-xl group bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}
+                className={`/90 rounded-3xl border border-slate-800 overflow-hidden flex flex-col justify-between hover:border-slate-700 transition shadow-xl group bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}
               >
                 <div>
                   <div className="p-6 pb-4">
@@ -494,7 +494,7 @@ export default function GovernmentPortal() {
                       </span>
                     </div>
 
-                    <h3 className={`text-lg font-bold group-hover:text-teal-300 transition line-clamp-2 text-foreground`}>
+                    <h3 className={`text-lg font-bold group-hover:text-teal-300 transition text-foreground`}>
                       {post.title}
                     </h3>
 
@@ -509,7 +509,7 @@ export default function GovernmentPortal() {
                       <span className="text-teal-600 dark:text-teal-400 font-medium">#{post.category || "General"}</span>
                     </div>
 
-                    <p className="mt-3 text-xs text-slate-700 dark:text-slate-300 leading-relaxed line-clamp-3">
+                    <p className="mt-3 text-xs text-zinc-900 dark:text-zinc-100 leading-relaxed ">
                       {post.description}
                     </p>
                   </div>
@@ -525,7 +525,7 @@ export default function GovernmentPortal() {
                   )}
 
                   {/* Ground Status Box */}
-                  <div className={`mx-6 my-2 p-3 /80 rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+                  <div className={`mx-6 my-2 p-3 /80 rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
                     <div className="flex items-center justify-between text-xs mb-1">
                       <span className={`font-medium text-slate-600 dark:text-slate-400`}>University Lab:</span>
                       <span className="text-indigo-600 dark:text-indigo-400 font-bold">Tested &amp; Prototyped</span>
@@ -538,7 +538,7 @@ export default function GovernmentPortal() {
                 </div>
 
                 {/* Footer Buttons */}
-                <div className={`p-6 pt-4 border-t border-slate-800 /40 flex items-center gap-2 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+                <div className={`p-6 pt-4 border-t border-slate-800 /40 flex items-center gap-2 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
                   {post.status !== "GOVT_APPROVED" && post.status !== "IMPLEMENTATION" && post.status !== "COMPLETED" ? (
                     <button
                       onClick={() => {
@@ -572,7 +572,7 @@ export default function GovernmentPortal() {
                       setSelectedPost(post);
                       setActionModalType("details");
                     }}
-                    className="p-3 bg-slate-800 hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl transition"
+                    className="p-3 bg-slate-800 hover:bg-slate-700 text-zinc-900 dark:text-zinc-100 rounded-xl transition"
                     title="View full audit trail"
                   >
                     <ChevronRight className="h-4 w-4" />
@@ -587,8 +587,8 @@ export default function GovernmentPortal() {
 
       {/* MODAL 1: ISSUE OFFICIAL SANCTION */}
       {actionModalType === "approve" && selectedPost && (
-        <div className="fixed inset-0 z-50 bg-white dark:bg-zinc-950 flex items-center justify-center p-4">
-          <div className={`border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+        <div className="fixed inset-0 z-50 bg-white dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 flex items-center justify-center p-4">
+          <div className={`border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
               <div className="flex items-center gap-2">
                 <Stamp className="h-6 w-6 text-teal-600 dark:text-teal-400" />
@@ -597,21 +597,21 @@ export default function GovernmentPortal() {
               <button onClick={() => setActionModalType(null)} className={`text-slate-600 dark:text-slate-400 hover: text-sm text-foreground`}>✕</button>
             </div>
 
-            <div className={`my-5 p-4 rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <div className={`my-5 p-4 rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               <p className="text-xs text-teal-600 dark:text-teal-400 font-bold uppercase tracking-wider">Citizen Problem to Resolve</p>
               <h4 className={`font-bold text-sm mt-1 text-foreground`}>{selectedPost.title}</h4>
-              <p className={`text-xs mt-1 line-clamp-2 text-slate-600 dark:text-slate-400`}>{selectedPost.description}</p>
+              <p className={`text-xs mt-1 text-slate-600 dark:text-slate-400`}>{selectedPost.description}</p>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider mb-1.5">
                   Sanctioning Department
                 </label>
                 <select
                   value={department}
                   onChange={(e) => setDepartment(e.target.value)}
-                  className={`w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs focus:outline-none focus:border-teal-500 text-foreground`}
+                  className={`w-full px-3 py-2.5 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-xl text-xs focus:outline-none focus:border-teal-500 text-foreground`}
                 >
                   <option>Water Supply &amp; Sewerage Board (BWSSB)</option>
                   <option>City Municipal Corporation Engineering Wing</option>
@@ -623,25 +623,25 @@ export default function GovernmentPortal() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider mb-1.5">
                     Official Order Number
                   </label>
                   <input
                     type="text"
                     value={sanctionNumber}
                     onChange={(e) => setSanctionNumber(e.target.value)}
-                    className={`w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs focus:outline-none focus:border-teal-500 text-foreground`}
+                    className={`w-full px-3 py-2 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-xl text-xs focus:outline-none focus:border-teal-500 text-foreground`}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider mb-1.5">
                     Aligned Central/State Scheme
                   </label>
                   <select
                     value={allocatedScheme}
                     onChange={(e) => setAllocatedScheme(e.target.value)}
-                    className={`w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs focus:outline-none focus:border-teal-500 text-foreground`}
+                    className={`w-full px-3 py-2 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-xl text-xs focus:outline-none focus:border-teal-500 text-foreground`}
                   >
                     <option>Smart Cities Urban Mission</option>
                     <option>Jal Jeevan Mission</option>
@@ -652,14 +652,14 @@ export default function GovernmentPortal() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider mb-1.5">
                   Authorizing Officer
                 </label>
                 <input
                   type="text"
                   value={officerName}
                   onChange={(e) => setOfficerName(e.target.value)}
-                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-teal-500 text-foreground`}
+                  className={`w-full px-4 py-2.5 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-teal-500 text-foreground`}
                 />
               </div>
             </div>
@@ -667,7 +667,7 @@ export default function GovernmentPortal() {
             <div className="mt-8 flex gap-3">
               <button
                 onClick={() => setActionModalType(null)}
-                className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl text-xs transition"
+                className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-zinc-900 dark:text-zinc-100 font-bold rounded-xl text-xs transition"
               >
                 Cancel
               </button>
@@ -686,8 +686,8 @@ export default function GovernmentPortal() {
 
       {/* MODAL 2: CERTIFY & MARK SOLVED */}
       {actionModalType === "complete" && selectedPost && (
-        <div className="fixed inset-0 z-50 bg-white dark:bg-zinc-950 flex items-center justify-center p-4">
-          <div className={`border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+        <div className="fixed inset-0 z-50 bg-white dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 flex items-center justify-center p-4">
+          <div className={`border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
@@ -696,34 +696,34 @@ export default function GovernmentPortal() {
               <button onClick={() => setActionModalType(null)} className={`text-slate-600 dark:text-slate-400 hover: text-sm text-foreground`}>✕</button>
             </div>
 
-            <div className={`my-5 p-4 rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+            <div className={`my-5 p-4 rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
               <p className="text-xs text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider">Resolved Public Challenge</p>
               <h4 className={`font-bold text-sm mt-1 text-foreground`}>{selectedPost.title}</h4>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider mb-1.5">
                   Benefited Citizens / Households
                 </label>
                 <input
                   type="text"
                   value={beneficiaries}
                   onChange={(e) => setBeneficiaries(e.target.value)}
-                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-foreground`}
+                  className={`w-full px-4 py-2.5 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-emerald-500 text-foreground`}
                   placeholder="e.g. 15,000+ Ward Residents"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider mb-1.5">
                   Inspection Sign-Off Notes
                 </label>
                 <textarea
                   rows={3}
                   value={completionNotes}
                   onChange={(e) => setCompletionNotes(e.target.value)}
-                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-emerald-500 placeholder-slate-500 text-foreground`}
+                  className={`w-full px-4 py-2.5 bg-white dark:bg-zinc-900/75 border border-slate-800 rounded-xl text-sm focus:outline-none focus:border-emerald-500 placeholder-slate-500 text-foreground`}
                   placeholder="e.g. Completed ground installation of automated pressure valves and sensors. Problem resolved."
                 />
               </div>
@@ -732,7 +732,7 @@ export default function GovernmentPortal() {
             <div className="mt-8 flex gap-3">
               <button
                 onClick={() => setActionModalType(null)}
-                className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl text-xs transition"
+                className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-zinc-900 dark:text-zinc-100 font-bold rounded-xl text-xs transition"
               >
                 Cancel
               </button>
@@ -751,8 +751,8 @@ export default function GovernmentPortal() {
 
       {/* MODAL 3: FULL DETAILS */}
       {actionModalType === "details" && selectedPost && (
-        <div className="fixed inset-0 z-50 bg-white dark:bg-zinc-950 flex items-center justify-center p-4">
-          <div className={`border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+        <div className="fixed inset-0 z-50 bg-white dark:bg-white dark:bg-white dark:bg-zinc-900/75/75 flex items-center justify-center p-4">
+          <div className={`border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
               <h3 className={`text-xl font-black text-foreground`}>{selectedPost.title}</h3>
               <button onClick={() => setActionModalType(null)} className={`text-slate-600 dark:text-slate-400 hover: text-sm text-foreground`}>✕</button>
@@ -767,7 +767,7 @@ export default function GovernmentPortal() {
                 <span>Sector: <strong className="text-teal-600 dark:text-teal-400">{selectedPost.category}</strong></span>
               </div>
 
-              <div className={`p-4 rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+              <div className={`p-4 rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-white dark:bg-zinc-900/75 dark:border-slate-800`}>
                 <p className={`text-xs font-bold uppercase tracking-wider mb-1 text-slate-600 dark:text-slate-400`}>Citizen Problem Statement</p>
                 <p className="text-sm text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">{selectedPost.description}</p>
               </div>
