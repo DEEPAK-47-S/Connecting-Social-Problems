@@ -1,6 +1,6 @@
 "use client";
 
-import {  useState, useEffect, useMemo, useRef  } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useTheme } from "@/context/ThemeContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -272,7 +272,7 @@ export default function IndustryLoginPage() {
         <div className="text-center mb-6">
           <Link
             href="/industry"
-            className={`inline-flex items-center gap-2 text-3xl font-black italic tracking-tight  group text-foreground`}
+            className={`inline-flex items-center gap-2 text-3xl font-black italic tracking-tight group text-foreground`}
           >
             <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-pink-500 via-rose-500 to-amber-500 flex items-center justify-center shadow-lg shadow-pink-500/25 group-hover:scale-105 transition-transform">
               <Factory className={`h-5 w-5 text-foreground`} />
@@ -286,7 +286,7 @@ export default function IndustryLoginPage() {
         </div>
 
         {/* Auth Card */}
-        <div className="bg-zinc-900/80 backdrop-blur-2xl rounded-3xl shadow-2xl border border-zinc-800/80 overflow-hidden">
+        <div className="bg-zinc-950 rounded-3xl shadow-md border border-zinc-800 overflow-hidden">
           <div className="p-7 sm:p-9">
 
             {/* Tab Switcher */}
@@ -300,8 +300,8 @@ export default function IndustryLoginPage() {
                 }}
                 className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${
                   isLogin
-                    ? "bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md shadow-pink-500/20"
-                    : "text-zinc-400 hover:text-white"
+                    ? "bg-gradient-to-r from-pink-600 to-purple-600 text-zinc-900 dark:text-white shadow-md shadow-pink-500/20"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white"
                 }`}
               >
                 Sign In (Login)
@@ -315,8 +315,8 @@ export default function IndustryLoginPage() {
                 }}
                 className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${
                   !isLogin
-                    ? "bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md shadow-pink-500/20"
-                    : "text-zinc-400 hover:text-white"
+                    ? "bg-gradient-to-r from-pink-600 to-purple-600 text-zinc-900 dark:text-white shadow-md shadow-pink-500/20"
+                    : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white"
                 }`}
               >
                 Register Enterprise / Company
@@ -327,7 +327,7 @@ export default function IndustryLoginPage() {
               <h2 className={`text-xl font-black tracking-tight text-foreground`}>
                 {isLogin ? "Corporate Partner Sign In" : "Join as Tamil Nadu Industry Partner"}
               </h2>
-              <p className="text-xs text-zinc-400 mt-1">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1">
                 {isLogin
                   ? "Enter your corporate work email and password to access the industry innovation hub."
                   : "Register your corporate CSR entity across Tamil Nadu districts to sponsor university prototypes."}
@@ -359,7 +359,7 @@ export default function IndustryLoginPage() {
                 <>
                   {/* Industry Search / Autocomplete Field */}
                   <div ref={dropdownRef} className="relative">
-                    <label className="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5 flex items-center justify-between">
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5 flex items-center justify-between">
                       <span>Company / Industry Name (Autocomplete)</span>
                       <span className="text-[10px] text-pink-400 font-semibold">{allIndustries.length}+ Tamil Nadu Companies</span>
                     </label>
@@ -373,7 +373,7 @@ export default function IndustryLoginPage() {
                         onChange={handleIndustryInputChange}
                         onFocus={() => setShowSuggestions(true)}
                         placeholder="Type to search or enter company name..."
-                        className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950  placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+                        className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
                       />
                       <ChevronDown
                         className="absolute right-3.5 top-3 h-4 w-4 text-zinc-500 cursor-pointer"
@@ -383,7 +383,7 @@ export default function IndustryLoginPage() {
 
                     {/* Live Suggestions Dropdown */}
                     {showSuggestions && suggestions.length > 0 && (
-                      <div className="absolute z-50 left-0 right-0 mt-1 bg-zinc-900 border border-zinc-700 rounded-2xl shadow-2xl max-h-56 overflow-y-auto divide-y divide-zinc-800 animate-in fade-in">
+                      <div className="absolute z-50 left-0 right-0 mt-1 bg-zinc-900 border border-zinc-700 rounded-2xl shadow-md max-h-56 overflow-y-auto divide-y divide-zinc-800 animate-in fade-in">
                         {suggestions.map((ind, i) => (
                           <div
                             key={i}
@@ -391,13 +391,13 @@ export default function IndustryLoginPage() {
                             className="p-3 hover:bg-zinc-800/80 cursor-pointer transition flex items-start justify-between gap-2"
                           >
                             <div>
-                              <p className={`text-xs font-bold  flex items-center gap-1.5 text-foreground`}>
+                              <p className={`text-xs font-bold flex items-center gap-1.5 text-foreground`}>
                                 <span>{ind.name}</span>
                                 <span className="text-[9px] px-1.5 py-0.2 bg-pink-500/20 text-pink-300 rounded font-semibold">
                                   {ind.district}
                                 </span>
                               </p>
-                              <p className="text-[10px] text-zinc-400 mt-0.5">
+                              <p className="text-[10px] text-zinc-600 dark:text-zinc-400 mt-0.5">
                                 {ind.sector} · Grant: {ind.grantRange}
                               </p>
                             </div>
@@ -440,13 +440,13 @@ export default function IndustryLoginPage() {
                     {/* District & Grant Budget */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       <div>
-                        <label className="block text-[10px] font-bold text-zinc-400 mb-1">
+                        <label className="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
                           Tamil Nadu District
                         </label>
                         <select
                           value={district}
                           onChange={(e) => setDistrict(e.target.value)}
-                          className={`w-full px-2.5 py-1.5 bg-zinc-950 rounded-lg border border-zinc-800 text-xs  focus:ring-2 focus:ring-pink-500 outline-none text-foreground`}
+                          className={`w-full px-2.5 py-1.5 bg-zinc-950 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none text-foreground`}
                         >
                           {TAMIL_NADU_DISTRICTS.map((d) => (
                             <option key={d} value={d}>
@@ -457,13 +457,13 @@ export default function IndustryLoginPage() {
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-bold text-zinc-400 mb-1">
+                        <label className="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
                           CSR Prototype Grant Budget
                         </label>
                         <select
                           value={grantRange}
                           onChange={(e) => setGrantRange(e.target.value)}
-                          className={`w-full px-2.5 py-1.5 bg-zinc-950 rounded-lg border border-zinc-800 text-xs  focus:ring-2 focus:ring-pink-500 outline-none font-semibold text-emerald-400 text-foreground`}
+                          className={`w-full px-2.5 py-1.5 bg-zinc-950 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none font-semibold text-emerald-400 text-foreground`}
                         >
                           <option value="₹10L – ₹25L">₹10L – ₹25L</option>
                           <option value="₹25L – ₹50L">₹25L – ₹50L</option>
@@ -475,13 +475,13 @@ export default function IndustryLoginPage() {
 
                     {/* Industry Sector */}
                     <div>
-                      <label className="block text-[10px] font-bold text-zinc-400 mb-1">
+                      <label className="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
                         Industry Sector / Domain
                       </label>
                       <select
                         value={sector}
                         onChange={(e) => setSector(e.target.value)}
-                        className={`w-full px-2.5 py-1.5 bg-zinc-950 rounded-lg border border-zinc-800 text-xs  focus:ring-2 focus:ring-pink-500 outline-none text-foreground`}
+                        className={`w-full px-2.5 py-1.5 bg-zinc-950 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none text-foreground`}
                       >
                         {INDUSTRY_SECTORS.map((s) => (
                           <option key={s} value={s}>
@@ -493,7 +493,7 @@ export default function IndustryLoginPage() {
 
                     {/* Priority CSR Focus Areas */}
                     <div>
-                      <label className="block text-[10px] font-bold text-zinc-400 mb-1.5">
+                      <label className="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 mb-1.5">
                         Select Ground Problem Areas Supported by CSR:
                       </label>
                       <div className="flex flex-wrap gap-1.5">
@@ -506,8 +506,8 @@ export default function IndustryLoginPage() {
                               onClick={() => toggleDomain(domain)}
                               className={`px-2 py-1 rounded-lg text-[10px] font-bold transition flex items-center gap-1 ${
                                 isSelected
-                                  ? "bg-pink-600 text-white shadow-sm shadow-pink-500/30"
-                                  : "bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800"
+                                  ? "bg-pink-600 text-zinc-900 dark:text-white shadow-sm shadow-pink-500/30"
+                                  : "bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:text-zinc-200 border border-zinc-800"
                               }`}
                             >
                               {isSelected && <Check className="h-3 w-3" />}
@@ -520,7 +520,7 @@ export default function IndustryLoginPage() {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-1">
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">
                       Authorized Representative / CSR Director Name
                     </label>
                     <div className="relative">
@@ -530,7 +530,7 @@ export default function IndustryLoginPage() {
                         required={!isLogin}
                         value={mentorLead}
                         onChange={(e) => setMentorLead(e.target.value)}
-                        className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950  placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+                        className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
                         placeholder="e.g. Anand Mahindra / CSR Lead"
                       />
                     </div>
@@ -544,7 +544,7 @@ export default function IndustryLoginPage() {
 
               {/* Corporate Email / Username */}
               <div>
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-1">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">
                   {isLogin ? "Corporate Work Email / Username" : "Corporate Work Email"}
                 </label>
                 <div className="relative">
@@ -554,7 +554,7 @@ export default function IndustryLoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950  placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+                    className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
                     placeholder="Enter Username or Email"
                   />
                 </div>
@@ -562,7 +562,7 @@ export default function IndustryLoginPage() {
 
               {/* Password */}
               <div>
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-1">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">
                   Password
                 </label>
                 <div className="relative">
@@ -572,13 +572,13 @@ export default function IndustryLoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950  placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+                    className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
                     placeholder="••••••••"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPass(!showPass)}
-                    className="absolute right-3.5 top-3 text-zinc-400 hover:text-zinc-200 transition-colors"
+                    className="absolute right-3.5 top-3 text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:text-zinc-200 transition-colors"
                   >
                     {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
@@ -589,7 +589,7 @@ export default function IndustryLoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full mt-2 py-3 bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600  font-bold rounded-xl hover:opacity-95 active:scale-[0.99] transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-xl shadow-pink-500/20 text-xs uppercase tracking-wider text-foreground`}
+                className={`w-full mt-2 py-3 bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 font-bold rounded-xl hover:opacity-95 active:scale-[0.99] transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-xl shadow-pink-500/20 text-xs uppercase tracking-wider text-foreground`}
               >
                 {loading ? (
                   <>
@@ -606,7 +606,7 @@ export default function IndustryLoginPage() {
             </form>
 
             <div className="mt-6 pt-5 border-t border-zinc-800 text-center text-[11px] text-zinc-500">
-              <span className="flex items-center justify-center gap-1.5 text-zinc-400">
+              <span className="flex items-center justify-center gap-1.5 text-zinc-600 dark:text-zinc-400">
                 <ShieldCheck className="h-3.5 w-3.5 text-pink-400" />
                 <span>Authorized Tamil Nadu Industry CSR &amp; Partner Access Only</span>
               </span>

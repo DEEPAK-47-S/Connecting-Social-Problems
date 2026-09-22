@@ -24,19 +24,19 @@ function formatTime(dateStr: string) {
 }
 
 const STATUS_BADGES: Record<string, { label: string; color: string }> = {
-  SUBMITTED:           { label: "Submitted", color: "bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-700" },
-  AI_ANALYZING:        { label: "AI Analysing", color: "bg-amber-950/60 text-amber-700 dark:text-amber-300 border-amber-800/60" },
+  SUBMITTED: { label: "Submitted", color: "bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-700" },
+  AI_ANALYZING: { label: "AI Analysing", color: "bg-amber-950/60 text-amber-700 dark:text-amber-300 border-amber-800/60" },
   UNIVERSITY_MATCHING: { label: "Finding University", color: "bg-blue-950/60 text-blue-700 dark:text-blue-300 border-blue-800/60" },
   UNIVERSITY_ACCEPTED: { label: "University Accepted", color: "bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border-indigo-800/60" },
-  INDUSTRY_MATCHING:   { label: "Finding Industry", color: "bg-purple-950/60 text-purple-700 dark:text-purple-300 border-purple-800/60" },
-  INDUSTRY_ACCEPTED:   { label: "Industry Locked", color: "bg-pink-950/60 text-pink-700 dark:text-pink-300 border-pink-800/60" },
-  PROTOTYPING:         { label: "Prototyping", color: "bg-sky-950/60 text-sky-700 dark:text-sky-300 border-sky-800/60" },
-  TESTING:             { label: "Testing", color: "bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border-cyan-800/60" },
-  GOVT_REVIEW:         { label: "Govt Review", color: "bg-orange-950/60 text-orange-700 dark:text-orange-300 border-orange-800/60" },
-  GOVT_APPROVED:       { label: "Govt Approved", color: "bg-teal-950/60 text-teal-700 dark:text-teal-300 border-teal-800/60" },
-  IMPLEMENTATION:      { label: "Implementing", color: "bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-800/60" },
-  COMPLETED:           { label: "Completed", color: "bg-green-950/60 text-green-700 dark:text-green-300 border-green-800/60" },
-  REJECTED:            { label: "Rejected", color: "bg-rose-950/60 text-rose-700 dark:text-rose-300 border-rose-800/60" },
+  INDUSTRY_MATCHING: { label: "Finding Industry", color: "bg-purple-950/60 text-purple-700 dark:text-purple-300 border-purple-800/60" },
+  INDUSTRY_ACCEPTED: { label: "Industry Locked", color: "bg-pink-950/60 text-pink-700 dark:text-pink-300 border-pink-800/60" },
+  PROTOTYPING: { label: "Prototyping", color: "bg-sky-950/60 text-sky-700 dark:text-sky-300 border-sky-800/60" },
+  TESTING: { label: "Testing", color: "bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border-cyan-800/60" },
+  GOVT_REVIEW: { label: "Govt Review", color: "bg-orange-950/60 text-orange-700 dark:text-orange-300 border-orange-800/60" },
+  GOVT_APPROVED: { label: "Govt Approved", color: "bg-teal-950/60 text-teal-700 dark:text-teal-300 border-teal-800/60" },
+  IMPLEMENTATION: { label: "Implementing", color: "bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-800/60" },
+  COMPLETED: { label: "Completed", color: "bg-green-950/60 text-green-700 dark:text-green-300 border-green-800/60" },
+  REJECTED: { label: "Rejected", color: "bg-rose-950/60 text-rose-700 dark:text-rose-300 border-rose-800/60" },
 };
 
 export default function AdminDashboardPage() {
@@ -292,14 +292,14 @@ export default function AdminDashboardPage() {
     <div className={`min-h-screen flex flex-col font-sans transition-colors duration-200 bg-background text-foreground selection:bg-rose-500/20 dark:selection:bg-rose-500/30`}>
       {/* Toast Notification */}
       {toastMessage && (
-        <div className={`fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-emerald-600  px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-bold animate-in fade-in slide-in-from-top-4 text-foreground`}>
+        <div className={`fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-emerald-600 px-5 py-3 rounded-2xl shadow-md flex items-center gap-3 text-xs sm:text-sm font-bold animate-in fade-in slide-in-from-top-4 text-foreground`}>
           <CheckCircle2 className="h-5 w-5 flex-shrink-0" />
           <span>{toastMessage}</span>
         </div>
       )}
 
       {/* Header */}
-      <header className={`px-4 sm:px-8 h-18 flex items-center justify-between border-b sticky top-0 z-40 backdrop-blur-md bg-white/90 border-zinc-200 shadow-sm dark:bg-black/90 dark:border-zinc-800/80`}>
+      <header className={`px-4 sm:px-8 h-18 flex items-center justify-between border-b sticky top-0 z-40 bg-white border-zinc-200 shadow-sm dark:bg-zinc-950 dark:border-zinc-800`}>
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-rose-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-rose-500/20">
             <ShieldCheck className={`h-5 w-5 text-foreground`} />
@@ -352,7 +352,7 @@ export default function AdminDashboardPage() {
         
         {/* Metrics Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/80 border border-zinc-800 shadow-xl`}>
+          <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 border border-zinc-800 shadow-xl`}>
             <div className="flex items-center justify-between text-zinc-600 dark:text-zinc-400 mb-2">
               <span className="text-xs font-bold uppercase tracking-wider">Total Complaints</span>
               <FileText className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
@@ -361,7 +361,7 @@ export default function AdminDashboardPage() {
             <p className="text-[11px] text-zinc-500 mt-1">Stored in SQLite `Post` table</p>
           </div>
 
-          <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/80 border border-zinc-800 shadow-xl`}>
+          <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 border border-zinc-800 shadow-xl`}>
             <div className="flex items-center justify-between text-zinc-600 dark:text-zinc-400 mb-2">
               <span className="text-xs font-bold uppercase tracking-wider">College Leads</span>
               <GraduationCap className="h-4 w-4 text-blue-600 dark:text-blue-400" />
@@ -370,7 +370,7 @@ export default function AdminDashboardPage() {
             <p className="text-[11px] text-zinc-500 mt-1">Under R&amp;D Lab prototyping</p>
           </div>
 
-          <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/80 border border-zinc-800 shadow-xl`}>
+          <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 border border-zinc-800 shadow-xl`}>
             <div className="flex items-center justify-between text-zinc-600 dark:text-zinc-400 mb-2">
               <span className="text-xs font-bold uppercase tracking-wider">Industry Sponsors</span>
               <Handshake className="h-4 w-4 text-pink-600 dark:text-pink-400" />
@@ -379,7 +379,7 @@ export default function AdminDashboardPage() {
             <p className="text-[11px] text-zinc-500 mt-1">Funded by CSR corporate partners</p>
           </div>
 
-          <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/80 border border-zinc-800 shadow-xl`}>
+          <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 border border-zinc-800 shadow-xl`}>
             <div className="flex items-center justify-between text-zinc-600 dark:text-zinc-400 mb-2">
               <span className="text-xs font-bold uppercase tracking-wider">Resolved Issues</span>
               <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
@@ -419,7 +419,7 @@ export default function AdminDashboardPage() {
 
         {/* Users Tab View */}
         {activeTab === "users" && (
-          <div className={`p-6 rounded-3xl border shadow-xl bg-white border-zinc-200 dark:bg-zinc-900/90 dark:border-zinc-800`}>
+          <div className={`p-6 rounded-3xl border shadow-xl bg-white border-zinc-200 dark:bg-zinc-950 dark:border-zinc-800`}>
             <h2 className={`text-xl font-black mb-4 text-zinc-900 dark:text-white`}>Registered Users</h2>
             
             {loadingUsers ? (
@@ -437,7 +437,7 @@ export default function AdminDashboardPage() {
                   </thead>
                   <tbody>
                     {users.map(u => (
-                      <tr key={u.id} className={`border-b transition hover:bg-zinc-500/5 border-zinc-100 dark:border-zinc-800/50`}>
+                      <tr key={u.id} className={`border-b transition hover:bg-zinc-500/5 border-zinc-100 dark:border-zinc-800`}>
                         <td className="p-3">
                           <div className={`font-bold text-zinc-900 dark:text-white`}>{u.name}</div>
                           <div className="text-xs text-zinc-500">{u.email}</div>
@@ -470,8 +470,8 @@ export default function AdminDashboardPage() {
 
         {/* Delete User Modal */}
         {userToDelete && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white dark:bg-black/60 backdrop-blur-sm animate-in fade-in">
-            <div className={`max-w-md w-full rounded-3xl p-6 shadow-2xl border bg-white border-zinc-200 dark:bg-zinc-950 dark:border-zinc-800`}>
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white dark:bg-zinc-950 animate-in fade-in">
+            <div className={`max-w-md w-full rounded-3xl p-6 shadow-md border bg-white border-zinc-200 dark:bg-zinc-950 dark:border-zinc-800`}>
               <div className="flex items-center gap-3 text-rose-500 mb-4">
                 <AlertTriangle className="h-6 w-6" />
                 <h3 className={`text-xl font-black text-zinc-900 dark:text-white`}>Delete User</h3>
@@ -504,7 +504,7 @@ export default function AdminDashboardPage() {
         {activeTab === "complaints" && (
           <>
             {/* Filter & Action Toolbar */}
-        <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/90 border border-zinc-800 mb-6 shadow-xl space-y-4`}>
+        <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 border border-zinc-800 mb-6 shadow-xl space-y-4`}>
           <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
             {/* Search Input */}
             <div className="relative w-full md:w-96">
@@ -514,7 +514,7 @@ export default function AdminDashboardPage() {
                 placeholder="Search by title, description, citizen email, landmark..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full pl-10 pr-10 py-2.5 bg-zinc-950 border border-zinc-800 rounded-2xl text-xs sm:text-sm  placeholder-zinc-500 focus:outline-none focus:border-rose-500 text-foreground`}
+                className={`w-full pl-10 pr-10 py-2.5 bg-zinc-950 border border-zinc-800 rounded-2xl text-xs sm:text-sm placeholder-zinc-500 focus:outline-none focus:border-rose-500 text-foreground`}
               />
               {searchQuery && (
                 <button
@@ -534,7 +534,7 @@ export default function AdminDashboardPage() {
                 </span>
                 <button
                   onClick={() => setShowBulkModal(true)}
-                  className={`px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700  rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-rose-600/30 transition text-foreground`}
+                  className={`px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-rose-600/30 transition text-foreground`}
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                   <span>Delete Selected ({selectedIds.size})</span>
@@ -544,13 +544,13 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Filter Dropdowns */}
-          <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-zinc-800/80 text-xs">
+          <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-zinc-800 text-xs">
             <div className={`flex items-center gap-1.5 bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 px-3 py-1.5 rounded-xl border border-zinc-800`}>
               <span className="text-zinc-500 font-bold">District:</span>
               <select
                 value={selectedDistrict}
                 onChange={(e) => setSelectedDistrict(e.target.value)}
-                className={`bg-transparent font-semibold  outline-none cursor-pointer text-foreground`}
+                className={`bg-transparent font-semibold outline-none cursor-pointer text-foreground`}
               >
                 <option value="All">All Districts</option>
                 {TAMIL_NADU_DISTRICTS.map((d) => (
@@ -564,7 +564,7 @@ export default function AdminDashboardPage() {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className={`bg-transparent font-semibold  outline-none cursor-pointer text-foreground`}
+                className={`bg-transparent font-semibold outline-none cursor-pointer text-foreground`}
               >
                 <option value="All">All Categories</option>
                 <option value="Water">Water Management</option>
@@ -580,7 +580,7 @@ export default function AdminDashboardPage() {
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className={`bg-transparent font-semibold  outline-none cursor-pointer text-foreground`}
+                className={`bg-transparent font-semibold outline-none cursor-pointer text-foreground`}
               >
                 <option value="All">All Statuses</option>
                 {Object.keys(STATUS_BADGES).map((k) => (
@@ -596,7 +596,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Complaints Table */}
-        <div className={`rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/90 border border-zinc-800 overflow-hidden shadow-2xl`}>
+        <div className={`rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 border border-zinc-800 overflow-hidden shadow-md`}>
           {loading ? (
             <div className="flex flex-col items-center justify-center py-24 gap-4">
               <Loader2 className="h-10 w-10 animate-spin text-rose-500" />
@@ -620,7 +620,7 @@ export default function AdminDashboardPage() {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 text-zinc-400 font-bold uppercase tracking-wider border-b border-zinc-800 text-[10px]`}>
+                <thead className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 text-zinc-600 dark:text-zinc-400 font-bold uppercase tracking-wider border-b border-zinc-800 text-[10px]`}>
                   <tr>
                     <th className="p-4 w-12 text-center">
                       <button onClick={toggleSelectAll} className={`hover: text-foreground`}>
@@ -663,7 +663,7 @@ export default function AdminDashboardPage() {
                         </td>
 
                         <td className="p-4 max-w-xs">
-                          <p className={`font-bold  text-xs sm:text-sm line-clamp-1 text-foreground`}>{post.title}</p>
+                          <p className={`font-bold text-xs sm:text-sm line-clamp-1 text-foreground`}>{post.title}</p>
                           <p className="text-[11px] text-zinc-600 dark:text-zinc-400 line-clamp-1 mt-0.5">{post.description}</p>
                           {post.category && (
                             <span className="inline-block px-2 py-0.5 rounded-md bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-[9px] font-bold mt-1">
@@ -683,7 +683,7 @@ export default function AdminDashboardPage() {
                         </td>
 
                         <td className="p-4 text-zinc-700 dark:text-zinc-300 whitespace-nowrap">
-                          <p className={`font-bold  text-xs text-foreground`}>{post.user?.name || "Citizen"}</p>
+                          <p className={`font-bold text-xs text-foreground`}>{post.user?.name || "Citizen"}</p>
                           <p className="text-[10px] text-zinc-500 font-mono">{post.user?.email || "N/A"}</p>
                         </td>
 
@@ -740,8 +740,8 @@ export default function AdminDashboardPage() {
 
       {/* Delete Single Confirmation Modal */}
       {postToDelete && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white dark:bg-black/80 backdrop-blur-md animate-in fade-in">
-          <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900 rounded-3xl max-w-md w-full p-6 border border-zinc-800 shadow-2xl`}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white dark:bg-zinc-950 animate-in fade-in">
+          <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900 rounded-3xl max-w-md w-full p-6 border border-zinc-800 shadow-md`}>
             <div className="h-12 w-12 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
               <Trash2 className="h-6 w-6" />
             </div>
@@ -773,7 +773,7 @@ export default function AdminDashboardPage() {
                 type="button"
                 onClick={handleConfirmSingleDelete}
                 disabled={deleting}
-                className={`flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700  text-xs font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-rose-600/30 text-foreground`}
+                className={`flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-xs font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-rose-600/30 text-foreground`}
               >
                 {deleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
                 <span>{deleting ? "Purging from DB..." : "Confirm Delete"}</span>
@@ -785,8 +785,8 @@ export default function AdminDashboardPage() {
 
       {/* Bulk Delete Modal */}
       {showBulkModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white dark:bg-black/80 backdrop-blur-md animate-in fade-in">
-          <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900 rounded-3xl max-w-md w-full p-6 border border-zinc-800 shadow-2xl`}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white dark:bg-zinc-950 animate-in fade-in">
+          <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900 rounded-3xl max-w-md w-full p-6 border border-zinc-800 shadow-md`}>
             <div className="h-12 w-12 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
               <AlertTriangle className="h-6 w-6" />
             </div>
@@ -813,7 +813,7 @@ export default function AdminDashboardPage() {
                 type="button"
                 onClick={handleConfirmBulkDelete}
                 disabled={isBulkDeleting}
-                className={`flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700  text-xs font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-rose-600/30 text-foreground`}
+                className={`flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-xs font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-rose-600/30 text-foreground`}
               >
                 {isBulkDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
                 <span>{isBulkDeleting ? "Deleting..." : `Yes, Purge ${selectedIds.size} Records`}</span>
@@ -825,17 +825,17 @@ export default function AdminDashboardPage() {
 
       {/* Detail Inspection Drawer */}
       {inspectPost && (
-        <div className="fixed inset-0 z-50 flex items-center justify-end bg-white dark:bg-black/70 backdrop-blur-sm animate-in fade-in">
-          <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900 border-l border-zinc-800 h-full w-full max-w-lg p-6 overflow-y-auto shadow-2xl flex flex-col justify-between`}>
+        <div className="fixed inset-0 z-50 flex items-center justify-end bg-white dark:bg-zinc-950 animate-in fade-in">
+          <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900 border-l border-zinc-800 h-full w-full max-w-lg p-6 overflow-y-auto shadow-md flex flex-col justify-between`}>
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="h-5 w-5 text-rose-500" />
-                  <span className={`font-bold  text-sm text-foreground`}>Complaint Record Inspector</span>
+                  <span className={`font-bold text-sm text-foreground`}>Complaint Record Inspector</span>
                 </div>
                 <button
                   onClick={() => setInspectPost(null)}
-                  className={`p-1 rounded-lg text-zinc-400 hover: text-foreground`}
+                  className={`p-1 rounded-lg text-zinc-600 dark:text-zinc-400 hover: text-foreground`}
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -844,17 +844,17 @@ export default function AdminDashboardPage() {
               <div className="mt-6 space-y-4 text-xs">
                 <div>
                   <span className="text-zinc-500 font-bold uppercase tracking-wider text-[10px]">Database ID</span>
-                  <p className={`font-mono text-zinc-300 bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 p-2 rounded-xl mt-1 text-[11px] select-all`}>{inspectPost.id}</p>
+                  <p className={`font-mono text-zinc-700 dark:text-zinc-300 bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 p-2 rounded-xl mt-1 text-[11px] select-all`}>{inspectPost.id}</p>
                 </div>
 
                 <div>
                   <span className="text-zinc-500 font-bold uppercase tracking-wider text-[10px]">Title</span>
-                  <p className={`text-sm font-bold  mt-1 text-foreground`}>{inspectPost.title}</p>
+                  <p className={`text-sm font-bold mt-1 text-foreground`}>{inspectPost.title}</p>
                 </div>
 
                 <div>
                   <span className="text-zinc-500 font-bold uppercase tracking-wider text-[10px]">Description</span>
-                  <p className={`text-zinc-300 mt-1 leading-relaxed bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 p-3 rounded-xl whitespace-pre-line`}>{inspectPost.description}</p>
+                  <p className={`text-zinc-700 dark:text-zinc-300 mt-1 leading-relaxed bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 p-3 rounded-xl whitespace-pre-line`}>{inspectPost.description}</p>
                 </div>
 
                 {inspectPost.imageUrl && (
@@ -882,7 +882,7 @@ export default function AdminDashboardPage() {
                 {inspectPost.location && (
                   <div>
                     <span className="text-zinc-500 font-bold uppercase tracking-wider text-[10px]">Location Landmark</span>
-                    <p className="text-zinc-200 mt-1 font-semibold">{inspectPost.location}</p>
+                    <p className="text-zinc-800 dark:text-zinc-200 mt-1 font-semibold">{inspectPost.location}</p>
                   </div>
                 )}
 
@@ -909,7 +909,7 @@ export default function AdminDashboardPage() {
                   setInspectPost(null);
                   setPostToDelete(p);
                 }}
-                className={`flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700  text-xs font-bold flex items-center justify-center gap-2 text-foreground`}
+                className={`flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-xs font-bold flex items-center justify-center gap-2 text-foreground`}
               >
                 <Trash2 className="h-4 w-4" />
                 <span>Delete Complaint</span>

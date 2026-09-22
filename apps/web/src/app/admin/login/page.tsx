@@ -1,6 +1,6 @@
 "use client";
 
-import {  useState  } from "react";
+import { useState } from "react";
 import { useTheme } from "@/context/ThemeContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -68,19 +68,19 @@ export default function AdminLoginPage() {
         
         {/* Brand Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 rounded-3xl bg-gradient-to-tr from-rose-600 via-purple-600 to-indigo-600 mb-4 shadow-2xl shadow-rose-600/30">
+          <div className="inline-flex items-center justify-center h-16 w-16 rounded-3xl bg-gradient-to-tr from-rose-600 via-purple-600 to-indigo-600 mb-4 shadow-md shadow-rose-600/30">
             <ShieldCheck className={`h-8 w-8 text-foreground`} />
           </div>
           <h1 className={`text-2xl font-black tracking-tight text-foreground`}>
             System Administration Portal
           </h1>
-          <p className="mt-1.5 text-xs text-zinc-400">
+          <p className="mt-1.5 text-xs text-zinc-600 dark:text-zinc-400">
             Central moderation, database oversight, and complaint removal hub.
           </p>
         </div>
 
         {/* Card */}
-        <div className="bg-zinc-900/90 rounded-3xl border border-zinc-800 p-8 shadow-2xl backdrop-blur-xl">
+        <div className="bg-zinc-950 rounded-3xl border border-zinc-800 p-8 shadow-md ">
           {error && (
             <div className="mb-6 p-3.5 rounded-2xl bg-red-950/40 border border-red-500/40 text-red-300 text-xs flex items-center gap-2.5">
               <AlertCircle className="h-4 w-4 flex-shrink-0 text-red-400" />
@@ -96,7 +96,7 @@ export default function AdminLoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                 Admin Email / Account
               </label>
               <div className="relative">
@@ -107,13 +107,13 @@ export default function AdminLoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@socialimpact.org"
-                  className={`w-full pl-10 pr-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs sm:text-sm  placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition text-foreground`}
+                  className={`w-full pl-10 pr-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs sm:text-sm placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition text-foreground`}
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                 Admin Secure Password
               </label>
               <div className="relative">
@@ -124,12 +124,12 @@ export default function AdminLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className={`w-full pl-10 pr-12 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs sm:text-sm  placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition text-foreground`}
+                  className={`w-full pl-10 pr-12 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs sm:text-sm placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition text-foreground`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPass(!showPass)}
-                  className="absolute right-3.5 top-3 text-zinc-500 hover:text-zinc-300"
+                  className="absolute right-3.5 top-3 text-zinc-500 hover:text-zinc-700 dark:text-zinc-300"
                 >
                   {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -139,7 +139,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full mt-4 py-3 rounded-2xl bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600  font-bold text-xs uppercase tracking-wider hover:opacity-95 transition shadow-lg shadow-rose-600/30 flex items-center justify-center gap-2 text-foreground`}
+              className={`w-full mt-4 py-3 rounded-2xl bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600 font-bold text-xs uppercase tracking-wider hover:opacity-95 transition shadow-lg shadow-rose-600/30 flex items-center justify-center gap-2 text-foreground`}
             >
               {loading ? (
                 <>
@@ -156,7 +156,7 @@ export default function AdminLoginPage() {
           </form>
 
           <div className="mt-6 pt-4 border-t border-zinc-800 text-center">
-            <Link href="/" className="text-xs text-zinc-500 hover:text-zinc-300 transition">
+            <Link href="/" className="text-xs text-zinc-500 hover:text-zinc-700 dark:text-zinc-300 transition">
               ← Return to Public Portal
             </Link>
           </div>

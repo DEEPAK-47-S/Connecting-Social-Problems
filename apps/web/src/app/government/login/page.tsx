@@ -105,17 +105,17 @@ export default function GovernmentLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background text-foreground p-4 selection:bg-teal-500 selection:text-white py-12">
+    <div className="min-h-screen flex items-center justify-center bg-background text-foreground p-4 selection:bg-teal-500 selection:text-zinc-900 dark:text-white py-12">
       <div className="w-full max-w-lg">
         
         {/* Brand Header */}
         <div className="text-center mb-6">
           <Link
             href="/government"
-            className="inline-flex items-center gap-2 text-3xl font-black italic tracking-tight text-white group"
+            className="inline-flex items-center gap-2 text-3xl font-black italic tracking-tight text-zinc-900 dark:text-white group"
           >
             <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-teal-500 via-emerald-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-teal-500/25 group-hover:scale-105 transition-transform">
-              <Landmark className="h-5 w-5 text-white" />
+              <Landmark className="h-5 w-5 text-zinc-900 dark:text-white" />
             </div>
             <span>SocialImpact</span>
           </Link>
@@ -126,7 +126,7 @@ export default function GovernmentLoginPage() {
         </div>
 
         {/* Auth Card */}
-        <div className="bg-slate-900/80 backdrop-blur-2xl rounded-3xl shadow-2xl border border-slate-800/80 overflow-hidden">
+        <div className="bg-slate-950 rounded-3xl shadow-md border border-slate-800 overflow-hidden">
           <div className="p-7 sm:p-9">
 
             {/* Tab Switcher */}
@@ -140,8 +140,8 @@ export default function GovernmentLoginPage() {
                 }}
                 className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${
                   isLogin
-                    ? "bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-md shadow-teal-500/20"
-                    : "text-slate-400 hover:text-white"
+                    ? "bg-gradient-to-r from-teal-600 to-emerald-600 text-zinc-900 dark:text-white shadow-md shadow-teal-500/20"
+                    : "text-slate-600 dark:text-slate-400 hover:text-zinc-900 dark:text-white"
                 }`}
               >
                 Sign In (Login)
@@ -155,8 +155,8 @@ export default function GovernmentLoginPage() {
                 }}
                 className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${
                   !isLogin
-                    ? "bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-md shadow-teal-500/20"
-                    : "text-slate-400 hover:text-white"
+                    ? "bg-gradient-to-r from-teal-600 to-emerald-600 text-zinc-900 dark:text-white shadow-md shadow-teal-500/20"
+                    : "text-slate-600 dark:text-slate-400 hover:text-zinc-900 dark:text-white"
                 }`}
               >
                 Register Municipal Office
@@ -164,10 +164,10 @@ export default function GovernmentLoginPage() {
             </div>
 
             <div className="mb-6">
-              <h2 className="text-xl font-black tracking-tight text-white">
+              <h2 className="text-xl font-black tracking-tight text-zinc-900 dark:text-white">
                 {isLogin ? "Administrative Authority Sign In" : "Register Government Department"}
               </h2>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
                 {isLogin
                   ? "Enter your official government email and password to access municipal sanctions."
                   : "Register your administrative department or regional municipal division to verify civic projects."}
@@ -199,7 +199,7 @@ export default function GovernmentLoginPage() {
                 <>
                   {/* Select Municipal / Government Directorate */}
                   <div>
-                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1">
                       Department / Authority Division
                     </label>
                     <div className="relative">
@@ -207,7 +207,7 @@ export default function GovernmentLoginPage() {
                       <select
                         value={authorityName}
                         onChange={(e) => setAuthorityName(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-white focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
+                        className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
                       >
                         {PRESET_AUTHORITIES.map((a, i) => (
                           <option key={i} value={a.name}>
@@ -221,7 +221,7 @@ export default function GovernmentLoginPage() {
                   {/* Officer Designation & District */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     <div>
-                      <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1">
                         Officer Name &amp; Designation
                       </label>
                       <div className="relative">
@@ -231,14 +231,14 @@ export default function GovernmentLoginPage() {
                           required={!isLogin}
                           value={officerName}
                           onChange={(e) => setOfficerName(e.target.value)}
-                          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-zinc-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
                           placeholder="e.g. S. Ramaswamy, IAS"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1">
                         Tamil Nadu District
                       </label>
                       <div className="relative">
@@ -246,7 +246,7 @@ export default function GovernmentLoginPage() {
                         <select
                           value={district}
                           onChange={(e) => setDistrict(e.target.value)}
-                          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-white focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
                         >
                           {TAMIL_NADU_DISTRICTS.map((d) => (
                             <option key={d} value={d}>
@@ -266,7 +266,7 @@ export default function GovernmentLoginPage() {
 
               {/* Official Email / Username */}
               <div>
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1">
                   {isLogin ? "Official Government Email / Username" : "Official Government Email"}
                 </label>
                 <div className="relative">
@@ -276,7 +276,7 @@ export default function GovernmentLoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-zinc-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
                     placeholder="officer@tn.gov.in"
                   />
                 </div>
@@ -284,7 +284,7 @@ export default function GovernmentLoginPage() {
 
               {/* Password */}
               <div>
-                <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1">
                   Password
                 </label>
                 <div className="relative">
@@ -294,13 +294,13 @@ export default function GovernmentLoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
+                    className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-zinc-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
                     placeholder="••••••••"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPass(!showPass)}
-                    className="absolute right-3.5 top-3 text-slate-400 hover:text-slate-200 transition-colors"
+                    className="absolute right-3.5 top-3 text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:text-slate-200 transition-colors"
                   >
                     {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
@@ -311,7 +311,7 @@ export default function GovernmentLoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full mt-2 py-3 bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 text-white font-bold rounded-xl hover:opacity-95 active:scale-[0.99] transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-xl shadow-teal-500/20 text-xs uppercase tracking-wider"
+                className="w-full mt-2 py-3 bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 text-zinc-900 dark:text-white font-bold rounded-xl hover:opacity-95 active:scale-[0.99] transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-xl shadow-teal-500/20 text-xs uppercase tracking-wider"
               >
                 {loading ? (
                   <>
@@ -328,7 +328,7 @@ export default function GovernmentLoginPage() {
             </form>
 
             <div className="mt-6 pt-5 border-t border-slate-800 text-center text-[11px] text-slate-500">
-              <span className="flex items-center justify-center gap-1.5 text-slate-400">
+              <span className="flex items-center justify-center gap-1.5 text-slate-600 dark:text-slate-400">
                 <Stamp className="h-3.5 w-3.5 text-teal-400" />
                 <span>Authorized Tamil Nadu Municipal &amp; Civic Governance Access Only</span>
               </span>

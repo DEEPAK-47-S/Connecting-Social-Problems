@@ -344,11 +344,11 @@ export default function IndustryPortal() {
   }
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-pink-500 selection:text-white transition-colors duration-200 bg-background text-foreground`}>
+    <div className={`min-h-screen font-sans selection:bg-pink-500 selection:text-zinc-900 dark:text-white transition-colors duration-200 bg-background text-foreground`}>
       
       {/* Toast Notification */}
       {notification && (
-        <div className={`fixed top-6 right-6 z-50 px-5 py-3 rounded-2xl shadow-2xl border text-sm font-semibold flex items-center gap-3 backdrop-blur-xl animate-in slide-in-from-top duration-300 ${
+        <div className={`fixed top-6 right-6 z-50 px-5 py-3 rounded-2xl shadow-md border text-sm font-semibold flex items-center gap-3 animate-in slide-in-from-top duration-300 ${
           notification.type === "success"
             ? "bg-emerald-950/90 border-emerald-500/50 text-emerald-200"
             : "bg-rose-950/90 border-rose-500/50 text-rose-200"
@@ -359,12 +359,12 @@ export default function IndustryPortal() {
       )}
 
       {/* Top Header */}
-      <header className={`border-b backdrop-blur-xl sticky top-0 z-40 transition-colors border-zinc-200 bg-white/90 text-zinc-900 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-900/60 dark:text-white`}>
+      <header className={`border-b sticky top-0 z-40 transition-colors border-zinc-200 bg-white text-zinc-900 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 dark:text-white`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
           <div className="flex items-center gap-3">
             <div className="h-11 w-11 rounded-2xl bg-gradient-to-tr from-pink-500 via-rose-500 to-amber-500 flex items-center justify-center shadow-lg shadow-pink-500/20">
-              <Factory className="h-6 w-6 text-white" />
+              <Factory className="h-6 w-6 text-zinc-900 dark:text-white" />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -416,12 +416,12 @@ export default function IndustryPortal() {
               <Building2 className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-xs text-zinc-400">Active Corporate Session:</p>
-              <p className="text-sm font-black text-white">{currentCompany} <span className="text-xs font-normal text-pink-400 font-mono">({currentSector})</span></p>
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">Active Corporate Session:</p>
+              <p className="text-sm font-black text-zinc-900 dark:text-white">{currentCompany} <span className="text-xs font-normal text-pink-400 font-mono">({currentSector})</span></p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-zinc-400">
+          <div className="flex items-center gap-2 text-xs text-zinc-600 dark:text-zinc-400">
             <span className="inline-flex items-center gap-1 text-emerald-400 font-semibold bg-emerald-950/60 px-2.5 py-1 rounded-lg border border-emerald-500/20">
               <Sparkles className="h-3 w-3" /> Multi-Dispatch Queue Active
             </span>
@@ -429,37 +429,37 @@ export default function IndustryPortal() {
         </div>
 
         {/* Hero Banner */}
-        <div className="relative overflow-hidden rounded-3xl bg-card text-card-foreground border-border p-8 sm:p-10 mb-10 shadow-2xl">
+        <div className="relative overflow-hidden rounded-3xl bg-card text-card-foreground border-border p-8 sm:p-10 mb-10 shadow-md">
           <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-semibold border border-pink-500/30 mb-4">
               <Bot className="h-3.5 w-3.5 text-pink-400" />
               <span>Multi-Industry AI Dispatch &amp; First-Come Lock Workflow</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-zinc-900 dark:text-white leading-tight">
               10 Industry Candidates AI-Matched Per University Project
             </h1>
-            <p className="mt-3 text-zinc-300 text-base leading-relaxed">
+            <p className="mt-3 text-zinc-700 dark:text-zinc-300 text-base leading-relaxed">
               When a university takes on a citizen problem, the AI Engine selects the <strong>Top 10 matched industries</strong> and invites them simultaneously. The <strong>first industry to accept</strong> exclusively locks the project, while others receive automated lock notifications.
             </p>
           </div>
 
           {/* Quick Metrics */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-zinc-800/80">
-            <div className="bg-zinc-900/70 rounded-2xl p-4 border border-zinc-800/60">
-              <p className="text-xs text-zinc-400 font-medium">Invited R&amp;D Opportunities</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-zinc-800">
+            <div className="bg-zinc-950 rounded-2xl p-4 border border-zinc-800">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 font-medium">Invited R&amp;D Opportunities</p>
               <p className="text-2xl font-black text-pink-400 mt-1">{oppsCount}</p>
             </div>
-            <div className="bg-zinc-900/70 rounded-2xl p-4 border border-zinc-800/60">
-              <p className="text-xs text-zinc-400 font-medium">Active Corporate Partnerships</p>
+            <div className="bg-zinc-950 rounded-2xl p-4 border border-zinc-800">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 font-medium">Active Corporate Partnerships</p>
               <p className="text-2xl font-black text-purple-400 mt-1">{activeCount}</p>
             </div>
-            <div className="bg-zinc-900/70 rounded-2xl p-4 border border-zinc-800/60">
-              <p className="text-xs text-zinc-400 font-medium">AI Match Accuracy</p>
+            <div className="bg-zinc-950 rounded-2xl p-4 border border-zinc-800">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 font-medium">AI Match Accuracy</p>
               <p className="text-2xl font-black text-amber-400 mt-1">97.8%</p>
             </div>
-            <div className="bg-zinc-900/70 rounded-2xl p-4 border border-zinc-800/60">
-              <p className="text-xs text-zinc-400 font-medium">Deployed Ground Solutions</p>
+            <div className="bg-zinc-950 rounded-2xl p-4 border border-zinc-800">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 font-medium">Deployed Ground Solutions</p>
               <p className="text-2xl font-black text-emerald-400 mt-1">{impactCount}</p>
             </div>
           </div>
@@ -467,13 +467,13 @@ export default function IndustryPortal() {
 
         {/* Tab & Search Bar */}
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-8 pb-4 border-b border-zinc-800">
-          <div className="flex bg-zinc-900/90 p-1.5 rounded-2xl border border-zinc-800 w-full sm:w-auto overflow-x-auto">
+          <div className="flex bg-zinc-950 p-1.5 rounded-2xl border border-zinc-800 w-full sm:w-auto overflow-x-auto">
             <button
               onClick={() => setActiveTab("opportunities")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
                 activeTab === "opportunities"
-                  ? "bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-white shadow-lg shadow-pink-500/25"
-                  : "text-zinc-400 hover:text-white"
+                  ? "bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-zinc-900 dark:text-white shadow-lg shadow-pink-500/25"
+                  : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white"
               }`}
             >
               <Sparkles className="h-4 w-4" />
@@ -484,8 +484,8 @@ export default function IndustryPortal() {
               onClick={() => setActiveTab("active")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
                 activeTab === "active"
-                  ? "bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-white shadow-lg shadow-pink-500/25"
-                  : "text-zinc-400 hover:text-white"
+                  ? "bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-zinc-900 dark:text-white shadow-lg shadow-pink-500/25"
+                  : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white"
               }`}
             >
               <Handshake className="h-4 w-4" />
@@ -496,8 +496,8 @@ export default function IndustryPortal() {
               onClick={() => setActiveTab("impact")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
                 activeTab === "impact"
-                  ? "bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-white shadow-lg shadow-pink-500/25"
-                  : "text-zinc-400 hover:text-white"
+                  ? "bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-zinc-900 dark:text-white shadow-lg shadow-pink-500/25"
+                  : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white"
               }`}
             >
               <ShieldCheck className="h-4 w-4" />
@@ -506,13 +506,13 @@ export default function IndustryPortal() {
           </div>
 
           <div className="relative w-full sm:w-72">
-            <Search className="absolute left-3.5 top-3 h-4 w-4 text-zinc-400" />
+            <Search className="absolute left-3.5 top-3 h-4 w-4 text-zinc-600 dark:text-zinc-400" />
             <input
               type="text"
               placeholder="Search challenges..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-pink-500 transition"
+              className="w-full pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-800 rounded-xl text-sm text-zinc-900 dark:text-white placeholder-zinc-500 focus:outline-none focus:border-pink-500 transition"
             />
           </div>
         </div>
@@ -521,13 +521,13 @@ export default function IndustryPortal() {
         {loading ? (
           <div className="py-24 text-center">
             <Loader2 className="h-10 w-10 animate-spin text-pink-500 mx-auto mb-4" />
-            <p className="text-sm text-zinc-400">Loading AI matched industry proposals...</p>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">Loading AI matched industry proposals...</p>
           </div>
         ) : filteredPosts.length === 0 ? (
-          <div className="py-24 text-center bg-zinc-900/40 rounded-3xl border border-zinc-800/60 p-8">
+          <div className="py-24 text-center bg-zinc-950 rounded-3xl border border-zinc-800 p-8">
             <CheckCircle2 className="h-12 w-12 text-zinc-600 mx-auto mb-3" />
-            <h3 className="text-lg font-bold text-white">No challenges in this section</h3>
-            <p className="text-sm text-zinc-400 max-w-md mx-auto mt-1">
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-white">No challenges in this section</h3>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400 max-w-md mx-auto mt-1">
               Check back soon as university labs accept new citizen challenges.
             </p>
           </div>
@@ -541,12 +541,12 @@ export default function IndustryPortal() {
               return (
                 <div
                   key={post.id}
-                  className={`rounded-3xl border transition shadow-2xl flex flex-col justify-between overflow-hidden ${
+                  className={`rounded-3xl border transition shadow-md flex flex-col justify-between overflow-hidden ${
                     isAdoptedByCurrent
-                      ? "bg-zinc-900/95 border-pink-500/50 shadow-pink-500/10"
+                      ? "bg-zinc-950 border-pink-500/50 shadow-pink-500/10"
                       : isLockedByOther
-                      ? "bg-zinc-950/90 border-zinc-800/70 opacity-80"
-                      : "bg-zinc-900/90 border-zinc-800 hover:border-zinc-700"
+                      ? "bg-zinc-950/90 border-zinc-800 opacity-80"
+                      : "bg-zinc-950 border-zinc-800 hover:border-zinc-700"
                   }`}
                 >
                   <div className="p-6 sm:p-7">
@@ -570,16 +570,16 @@ export default function IndustryPortal() {
                         </span>
                       )}
 
-                      <span className="text-xs font-bold text-zinc-400">
+                      <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400">
                         {post.category || "General"}
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-black text-white leading-snug">
+                    <h3 className="text-xl font-black text-zinc-900 dark:text-white leading-snug">
                       {post.title}
                     </h3>
 
-                    <div className="flex items-center gap-2 text-xs text-zinc-400 mt-2 mb-4">
+                    <div className="flex items-center gap-2 text-xs text-zinc-600 dark:text-zinc-400 mt-2 mb-4">
                       {post.location && (
                         <div className="flex items-center gap-1">
                           <MapPin className="h-3 w-3 text-zinc-500" />
@@ -590,7 +590,7 @@ export default function IndustryPortal() {
                       <span>University: <strong className="text-indigo-400">{post.acceptedCollegeName || "Academic R&D Lab"}</strong></span>
                     </div>
 
-                    <p className="text-xs text-zinc-300 leading-relaxed line-clamp-3 mb-5">
+                    <p className="text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed line-clamp-3 mb-5">
                       {post.description}
                     </p>
 
@@ -611,7 +611,7 @@ export default function IndustryPortal() {
                           <p className="text-xs font-bold text-amber-300">
                             🔒 AI Notice: Opportunity Already Adopted
                           </p>
-                          <p className="text-[11px] text-zinc-400 mt-0.5 leading-normal">
+                          <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5 leading-normal">
                             This project was adopted by <strong>{post.acceptedIndustryName}</strong>. Collaboration opportunity is now closed.
                           </p>
                         </div>
@@ -621,7 +621,7 @@ export default function IndustryPortal() {
                   </div>
 
                   {/* Actions & Chat Footer with Reject Button (Task 2) */}
-                  <div className="p-6 pt-4 border-t border-zinc-800/80 bg-zinc-950/60 flex flex-wrap items-center gap-3">
+                  <div className="p-6 pt-4 border-t border-zinc-800 bg-zinc-950/60 flex flex-wrap items-center gap-3">
                     
                     {!post.acceptedIndustryName ? (
                       <>
@@ -630,7 +630,7 @@ export default function IndustryPortal() {
                             setSelectedPost(post);
                             setActionModalType("sponsor");
                           }}
-                          className="flex-1 py-3 px-4 bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-white rounded-xl text-xs font-bold hover:opacity-95 transition flex items-center justify-center gap-2 shadow-lg shadow-pink-500/20"
+                          className="flex-1 py-3 px-4 bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-zinc-900 dark:text-white rounded-xl text-xs font-bold hover:opacity-95 transition flex items-center justify-center gap-2 shadow-lg shadow-pink-500/20"
                         >
                           <Handshake className="h-4 w-4" />
                           <span>Accept &amp; Lock Project</span>
@@ -642,7 +642,7 @@ export default function IndustryPortal() {
                             setSelectedPost(post);
                             setActionModalType("reject");
                           }}
-                          className="py-3 px-4 bg-zinc-800 hover:bg-rose-950/50 hover:text-rose-300 hover:border-rose-500/30 border border-zinc-700/60 text-zinc-300 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
+                          className="py-3 px-4 bg-zinc-800 hover:bg-rose-950/50 hover:text-rose-300 hover:border-rose-500/30 border border-zinc-700/60 text-zinc-700 dark:text-zinc-300 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
                           title="Decline this collaboration opportunity"
                         >
                           <XCircle className="h-4 w-4 text-rose-400" />
@@ -659,7 +659,7 @@ export default function IndustryPortal() {
                           setSelectedPost(post);
                           setActionModalType("lockWarning");
                         }}
-                        className="flex-1 py-2.5 px-3 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-bold text-zinc-400 flex items-center justify-center gap-2 cursor-not-allowed"
+                        className="flex-1 py-2.5 px-3 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-bold text-zinc-600 dark:text-zinc-400 flex items-center justify-center gap-2 cursor-not-allowed"
                       >
                         <Lock className="h-3.5 w-3.5" />
                         <span>Locked (Already Adopted by {post.acceptedIndustryName})</span>
@@ -672,7 +672,7 @@ export default function IndustryPortal() {
                       className={`py-3 px-4 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
                         post.acceptedIndustryName
                           ? "bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-500/20"
-                          : "bg-zinc-800 hover:bg-zinc-700 text-zinc-300"
+                          : "bg-zinc-800 hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300"
                       }`}
                     >
                       <MessageSquare className="h-4 w-4" />
@@ -690,44 +690,44 @@ export default function IndustryPortal() {
 
       {/* MODAL 1: ACCEPT & LOCK SPONSORSHIP */}
       {actionModalType === "sponsor" && selectedPost && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 bg-zinc-950 flex items-center justify-center p-4">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200">
             <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
               <div className="flex items-center gap-2">
                 <Building2 className="h-6 w-6 text-pink-400" />
-                <h3 className="text-lg font-black text-white">Accept &amp; Lock Challenge</h3>
+                <h3 className="text-lg font-black text-zinc-900 dark:text-white">Accept &amp; Lock Challenge</h3>
               </div>
-              <button onClick={() => setActionModalType(null)} className="text-zinc-400 hover:text-white text-sm">✕</button>
+              <button onClick={() => setActionModalType(null)} className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white text-sm">✕</button>
             </div>
 
             <div className="my-5 p-4 bg-zinc-950 rounded-2xl border border-zinc-800">
               <p className="text-[11px] text-pink-400 font-bold uppercase tracking-wider">First-Come First-Served Adoption</p>
-              <h4 className="font-bold text-white text-sm mt-1">{selectedPost.title}</h4>
-              <p className="text-xs text-zinc-400 mt-1 line-clamp-2">{selectedPost.description}</p>
+              <h4 className="font-bold text-zinc-900 dark:text-white text-sm mt-1">{selectedPost.title}</h4>
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1 line-clamp-2">{selectedPost.description}</p>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider mb-1.5">
                   Adopting Corporate Entity
                 </label>
                 <input
                   type="text"
                   value={currentCompany}
                   onChange={(e) => setCurrentCompany(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-pink-500"
+                  className="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-zinc-900 dark:text-white focus:outline-none focus:border-pink-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider mb-1.5">
                     Sponsorship Type
                   </label>
                   <select
                     value={sponsorType}
                     onChange={(e) => setSponsorType(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-white focus:outline-none focus:border-pink-500"
+                    className="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-pink-500"
                   >
                     <option>CSR Grant &amp; Funding</option>
                     <option>Pilot Manufacturing Facility</option>
@@ -737,27 +737,27 @@ export default function IndustryPortal() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider mb-1.5">
                     Pledged Grant / Budget
                   </label>
                   <input
                     type="text"
                     value={grantAmount}
                     onChange={(e) => setGrantAmount(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-pink-500"
+                    className="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-zinc-900 dark:text-white focus:outline-none focus:border-pink-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider mb-1.5">
                   Corporate Lead / Mentor
                 </label>
                 <input
                   type="text"
                   value={mentorLead}
                   onChange={(e) => setMentorLead(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-pink-500"
+                  className="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-zinc-900 dark:text-white focus:outline-none focus:border-pink-500"
                 />
               </div>
             </div>
@@ -765,14 +765,14 @@ export default function IndustryPortal() {
             <div className="mt-8 flex gap-3">
               <button
                 onClick={() => setActionModalType(null)}
-                className="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-bold rounded-xl text-xs transition"
+                className="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold rounded-xl text-xs transition"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSponsorChallenge}
                 disabled={submittingAction}
-                className="flex-1 py-3 bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-white font-bold rounded-xl text-xs hover:opacity-95 transition disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-pink-500/25"
+                className="flex-1 py-3 bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-zinc-900 dark:text-white font-bold rounded-xl text-xs hover:opacity-95 transition disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-pink-500/25"
               >
                 {submittingAction ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lock className="h-4 w-4" />}
                 <span>Confirm &amp; Lock Project</span>
@@ -784,24 +784,24 @@ export default function IndustryPortal() {
 
       {/* Task 2: MODAL 2 — DECLINE / REJECT OPPORTUNITY */}
       {actionModalType === "reject" && selectedPost && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 bg-zinc-950 flex items-center justify-center p-4">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-md w-full p-6 text-center shadow-md animate-in zoom-in-95 duration-200">
             <div className="h-12 w-12 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto mb-4 border border-rose-500/30">
               <XCircle className="h-6 w-6" />
             </div>
-            <h3 className="text-lg font-black text-white">Decline Collaboration Opportunity</h3>
-            <p className="text-xs text-zinc-300 mt-1 leading-relaxed truncate">
+            <h3 className="text-lg font-black text-zinc-900 dark:text-white">Decline Collaboration Opportunity</h3>
+            <p className="text-xs text-zinc-700 dark:text-zinc-300 mt-1 leading-relaxed truncate">
               "{selectedPost.title}"
             </p>
 
             <div className="my-5 text-left">
-              <label className="block text-xs font-bold text-zinc-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider mb-1.5">
                 Reason for Declining
               </label>
               <select
                 value={declineReason}
                 onChange={(e) => setDeclineReason(e.target.value)}
-                className="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-white focus:outline-none focus:border-rose-500"
+                className="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-rose-500"
               >
                 <option>Budget allocated to other CSR focus verticals</option>
                 <option>Manufacturing lines currently operating at maximum capacity</option>
@@ -813,7 +813,7 @@ export default function IndustryPortal() {
             <div className="flex gap-3">
               <button
                 onClick={() => setActionModalType(null)}
-                className="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-bold rounded-xl text-xs transition"
+                className="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold rounded-xl text-xs transition"
               >
                 Cancel
               </button>
@@ -832,17 +832,17 @@ export default function IndustryPortal() {
 
       {/* TASK 5: CHAT / MESSENGER BETWEEN COLLEGE & INDUSTRY */}
       {actionModalType === "chat" && selectedPost && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-2xl w-full h-[85vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden">
+        <div className="fixed inset-0 z-50 bg-zinc-950 flex items-center justify-center p-4">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-2xl w-full h-[85vh] flex flex-col shadow-md animate-in zoom-in-95 duration-200 overflow-hidden">
             
             <div className="p-5 border-b border-zinc-800 bg-zinc-950/70 flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
                   <MessageSquare className="h-5 w-5 text-pink-400" />
-                  <h3 className="font-black text-white text-base">College &amp; Industry Collaboration Channel</h3>
+                  <h3 className="font-black text-zinc-900 dark:text-white text-base">College &amp; Industry Collaboration Channel</h3>
                 </div>
-                <p className="text-xs text-zinc-400 mt-0.5 truncate max-w-md">
-                  Project: <strong className="text-white">{selectedPost.title}</strong>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5 truncate max-w-md">
+                  Project: <strong className="text-zinc-900 dark:text-white">{selectedPost.title}</strong>
                 </p>
               </div>
 
@@ -851,7 +851,7 @@ export default function IndustryPortal() {
                   <button
                     onClick={() => setSenderRole("INDUSTRY")}
                     className={`px-2.5 py-1 rounded-lg font-bold transition ${
-                      senderRole === "INDUSTRY" ? "bg-pink-600 text-white" : "text-zinc-400 hover:text-white"
+                      senderRole === "INDUSTRY" ? "bg-pink-600 text-zinc-900 dark:text-white" : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white"
                     }`}
                   >
                     Industry Rep
@@ -859,14 +859,14 @@ export default function IndustryPortal() {
                   <button
                     onClick={() => setSenderRole("COLLEGE")}
                     className={`px-2.5 py-1 rounded-lg font-bold transition ${
-                      senderRole === "COLLEGE" ? "bg-indigo-600 text-white" : "text-zinc-400 hover:text-white"
+                      senderRole === "COLLEGE" ? "bg-indigo-600 text-white" : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white"
                     }`}
                   >
                     College Lead
                   </button>
                 </div>
 
-                <button onClick={() => setActionModalType(null)} className="text-zinc-400 hover:text-white text-sm">✕</button>
+                <button onClick={() => setActionModalType(null)} className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-white text-sm">✕</button>
               </div>
             </div>
 
@@ -874,7 +874,7 @@ export default function IndustryPortal() {
               {chatLoading ? (
                 <div className="py-20 text-center">
                   <Loader2 className="h-8 w-8 animate-spin text-pink-500 mx-auto mb-2" />
-                  <p className="text-xs text-zinc-400">Loading conversation history...</p>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400">Loading conversation history...</p>
                 </div>
               ) : chatMessages.length === 0 ? (
                 <div className="py-20 text-center text-zinc-500">
@@ -904,13 +904,13 @@ export default function IndustryPortal() {
                       key={i}
                       className={`flex flex-col ${isInd ? "items-end" : "items-start"}`}
                     >
-                      <span className="text-[10px] font-bold text-zinc-400 mb-1 px-1">
+                      <span className="text-[10px] font-bold text-zinc-600 dark:text-zinc-400 mb-1 px-1">
                         {isInd ? `🏭 ${msg.senderName}` : `🎓 ${msg.senderName}`}
                       </span>
                       <div
                         className={`max-w-[80%] p-3.5 rounded-2xl text-xs leading-relaxed ${
                           isInd
-                            ? "bg-pink-600 text-white rounded-tr-none shadow-md shadow-pink-600/20"
+                            ? "bg-pink-600 text-zinc-900 dark:text-white rounded-tr-none shadow-md shadow-pink-600/20"
                             : "bg-zinc-800 text-zinc-100 rounded-tl-none border border-zinc-700"
                         }`}
                       >
@@ -928,12 +928,12 @@ export default function IndustryPortal() {
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
                 placeholder={`Type a message as ${senderRole === "INDUSTRY" ? currentCompany : "University Research Lead"}...`}
-                className="flex-1 bg-zinc-900 border border-zinc-800 rounded-2xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-pink-500 transition"
+                className="flex-1 bg-zinc-900 border border-zinc-800 rounded-2xl px-4 py-3 text-xs text-zinc-900 dark:text-white placeholder-zinc-500 focus:outline-none focus:border-pink-500 transition"
               />
               <button
                 type="submit"
                 disabled={!chatInput.trim()}
-                className="p-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:opacity-95 text-white rounded-2xl transition disabled:opacity-40"
+                className="p-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:opacity-95 text-zinc-900 dark:text-white rounded-2xl transition disabled:opacity-40"
               >
                 <Send className="h-4 w-4" />
               </button>
@@ -945,18 +945,18 @@ export default function IndustryPortal() {
 
       {/* MODAL 4: LOCKED WARNING (TASK 5) */}
       {actionModalType === "lockWarning" && selectedPost && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 bg-zinc-950 flex items-center justify-center p-4">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-md w-full p-6 text-center shadow-md animate-in zoom-in-95 duration-200">
             <div className="h-12 w-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-4 border border-amber-500/30">
               <Lock className="h-6 w-6" />
             </div>
-            <h3 className="text-lg font-black text-white">Collaboration Opportunity Closed</h3>
-            <p className="text-xs text-zinc-300 mt-2 leading-relaxed">
-              This challenge has already been adopted by <strong className="text-white">{selectedPost.acceptedIndustryName}</strong>. Under the AI first-come locking policy, exclusive sponsorship is already assigned.
+            <h3 className="text-lg font-black text-zinc-900 dark:text-white">Collaboration Opportunity Closed</h3>
+            <p className="text-xs text-zinc-700 dark:text-zinc-300 mt-2 leading-relaxed">
+              This challenge has already been adopted by <strong className="text-zinc-900 dark:text-white">{selectedPost.acceptedIndustryName}</strong>. Under the AI first-come locking policy, exclusive sponsorship is already assigned.
             </p>
             <button
               onClick={() => setActionModalType(null)}
-              className="mt-6 w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-bold rounded-xl text-xs transition"
+              className="mt-6 w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-900 dark:text-white font-bold rounded-xl text-xs transition"
             >
               Understood
             </button>
