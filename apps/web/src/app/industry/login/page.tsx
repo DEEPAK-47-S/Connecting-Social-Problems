@@ -286,11 +286,11 @@ export default function IndustryLoginPage() {
         </div>
 
         {/* Auth Card */}
-        <div className="bg-zinc-950 rounded-3xl shadow-md border border-zinc-800 overflow-hidden">
+        <div className="bg-white dark:bg-zinc-900/75 rounded-3xl shadow-md border border-zinc-800 overflow-hidden">
           <div className="p-7 sm:p-9">
 
             {/* Tab Switcher */}
-            <div className="flex bg-zinc-950 p-1.5 rounded-2xl mb-6 border border-zinc-800">
+            <div className="flex bg-white dark:bg-zinc-900/75 p-1.5 rounded-2xl mb-6 border border-zinc-800">
               <button
                 type="button"
                 onClick={() => {
@@ -373,7 +373,7 @@ export default function IndustryLoginPage() {
                         onChange={handleIndustryInputChange}
                         onFocus={() => setShowSuggestions(true)}
                         placeholder="Type to search or enter company name..."
-                        className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+                        className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
                       />
                       <ChevronDown
                         className="absolute right-3.5 top-3 h-4 w-4 text-zinc-500 cursor-pointer"
@@ -446,7 +446,7 @@ export default function IndustryLoginPage() {
                         <select
                           value={district}
                           onChange={(e) => setDistrict(e.target.value)}
-                          className={`w-full px-2.5 py-1.5 bg-zinc-950 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none text-foreground`}
+                          className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none text-foreground`}
                         >
                           {TAMIL_NADU_DISTRICTS.map((d) => (
                             <option key={d} value={d}>
@@ -463,7 +463,7 @@ export default function IndustryLoginPage() {
                         <select
                           value={grantRange}
                           onChange={(e) => setGrantRange(e.target.value)}
-                          className={`w-full px-2.5 py-1.5 bg-zinc-950 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none font-semibold text-emerald-400 text-foreground`}
+                          className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none font-semibold text-emerald-400 text-foreground`}
                         >
                           <option value="₹10L – ₹25L">₹10L – ₹25L</option>
                           <option value="₹25L – ₹50L">₹25L – ₹50L</option>
@@ -481,7 +481,7 @@ export default function IndustryLoginPage() {
                       <select
                         value={sector}
                         onChange={(e) => setSector(e.target.value)}
-                        className={`w-full px-2.5 py-1.5 bg-zinc-950 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none text-foreground`}
+                        className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none text-foreground`}
                       >
                         {INDUSTRY_SECTORS.map((s) => (
                           <option key={s} value={s}>
@@ -530,7 +530,7 @@ export default function IndustryLoginPage() {
                         required={!isLogin}
                         value={mentorLead}
                         onChange={(e) => setMentorLead(e.target.value)}
-                        className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+                        className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
                         placeholder="e.g. Anand Mahindra / CSR Lead"
                       />
                     </div>
@@ -554,7 +554,7 @@ export default function IndustryLoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+                    className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
                     placeholder="Enter Username or Email"
                   />
                 </div>
@@ -572,7 +572,7 @@ export default function IndustryLoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-zinc-950 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+                    className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
                     placeholder="••••••••"
                   />
                   <button

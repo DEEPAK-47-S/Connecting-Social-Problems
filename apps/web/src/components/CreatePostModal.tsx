@@ -317,7 +317,7 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
             <ImageIcon className="h-4 w-4 text-indigo-500" />
             <span>{image ? "Change Photo" : "Attach Site Photo"}</span>
           </button>
-          <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleImage} />
+          <input ref={fileRef} type="file" accept="image/*" className="text-zinc-900 dark:text-white hidden" onChange={handleImage} />
 
           <div className="flex items-center gap-2">
             <button

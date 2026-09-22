@@ -371,7 +371,7 @@ export default function CollegeLoginPage() {
                         onChange={handleCollegeInputChange}
                         onFocus={() => setShowSuggestions(true)}
                         placeholder="Type to search or enter college name..."
-                        className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-slate-950 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
+                        className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
                       />
                       <ChevronDown
                         className="absolute right-3.5 top-3 h-4 w-4 text-slate-500 cursor-pointer"
@@ -451,7 +451,7 @@ export default function CollegeLoginPage() {
                         <select
                           value={collegeType}
                           onChange={(e) => setCollegeType(e.target.value as TamilNaduCollege["type"])}
-                          className={`w-full px-2.5 py-1.5 bg-slate-950 rounded-lg border border-slate-800 text-xs focus:ring-2 focus:ring-indigo-500 outline-none text-foreground`}
+                          className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-slate-800 text-xs focus:ring-2 focus:ring-indigo-500 outline-none text-foreground`}
                         >
                           <option value="Engineering">Engineering &amp; Tech</option>
                           <option value="University">State / Central University</option>
@@ -469,7 +469,7 @@ export default function CollegeLoginPage() {
                         <select
                           value={district}
                           onChange={(e) => setDistrict(e.target.value)}
-                          className={`w-full px-2.5 py-1.5 bg-slate-950 rounded-lg border border-slate-800 text-xs focus:ring-2 focus:ring-indigo-500 outline-none text-foreground`}
+                          className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-slate-800 text-xs focus:ring-2 focus:ring-indigo-500 outline-none text-foreground`}
                         >
                           {TAMIL_NADU_DISTRICTS.map((d) => (
                             <option key={d} value={d}>
@@ -519,7 +519,7 @@ export default function CollegeLoginPage() {
                             }
                           }}
                           placeholder="Add custom problem skill..."
-                          className={`flex-1 px-3 py-1.5 bg-slate-950 rounded-lg border border-slate-800 placeholder-slate-600 text-xs outline-none text-foreground`}
+                          className={`flex-1 px-3 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-slate-800 placeholder-slate-600 text-xs outline-none text-foreground`}
                         />
                         <button
                           type="button"
@@ -541,7 +541,7 @@ export default function CollegeLoginPage() {
                         value={leadDept}
                         onChange={(e) => setLeadDept(e.target.value)}
                         placeholder="e.g. Dept of Electrical &amp; Water Systems Lab"
-                        className={`w-full px-3 py-1.5 bg-slate-950 rounded-lg border border-slate-800 text-xs outline-none text-foreground`}
+                        className={`w-full px-3 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-slate-800 text-xs outline-none text-foreground`}
                       />
                     </div>
                   </div>
@@ -558,7 +558,7 @@ export default function CollegeLoginPage() {
                         required={!isLogin}
                         value={facultyName}
                         onChange={(e) => setFacultyName(e.target.value)}
-                        className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
+                        className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
                         placeholder="e.g. Dr. K. Ramanathan, Ph.D"
                       />
                     </div>
@@ -582,7 +582,7 @@ export default function CollegeLoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
+                    className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
                     placeholder="Enter Username or Email"
                   />
                 </div>
@@ -600,7 +600,7 @@ export default function CollegeLoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-slate-950 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
+                    className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
                     placeholder="••••••••"
                   />
                   <button

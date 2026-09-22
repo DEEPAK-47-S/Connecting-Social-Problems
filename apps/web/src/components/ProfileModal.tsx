@@ -223,7 +223,7 @@ export default function ProfileModal({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter full name"
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-950 rounded-xl border border-slate-800 text-white placeholder-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
+                className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900/75 rounded-xl border border-slate-800 text-white placeholder-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
               />
             </div>
           </div>
@@ -241,7 +241,7 @@ export default function ProfileModal({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@organization.com"
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-950 rounded-xl border border-slate-800 text-white placeholder-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900/75 rounded-xl border border-slate-800 text-white placeholder-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
                 />
               </div>
             </div>
@@ -257,7 +257,7 @@ export default function ProfileModal({
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+91 98765 43210"
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-950 rounded-xl border border-slate-800 text-white placeholder-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900/75 rounded-xl border border-slate-800 text-white placeholder-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
                 />
               </div>
             </div>
@@ -276,7 +276,7 @@ export default function ProfileModal({
                   value={orgName}
                   onChange={(e) => setOrgName(e.target.value)}
                   placeholder="Organization / Entity"
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-950 rounded-xl border border-slate-800 text-white placeholder-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900/75 rounded-xl border border-slate-800 text-white placeholder-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
                 />
               </div>
             </div>
@@ -290,7 +290,7 @@ export default function ProfileModal({
                 <select
                   value={district}
                   onChange={(e) => setDistrict(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-950 rounded-xl border border-slate-800 text-white focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900/75 rounded-xl border border-slate-800 text-white focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
                 >
                   {TAMIL_NADU_DISTRICTS.map((d) => (
                     <option key={d} value={d}>
@@ -317,7 +317,7 @@ export default function ProfileModal({
                 value={dept}
                 onChange={(e) => setDept(e.target.value)}
                 placeholder="e.g. Dept of Electrical & Water Systems"
-                className="w-full px-4 py-2.5 bg-slate-950 rounded-xl border border-slate-800 text-white placeholder-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
+                className="w-full px-4 py-2.5 bg-white dark:bg-zinc-900/75 rounded-xl border border-slate-800 text-white placeholder-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
               />
             </div>
           )}
@@ -355,7 +355,7 @@ export default function ProfileModal({
                     }
                   }}
                   placeholder="Add problem domain (e.g., Solar, Water, AI, Roads)..."
-                  className="flex-1 px-3 py-2 bg-slate-950 rounded-xl border border-slate-800 text-white placeholder-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none text-xs"
+                  className="flex-1 px-3 py-2 bg-white dark:bg-zinc-900/75 rounded-xl border border-slate-800 text-white placeholder-slate-600 focus:ring-2 focus:ring-indigo-500 outline-none text-xs"
                 />
                 <button
                   type="button"
@@ -370,7 +370,7 @@ export default function ProfileModal({
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 bg-slate-950 border-t border-slate-800 flex items-center justify-between">
+        <div className="p-4 bg-white dark:bg-zinc-900/75 border-t border-slate-800 flex items-center justify-between">
           <button
             type="button"
             onClick={handleLogout}

@@ -126,11 +126,11 @@ export default function GovernmentLoginPage() {
         </div>
 
         {/* Auth Card */}
-        <div className="bg-slate-950 rounded-3xl shadow-md border border-slate-800 overflow-hidden">
+        <div className="bg-white dark:bg-zinc-900/75 rounded-3xl shadow-md border border-slate-800 overflow-hidden">
           <div className="p-7 sm:p-9">
 
             {/* Tab Switcher */}
-            <div className="flex bg-slate-950 p-1.5 rounded-2xl mb-6 border border-slate-800">
+            <div className="flex bg-white dark:bg-zinc-900/75 p-1.5 rounded-2xl mb-6 border border-slate-800">
               <button
                 type="button"
                 onClick={() => {
@@ -207,7 +207,7 @@ export default function GovernmentLoginPage() {
                       <select
                         value={authorityName}
                         onChange={(e) => setAuthorityName(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
+                        className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
                       >
                         {PRESET_AUTHORITIES.map((a, i) => (
                           <option key={i} value={a.name}>
@@ -231,7 +231,7 @@ export default function GovernmentLoginPage() {
                           required={!isLogin}
                           value={officerName}
                           onChange={(e) => setOfficerName(e.target.value)}
-                          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-zinc-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 text-zinc-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
                           placeholder="e.g. S. Ramaswamy, IAS"
                         />
                       </div>
@@ -246,7 +246,7 @@ export default function GovernmentLoginPage() {
                         <select
                           value={district}
                           onChange={(e) => setDistrict(e.target.value)}
-                          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
                         >
                           {TAMIL_NADU_DISTRICTS.map((d) => (
                             <option key={d} value={d}>
@@ -276,7 +276,7 @@ export default function GovernmentLoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-zinc-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 text-zinc-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
                     placeholder="officer@tn.gov.in"
                   />
                 </div>
@@ -294,7 +294,7 @@ export default function GovernmentLoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-slate-950 text-zinc-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
+                    className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 text-zinc-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
                     placeholder="••••••••"
                   />
                   <button
