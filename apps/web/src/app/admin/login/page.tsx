@@ -10,7 +10,6 @@ const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 export default function AdminLoginPage() {
   const { theme } = useTheme();
-  const isDark = theme === "dark";
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -64,15 +63,15 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center bg-zinc-950  p-4 ${isDark ? "text-white" : "text-slate-900"}`}>
+    <div className={`min-h-screen flex items-center justify-center bg-zinc-950  p-4 text-foreground`}>
       <div className="w-full max-w-md">
         
         {/* Brand Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center h-16 w-16 rounded-3xl bg-gradient-to-tr from-rose-600 via-purple-600 to-indigo-600 mb-4 shadow-2xl shadow-rose-600/30">
-            <ShieldCheck className={`h-8 w-8 ${isDark ? "text-white" : "text-slate-900"}`} />
+            <ShieldCheck className={`h-8 w-8 text-foreground`} />
           </div>
-          <h1 className={`text-2xl font-black tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
+          <h1 className={`text-2xl font-black tracking-tight text-foreground`}>
             System Administration Portal
           </h1>
           <p className="mt-1.5 text-xs text-zinc-400">
@@ -108,7 +107,7 @@ export default function AdminLoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@socialimpact.org"
-                  className={`w-full pl-10 pr-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs sm:text-sm  placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition ${isDark ? "text-white" : "text-slate-900"}`}
+                  className={`w-full pl-10 pr-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs sm:text-sm  placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition text-foreground`}
                 />
               </div>
             </div>
@@ -125,7 +124,7 @@ export default function AdminLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className={`w-full pl-10 pr-12 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs sm:text-sm  placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition ${isDark ? "text-white" : "text-slate-900"}`}
+                  className={`w-full pl-10 pr-12 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-xs sm:text-sm  placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition text-foreground`}
                 />
                 <button
                   type="button"
@@ -140,7 +139,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full mt-4 py-3 rounded-2xl bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600  font-bold text-xs uppercase tracking-wider hover:opacity-95 transition shadow-lg shadow-rose-600/30 flex items-center justify-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}
+              className={`w-full mt-4 py-3 rounded-2xl bg-gradient-to-r from-rose-600 via-purple-600 to-indigo-600  font-bold text-xs uppercase tracking-wider hover:opacity-95 transition shadow-lg shadow-rose-600/30 flex items-center justify-center gap-2 text-foreground`}
             >
               {loading ? (
                 <>

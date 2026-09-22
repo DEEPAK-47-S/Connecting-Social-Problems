@@ -54,8 +54,6 @@ export default function InstagramCommentModal({
   onCommentCountChange,
 }: InstagramCommentModalProps) {
   const { theme } = useTheme();
-  const isDark = theme === "dark";
-
   const [comments, setComments] = useState<CommentItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [commentText, setCommentText] = useState("");
@@ -286,27 +284,17 @@ export default function InstagramCommentModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className={`w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] transition-all duration-200 border ${
-          isDark
-            ? "bg-zinc-950 border-zinc-800 text-white"
-            : "bg-white border-zinc-200 text-zinc-900"
-        }`}
+        className={`w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] transition-all duration-200 border bg-white border-zinc-200 text-zinc-900 dark:bg-zinc-950 dark:border-zinc-800 dark:text-white`}
       >
         {/* Header */}
         <div
-          className={`px-5 py-4 border-b flex items-center justify-between sticky top-0 z-10 ${
-            isDark
-              ? "bg-zinc-950/90 border-zinc-800/80 backdrop-blur-md"
-              : "bg-white/90 border-zinc-200/80 backdrop-blur-md"
-          }`}
+          className={`px-5 py-4 border-b flex items-center justify-between sticky top-0 z-10 bg-white/90 border-zinc-200/80 backdrop-blur-md dark:bg-zinc-950/90 dark:border-zinc-800/80 dark:backdrop-blur-md`}
         >
           <div className="flex items-center gap-2">
             <MessageCircle className="h-5 w-5 text-rose-500" />
             <h2 className="font-bold text-base tracking-tight">Comments</h2>
             <span
-              className={`text-xs px-2 py-0.5 rounded-full font-semibold ${
-                isDark ? "bg-zinc-800 text-zinc-300" : "bg-zinc-100 text-zinc-700"
-              }`}
+              className={`text-xs px-2 py-0.5 rounded-full font-semibold bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300`}
             >
               {comments.reduce((acc, c) => acc + 1 + (c.replies?.length || 0), 0)}
             </span>
@@ -314,11 +302,7 @@ export default function InstagramCommentModal({
 
           <button
             onClick={onClose}
-            className={`p-1.5 rounded-full transition ${
-              isDark
-                ? "hover:bg-zinc-800 text-zinc-400 hover:text-white"
-                : "hover:bg-zinc-100 text-zinc-500 hover:text-zinc-900"
-            }`}
+            className={`p-1.5 rounded-full transition hover:bg-zinc-100 text-zinc-500 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:text-zinc-400 dark:hover:text-white`}
           >
             <X className="h-5 w-5" />
           </button>
@@ -333,9 +317,7 @@ export default function InstagramCommentModal({
           <div className="pb-4 flex items-start gap-3">
             <div className="h-9 w-9 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 p-[1.5px] flex-shrink-0">
               <div
-                className={`h-full w-full rounded-full flex items-center justify-center font-bold text-xs ${
-                  isDark ? "bg-zinc-900 text-white" : "bg-white text-zinc-900"
-                }`}
+                className={`h-full w-full rounded-full flex items-center justify-center font-bold text-xs bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white`}
               >
                 {postAuthorName[0].toUpperCase()}
               </div>
@@ -344,11 +326,11 @@ export default function InstagramCommentModal({
               <div className="flex items-center gap-1.5">
                 <span className="font-bold">{postAuthorName}</span>
                 <ShieldCheck className="h-3.5 w-3.5 text-blue-400" />
-                <span className={`text-[10px] ${isDark ? "text-zinc-500" : "text-zinc-400"}`}>
+                <span className={`text-[10px] text-zinc-400 dark:text-zinc-500`}>
                   • {formatCommentTime(post.createdAt)}
                 </span>
               </div>
-              <p className={`mt-1 font-medium ${isDark ? "text-zinc-200" : "text-zinc-800"}`}>
+              <p className={`mt-1 font-medium text-zinc-800 dark:text-zinc-200`}>
                 <span className="font-bold mr-1">{post.title}</span> — {post.description}
               </p>
             </div>
@@ -358,7 +340,7 @@ export default function InstagramCommentModal({
           {loading ? (
             <div className="py-12 flex flex-col items-center justify-center gap-2">
               <Loader2 className="h-6 w-6 animate-spin text-rose-500" />
-              <span className={`text-xs ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>
+              <span className={`text-xs text-zinc-500 dark:text-zinc-400`}>
                 Loading conversation thread...
               </span>
             </div>
@@ -366,14 +348,12 @@ export default function InstagramCommentModal({
             /* Empty State */
             <div className="py-12 flex flex-col items-center justify-center text-center">
               <div
-                className={`h-12 w-12 rounded-full flex items-center justify-center mb-3 ${
-                  isDark ? "bg-zinc-900 text-zinc-500" : "bg-zinc-100 text-zinc-400"
-                }`}
+                className={`h-12 w-12 rounded-full flex items-center justify-center mb-3 bg-zinc-100 text-zinc-400 dark:bg-zinc-900 dark:text-zinc-500`}
               >
                 <MessageCircle className="h-6 w-6" />
               </div>
               <p className="font-bold text-sm">No comments yet</p>
-              <p className={`text-xs mt-1 max-w-xs ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>
+              <p className={`text-xs mt-1 max-w-xs text-zinc-500 dark:text-zinc-400`}>
                 Be the first citizen or research lead to share technical insights or support.
               </p>
             </div>
@@ -395,11 +375,7 @@ export default function InstagramCommentModal({
                     {/* Left: Avatar + Body */}
                     <div className="flex items-start gap-3 flex-1">
                       <div
-                        className={`h-8 w-8 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0 border ${
-                          isDark
-                            ? "bg-zinc-800 border-zinc-700 text-zinc-200"
-                            : "bg-zinc-200 border-zinc-300 text-zinc-800"
-                        }`}
+                        className={`h-8 w-8 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0 border bg-zinc-200 border-zinc-300 text-zinc-800 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-200`}
                       >
                         {commenterName[0].toUpperCase()}
                       </div>
@@ -417,12 +393,12 @@ export default function InstagramCommentModal({
                               CSR
                             </span>
                           )}
-                          <span className={`text-[10px] ${isDark ? "text-zinc-500" : "text-zinc-400"}`}>
+                          <span className={`text-[10px] text-zinc-400 dark:text-zinc-500`}>
                             {formatCommentTime(comment.createdAt)}
                           </span>
                         </div>
 
-                        <p className={`mt-1 text-xs ${isDark ? "text-zinc-200" : "text-zinc-800"}`}>
+                        <p className={`mt-1 text-xs text-zinc-800 dark:text-zinc-200`}>
                           {comment.text}
                         </p>
 
@@ -430,15 +406,13 @@ export default function InstagramCommentModal({
                         <div className="flex items-center gap-4 mt-2 text-[11px]">
                           <button
                             onClick={() => handleReplyClick(comment)}
-                            className={`font-semibold hover:underline ${
-                              isDark ? "text-zinc-400 hover:text-white" : "text-zinc-500 hover:text-zinc-900"
-                            }`}
+                            className={`font-semibold hover:underline text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white`}
                           >
                             Reply
                           </button>
 
                           {comment.likeCount > 0 && (
-                            <span className={isDark ? "text-zinc-500" : "text-zinc-400"}>
+                            <span className="text-zinc-400 dark:text-zinc-500">
                               {comment.likeCount} {comment.likeCount === 1 ? "like" : "likes"}
                             </span>
                           )}
@@ -462,7 +436,7 @@ export default function InstagramCommentModal({
                       className={`p-1.5 transition flex flex-col items-center gap-0.5 ${
                         comment.likedByMe
                           ? "text-rose-500 hover:scale-110"
-                          : isDark
+                          : (theme === "dark")
                           ? "text-zinc-500 hover:text-zinc-300"
                           : "text-zinc-400 hover:text-zinc-600"
                       }`}
@@ -479,9 +453,7 @@ export default function InstagramCommentModal({
                     <div className="pl-11">
                       <button
                         onClick={() => toggleRepliesAccordion(comment.id)}
-                        className={`text-[11px] font-semibold flex items-center gap-1.5 transition ${
-                          isDark ? "text-zinc-400 hover:text-white" : "text-zinc-500 hover:text-zinc-900"
-                        }`}
+                        className={`text-[11px] font-semibold flex items-center gap-1.5 transition text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white`}
                       >
                         <span className="w-6 h-[1px] bg-zinc-600"></span>
                         <span>
@@ -510,11 +482,7 @@ export default function InstagramCommentModal({
                               >
                                 <div className="flex items-start gap-2.5 flex-1">
                                   <div
-                                    className={`h-6 w-6 rounded-full flex items-center justify-center font-bold text-[10px] flex-shrink-0 border ${
-                                      isDark
-                                        ? "bg-zinc-800 border-zinc-700 text-zinc-200"
-                                        : "bg-zinc-200 border-zinc-300 text-zinc-800"
-                                    }`}
+                                    className={`h-6 w-6 rounded-full flex items-center justify-center font-bold text-[10px] flex-shrink-0 border bg-zinc-200 border-zinc-300 text-zinc-800 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-200`}
                                   >
                                     {replyAuthor[0].toUpperCase()}
                                   </div>
@@ -523,17 +491,13 @@ export default function InstagramCommentModal({
                                     <div className="flex items-center gap-1.5">
                                       <span className="font-bold text-[11px]">{replyAuthor}</span>
                                       <span
-                                        className={`text-[9px] ${
-                                          isDark ? "text-zinc-500" : "text-zinc-400"
-                                        }`}
+                                        className={`text-[9px] text-zinc-400 dark:text-zinc-500`}
                                       >
                                         {formatCommentTime(reply.createdAt)}
                                       </span>
                                     </div>
                                     <p
-                                      className={`mt-0.5 text-xs ${
-                                        isDark ? "text-zinc-300" : "text-zinc-800"
-                                      }`}
+                                      className={`mt-0.5 text-xs text-zinc-800 dark:text-zinc-300`}
                                     >
                                       {reply.text}
                                     </p>
@@ -541,17 +505,13 @@ export default function InstagramCommentModal({
                                     <div className="flex items-center gap-3 mt-1 text-[10px]">
                                       <button
                                         onClick={() => handleReplyClick(comment)}
-                                        className={`font-semibold hover:underline ${
-                                          isDark
-                                            ? "text-zinc-400 hover:text-white"
-                                            : "text-zinc-500 hover:text-zinc-900"
-                                        }`}
+                                        className={`font-semibold hover:underline text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white`}
                                       >
                                         Reply
                                       </button>
                                       {reply.likeCount > 0 && (
                                         <span
-                                          className={isDark ? "text-zinc-500" : "text-zinc-400"}
+                                          className="text-zinc-400 dark:text-zinc-500"
                                         >
                                           {reply.likeCount} likes
                                         </span>
@@ -575,7 +535,7 @@ export default function InstagramCommentModal({
                                   className={`p-1 transition ${
                                     reply.likedByMe
                                       ? "text-rose-500"
-                                      : isDark
+                                      : (theme === "dark")
                                       ? "text-zinc-500 hover:text-zinc-300"
                                       : "text-zinc-400 hover:text-zinc-600"
                                   }`}
@@ -600,16 +560,12 @@ export default function InstagramCommentModal({
 
         {/* Bottom Sticky Input Block */}
         <div
-          className={`p-3 sm:p-4 border-t ${
-            isDark ? "bg-zinc-950 border-zinc-800" : "bg-white border-zinc-200"
-          }`}
+          className={`p-3 sm:p-4 border-t bg-white border-zinc-200 dark:bg-zinc-950 dark:border-zinc-800`}
         >
           {/* Replying banner */}
           {replyingTo && (
             <div
-              className={`mb-2.5 px-3 py-1.5 rounded-xl flex items-center justify-between text-xs font-semibold ${
-                isDark ? "bg-zinc-900 text-zinc-300 border border-zinc-800" : "bg-zinc-100 text-zinc-700"
-              }`}
+              className={`mb-2.5 px-3 py-1.5 rounded-xl flex items-center justify-between text-xs font-semibold bg-zinc-100 text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:border dark:border-zinc-800`}
             >
               <div className="flex items-center gap-1.5">
                 <CornerDownRight className="h-3.5 w-3.5 text-rose-500" />
@@ -634,11 +590,7 @@ export default function InstagramCommentModal({
                 key={emoji}
                 type="button"
                 onClick={() => setCommentText((prev) => prev + emoji)}
-                className={`text-sm px-2 py-0.5 rounded-full transition border ${
-                  isDark
-                    ? "bg-zinc-900 hover:bg-zinc-800 border-zinc-800"
-                    : "bg-zinc-100 hover:bg-zinc-200 border-zinc-200"
-                }`}
+                className={`text-sm px-2 py-0.5 rounded-full transition border bg-zinc-100 hover:bg-zinc-200 border-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:border-zinc-800`}
               >
                 {emoji}
               </button>
@@ -648,11 +600,7 @@ export default function InstagramCommentModal({
           {/* Input Form */}
           <form onSubmit={handleAddComment} className="flex items-center gap-2">
             <div
-              className={`h-8 w-8 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0 border ${
-                isDark
-                  ? "bg-zinc-800 border-zinc-700 text-white"
-                  : "bg-zinc-200 border-zinc-300 text-zinc-800"
-              }`}
+              className={`h-8 w-8 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0 border bg-zinc-200 border-zinc-300 text-zinc-800 dark:bg-zinc-800 dark:border-zinc-700 dark:text-white`}
             >
               {currentUser ? (currentUser.name || currentUser.email || "U")[0].toUpperCase() : "?"}
             </div>
@@ -668,11 +616,7 @@ export default function InstagramCommentModal({
                     ? `Reply to @${replyingTo.name}...`
                     : "Add a technical insight or comment..."
                 }
-                className={`w-full pl-3.5 pr-14 py-2 rounded-2xl text-xs outline-none border transition ${
-                  isDark
-                    ? "bg-zinc-900 border-zinc-800 text-white placeholder-zinc-500 focus:border-zinc-700"
-                    : "bg-zinc-100 border-zinc-300 text-zinc-900 placeholder-zinc-400 focus:border-zinc-400"
-                }`}
+                className={`w-full pl-3.5 pr-14 py-2 rounded-2xl text-xs outline-none border transition bg-zinc-100 border-zinc-300 text-zinc-900 placeholder-zinc-400 focus:border-zinc-400 dark:bg-zinc-900 dark:border-zinc-800 dark:text-white dark:placeholder-zinc-500 dark:focus:border-zinc-700`}
               />
 
               <button

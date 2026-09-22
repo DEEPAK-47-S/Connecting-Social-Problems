@@ -76,8 +76,6 @@ function InstagramPost({
   isMyActivity?: boolean;
 }) {
   const { theme } = useTheme();
-  const isDark = theme === "dark";
-
   const [likedByMe, setLikedByMe] = useState(Boolean(post.likedByMe));
   const [likeCount, setLikeCount] = useState(post.likeCount || 0);
   const [commentCount, setCommentCount] = useState(post.commentCount || (post.comments?.length || 0));
@@ -164,27 +162,17 @@ function InstagramPost({
   return (
     <article
       id={`post-${post.id}`}
-      className={`border rounded-3xl overflow-hidden shadow-xl mb-6 transition duration-200 ${
-        isDark
-          ? "bg-zinc-950 border-zinc-800/80 text-white"
-          : "bg-white border-zinc-200 text-zinc-900 shadow-sm"
-      }`}
+      className={`border rounded-3xl overflow-hidden shadow-xl mb-6 transition duration-200 bg-white border-zinc-200 text-zinc-900 shadow-sm dark:bg-zinc-950 dark:border-zinc-800/80 dark:text-white`}
     >
       {/* 1. Instagram Post Header */}
       <div
-        className={`flex items-center justify-between p-3.5 sm:p-4 border-b ${
-          isDark
-            ? "bg-zinc-950 border-zinc-800/80 text-white"
-            : "bg-zinc-50/80 border-zinc-200 text-zinc-900"
-        }`}
+        className={`flex items-center justify-between p-3.5 sm:p-4 border-b bg-zinc-50/80 border-zinc-200 text-zinc-900 dark:bg-zinc-950 dark:border-zinc-800/80 dark:text-white`}
       >
         <div className="flex items-center gap-3">
           {/* Instagram Story-style Gradient Ring Avatar */}
           <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 p-[2px] flex-shrink-0 shadow-md">
             <div
-              className={`h-full w-full rounded-full flex items-center justify-center text-xs font-black ${
-                isDark ? "bg-black text-white" : "bg-white text-zinc-900"
-              }`}
+              className={`h-full w-full rounded-full flex items-center justify-center text-xs font-black bg-white text-zinc-900 dark:bg-black dark:text-white`}
             >
               {authorName[0].toUpperCase()}
             </div>
@@ -203,7 +191,7 @@ function InstagramPost({
             </div>
 
             {/* Location Subtitle */}
-            <div className={`flex items-center gap-1 text-[11px] ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>
+            <div className={`flex items-center gap-1 text-[11px] text-zinc-500 dark:text-zinc-400`}>
               <MapPin className="h-3 w-3 text-rose-500 flex-shrink-0" />
               <span className="truncate max-w-[200px] sm:max-w-xs font-medium">
                 {post.location || post.district || "Tamil Nadu, India"}
@@ -232,9 +220,7 @@ function InstagramPost({
 
       {/* 2. Instagram Main Media Section */}
       <div
-        className={`relative flex items-center justify-center ${
-          isDark ? "bg-zinc-950" : "bg-zinc-100"
-        }`}
+        className={`relative flex items-center justify-center bg-zinc-100 dark:bg-zinc-950`}
       >
         {post.imageUrl ? (
           <img
@@ -246,36 +232,24 @@ function InstagramPost({
         ) : (
           /* Sleek Graphic Fallback when no photo attached */
           <div
-            className={`w-full py-16 px-6 flex flex-col items-center justify-center text-center border-y ${
-              isDark
-                ? "bg-gradient-to-br from-zinc-900 via-zinc-950 to-black border-zinc-800/60"
-                : "bg-gradient-to-br from-zinc-50 via-zinc-100 to-zinc-200 border-zinc-200"
-            }`}
+            className={`w-full py-16 px-6 flex flex-col items-center justify-center text-center border-y bg-gradient-to-br from-zinc-50 via-zinc-100 to-zinc-200 border-zinc-200 dark:bg-gradient-to-br dark:from-zinc-900 dark:via-zinc-950 dark:to-black dark:border-zinc-800/60`}
           >
             <div className="h-14 w-14 rounded-2xl bg-gradient-to-tr from-rose-500 to-indigo-600 flex items-center justify-center mb-3 shadow-lg shadow-rose-500/20">
               <Activity className="h-7 w-7 text-white" />
             </div>
             <h4
-              className={`font-extrabold text-lg max-w-md leading-snug px-4 ${
-                isDark ? "text-white" : "text-zinc-900"
-              }`}
+              className={`font-extrabold text-lg max-w-md leading-snug px-4 text-zinc-900 dark:text-white`}
             >
               "{post.title}"
             </h4>
             <p
-              className={`text-xs mt-2 max-w-sm line-clamp-2 ${
-                isDark ? "text-zinc-400" : "text-zinc-600"
-              }`}
+              className={`text-xs mt-2 max-w-sm line-clamp-2 text-zinc-600 dark:text-zinc-400`}
             >
               {post.description}
             </p>
             {post.category && (
               <span
-                className={`mt-3 px-3 py-1 rounded-full text-[11px] font-bold border ${
-                  isDark
-                    ? "bg-zinc-800 text-rose-400 border-zinc-700"
-                    : "bg-white text-rose-600 border-zinc-300 shadow-sm"
-                }`}
+                className={`mt-3 px-3 py-1 rounded-full text-[11px] font-bold border bg-white text-rose-600 border-zinc-300 shadow-sm dark:bg-zinc-800 dark:text-rose-400 dark:border-zinc-700`}
               >
                 #{post.category.replace(/\s+/g, "")}
               </span>
@@ -286,11 +260,7 @@ function InstagramPost({
 
       {/* 3. Instagram Action Bar (Aligned Icons & Counters) */}
       <div
-        className={`px-4 py-3 flex items-center justify-between border-t ${
-          isDark
-            ? "bg-zinc-950 border-zinc-800/40 text-white"
-            : "bg-white border-zinc-100 text-zinc-800"
-        }`}
+        className={`px-4 py-3 flex items-center justify-between border-t bg-white border-zinc-100 text-zinc-800 dark:bg-zinc-950 dark:border-zinc-800/40 dark:text-white`}
       >
         <div className="flex items-center gap-6">
           {/* Like Action */}
@@ -305,7 +275,7 @@ function InstagramPost({
                 className={`h-6 w-6 transition-colors ${
                   likedByMe
                     ? "fill-rose-500 text-rose-500 animate-in zoom-in-75 duration-200"
-                    : isDark
+                    : (theme === "dark")
                     ? "text-white group-hover:text-rose-400"
                     : "text-zinc-700 group-hover:text-rose-600"
                 }`}
@@ -315,7 +285,7 @@ function InstagramPost({
               className={`text-[11px] font-bold mt-1 leading-none transition-colors ${
                 likedByMe
                   ? "text-rose-500"
-                  : isDark
+                  : (theme === "dark")
                   ? "text-zinc-400 group-hover:text-white"
                   : "text-zinc-600 group-hover:text-zinc-900"
               }`}
@@ -333,15 +303,11 @@ function InstagramPost({
           >
             <div className="h-6 w-6 flex items-center justify-center">
               <MessageCircle
-                className={`h-6 w-6 transition-colors ${
-                  isDark ? "text-white group-hover:text-rose-400" : "text-zinc-700 group-hover:text-rose-600"
-                }`}
+                className={`h-6 w-6 transition-colors text-zinc-700 group-hover:text-rose-600 dark:text-white dark:group-hover:text-rose-400`}
               />
             </div>
             <span
-              className={`text-[11px] font-bold mt-1 leading-none transition-colors ${
-                isDark ? "text-zinc-400 group-hover:text-white" : "text-zinc-600 group-hover:text-zinc-900"
-              }`}
+              className={`text-[11px] font-bold mt-1 leading-none transition-colors text-zinc-600 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-white`}
             >
               {commentCount}
             </span>
@@ -356,15 +322,11 @@ function InstagramPost({
           >
             <div className="h-6 w-6 flex items-center justify-center">
               <Send
-                className={`h-6 w-6 transition-colors ${
-                  isDark ? "text-white group-hover:text-rose-400" : "text-zinc-700 group-hover:text-rose-600"
-                }`}
+                className={`h-6 w-6 transition-colors text-zinc-700 group-hover:text-rose-600 dark:text-white dark:group-hover:text-rose-400`}
               />
             </div>
             <span
-              className={`text-[11px] font-bold mt-1 leading-none transition-colors ${
-                isDark ? "text-zinc-400 group-hover:text-white" : "text-zinc-600 group-hover:text-zinc-900"
-              }`}
+              className={`text-[11px] font-bold mt-1 leading-none transition-colors text-zinc-600 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-white`}
             >
               Share
             </span>
@@ -387,19 +349,17 @@ function InstagramPost({
             <Bookmark
               className={`h-6 w-6 transition-colors ${
                 saved
-                  ? isDark
+                  ? (theme === "dark")
                     ? "fill-white text-white"
                     : "fill-zinc-900 text-zinc-900"
-                  : isDark
+                  : (theme === "dark")
                   ? "text-white group-hover:text-zinc-400"
                   : "text-zinc-700 group-hover:text-zinc-900"
               }`}
             />
           </div>
           <span
-            className={`text-[11px] font-bold mt-1 leading-none transition-colors ${
-              isDark ? "text-zinc-400 group-hover:text-white" : "text-zinc-600 group-hover:text-zinc-900"
-            }`}
+            className={`text-[11px] font-bold mt-1 leading-none transition-colors text-zinc-600 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-white`}
           >
             {saved ? "Saved" : "Save"}
           </span>
@@ -407,13 +367,11 @@ function InstagramPost({
       </div>
 
       {/* 4. Likes & Engagement Counter (Clickable to view list of people who liked) */}
-      <div className={`px-4 pb-1 ${isDark ? "bg-zinc-950" : "bg-white"}`}>
+      <div className={`px-4 pb-1 bg-white dark:bg-zinc-950`}>
         <button
           type="button"
           onClick={() => onOpenLikes?.(post.id, post.title)}
-          className={`font-bold text-xs hover:underline cursor-pointer transition text-left focus:outline-none flex items-center gap-1 ${
-            isDark ? "text-white hover:text-rose-400" : "text-zinc-900 hover:text-rose-600"
-          }`}
+          className={`font-bold text-xs hover:underline cursor-pointer transition text-left focus:outline-none flex items-center gap-1 text-zinc-900 hover:text-rose-600 dark:text-white dark:hover:text-rose-400`}
           title="See who liked this post"
         >
           <span>{likeCount.toLocaleString()} {likeCount === 1 ? "like" : "likes"}</span>
@@ -422,9 +380,7 @@ function InstagramPost({
 
       {/* 5. Caption Section (Username + Problem Title + Description + Hashtags) */}
       <div
-        className={`px-4 py-1.5 text-xs leading-relaxed space-y-1 ${
-          isDark ? "bg-zinc-950 text-zinc-200" : "bg-white text-zinc-800"
-        }`}
+        className={`px-4 py-1.5 text-xs leading-relaxed space-y-1 bg-white text-zinc-800 dark:bg-zinc-950 dark:text-zinc-200`}
       >
         <div>
           <span className="font-extrabold mr-2 cursor-pointer hover:underline">
@@ -435,18 +391,14 @@ function InstagramPost({
           </span>
         </div>
 
-        <p className={`mt-1 whitespace-pre-line ${!showFullCaption ? "line-clamp-2" : ""} ${
-          isDark ? "text-zinc-300" : "text-zinc-700"
-        }`}>
+        <p className={`mt-1 whitespace-pre-line ${!showFullCaption ? "line-clamp-2" : ""} text-zinc-700 dark:text-zinc-300`}>
           {post.description}
         </p>
 
         {post.description && post.description.length > 100 && (
           <button
             onClick={() => setShowFullCaption(!showFullCaption)}
-            className={`text-[11px] font-semibold block ${
-              isDark ? "text-zinc-500 hover:text-zinc-300" : "text-zinc-500 hover:text-zinc-800"
-            }`}
+            className={`text-[11px] font-semibold block text-zinc-500 hover:text-zinc-800 dark:text-zinc-500 dark:hover:text-zinc-300`}
           >
             {showFullCaption ? "less" : "...more"}
           </button>
@@ -462,7 +414,7 @@ function InstagramPost({
 
       {/* 6. Embedded Official Sanction / R&D Scope Card (if accepted) */}
       {post.status !== "SUBMITTED" && post.status !== "AI_ANALYZING" && post.status !== "UNIVERSITY_MATCHING" && (
-        <div className={`p-4 pt-2 ${isDark ? "bg-zinc-950" : "bg-white"}`}>
+        <div className={`p-4 pt-2 bg-white dark:bg-zinc-950`}>
           <ApprovalMemoCard
             post={post}
             variant="default"
@@ -472,12 +424,10 @@ function InstagramPost({
       )}
 
       {/* 7. View All Comments Trigger Sub-Block */}
-      <div className={`px-4 py-2 ${isDark ? "bg-zinc-950" : "bg-white"}`}>
+      <div className={`px-4 py-2 bg-white dark:bg-zinc-950`}>
         <button
           onClick={() => onOpenComments(post)}
-          className={`text-xs font-semibold hover:underline flex items-center gap-1.5 transition ${
-            isDark ? "text-zinc-400 hover:text-zinc-200" : "text-zinc-500 hover:text-zinc-900"
-          }`}
+          className={`text-xs font-semibold hover:underline flex items-center gap-1.5 transition text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200`}
         >
           <MessageCircle className="h-3.5 w-3.5 text-rose-500" />
           <span>
@@ -489,8 +439,8 @@ function InstagramPost({
       </div>
 
       {/* 8. Timestamp */}
-      <div className={`px-4 pb-3 pt-1 ${isDark ? "bg-zinc-950" : "bg-white"}`}>
-        <span className={`text-[9px] font-bold tracking-wider ${isDark ? "text-zinc-500" : "text-zinc-400"}`}>
+      <div className={`px-4 pb-3 pt-1 bg-white dark:bg-zinc-950`}>
+        <span className={`text-[9px] font-bold tracking-wider text-zinc-400 dark:text-zinc-500`}>
           {formatTime(post.createdAt)}
         </span>
       </div>
@@ -500,8 +450,6 @@ function InstagramPost({
 
 export default function HomePage() {
   const { theme } = useTheme();
-  const isDark = theme === "dark";
-
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -677,11 +625,7 @@ export default function HomePage() {
 
   return (
     <div
-      className={`min-h-screen flex flex-col font-sans transition-colors duration-200 ${
-        isDark
-          ? "bg-black text-white selection:bg-rose-500/30"
-          : "bg-zinc-50 text-zinc-900 selection:bg-rose-500/20"
-      }`}
+      className={`min-h-screen flex flex-col font-sans transition-colors duration-200 bg-zinc-50 text-zinc-900 selection:bg-rose-500/20 dark:bg-black dark:text-white dark:selection:bg-rose-500/30`}
     >
       {/* Toast Notification */}
       {deleteSuccessToast && (
@@ -693,11 +637,7 @@ export default function HomePage() {
 
       {/* 1. Instagram-Style Top Navigation */}
       <header
-        className={`px-4 sm:px-8 h-16 flex items-center border-b backdrop-blur-md sticky top-0 z-40 ${
-          isDark
-            ? "bg-black/90 border-zinc-800/80 text-white"
-            : "bg-white/90 border-zinc-200 text-zinc-900 shadow-sm"
-        }`}
+        className={`px-4 sm:px-8 h-16 flex items-center border-b backdrop-blur-md sticky top-0 z-40 bg-white/90 border-zinc-200 text-zinc-900 shadow-sm dark:bg-black/90 dark:border-zinc-800/80 dark:text-white`}
       >
         <div className="max-w-xl mx-auto w-full flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
@@ -724,11 +664,7 @@ export default function HomePage() {
 
                 <button
                   onClick={() => setShowProfile(true)}
-                  className={`h-8 w-8 rounded-full border flex items-center justify-center text-xs font-bold transition ${
-                    isDark
-                      ? "bg-zinc-800 border-zinc-700 text-white hover:border-zinc-500"
-                      : "bg-zinc-100 border-zinc-300 text-zinc-800 hover:border-zinc-400"
-                  }`}
+                  className={`h-8 w-8 rounded-full border flex items-center justify-center text-xs font-bold transition bg-zinc-100 border-zinc-300 text-zinc-800 hover:border-zinc-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-white dark:hover:border-zinc-500`}
                   title="Profile"
                 >
                   {(user.name || user.email || "?")[0].toUpperCase()}
@@ -736,9 +672,7 @@ export default function HomePage() {
 
                 <button
                   onClick={handleLogout}
-                  className={`text-xs font-semibold ${
-                    isDark ? "text-zinc-400 hover:text-white" : "text-zinc-600 hover:text-zinc-900"
-                  }`}
+                  className={`text-xs font-semibold text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white`}
                 >
                   Logout
                 </button>
@@ -762,20 +696,16 @@ export default function HomePage() {
         <div className="mb-5 space-y-3">
           {/* Tabs */}
           <div
-            className={`flex p-1 rounded-2xl border text-xs font-bold ${
-              isDark
-                ? "bg-zinc-900/90 border-zinc-800"
-                : "bg-zinc-100 border-zinc-200"
-            }`}
+            className={`flex p-1 rounded-2xl border text-xs font-bold bg-zinc-100 border-zinc-200 dark:bg-zinc-900/90 dark:border-zinc-800`}
           >
             <button
               onClick={() => setActiveTab("feed")}
               className={`flex-1 py-2 rounded-xl transition ${
                 activeTab === "feed"
-                  ? isDark
+                  ? (theme === "dark")
                     ? "bg-zinc-800 text-white shadow-sm"
                     : "bg-white text-zinc-900 shadow-sm"
-                  : isDark
+                  : (theme === "dark")
                   ? "text-zinc-400 hover:text-white"
                   : "text-zinc-600 hover:text-zinc-900"
               }`}
@@ -792,10 +722,10 @@ export default function HomePage() {
               }}
               className={`flex-1 py-2 rounded-xl transition flex items-center justify-center gap-1.5 ${
                 activeTab === "myActivity"
-                  ? isDark
+                  ? (theme === "dark")
                     ? "bg-zinc-800 text-white shadow-sm"
                     : "bg-white text-zinc-900 shadow-sm"
-                  : isDark
+                  : (theme === "dark")
                   ? "text-zinc-400 hover:text-white"
                   : "text-zinc-600 hover:text-zinc-900"
               }`}
@@ -817,11 +747,7 @@ export default function HomePage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search community posts, landmarks, districts..."
-              className={`w-full pl-10 pr-9 py-2 rounded-2xl text-xs outline-none border transition ${
-                isDark
-                  ? "bg-zinc-900 text-white placeholder-zinc-500 border-zinc-800 focus:border-zinc-700"
-                  : "bg-white text-zinc-900 placeholder-zinc-400 border-zinc-300 focus:border-zinc-400 shadow-sm"
-              }`}
+              className={`w-full pl-10 pr-9 py-2 rounded-2xl text-xs outline-none border transition bg-white text-zinc-900 placeholder-zinc-400 border-zinc-300 focus:border-zinc-400 shadow-sm dark:bg-zinc-900 dark:text-white dark:placeholder-zinc-500 dark:border-zinc-800 dark:focus:border-zinc-700`}
             />
             {searchQuery && (
               <button
@@ -836,23 +762,17 @@ export default function HomePage() {
           {/* District & Category Scroll Bar */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-xs">
             <div
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-full border flex-shrink-0 ${
-                isDark
-                  ? "bg-zinc-900 border-zinc-800 text-white"
-                  : "bg-white border-zinc-300 text-zinc-900 shadow-sm"
-              }`}
+              className={`flex items-center gap-1 px-3 py-1.5 rounded-full border flex-shrink-0 bg-white border-zinc-300 text-zinc-900 shadow-sm dark:bg-zinc-900 dark:border-zinc-800 dark:text-white`}
             >
               <MapPin className="h-3 w-3 text-rose-500" />
               <select
                 value={selectedDistrict}
                 onChange={(e) => setSelectedDistrict(e.target.value)}
-                className={`bg-transparent font-bold text-xs outline-none cursor-pointer ${
-                  isDark ? "text-white" : "text-zinc-900"
-                }`}
+                className={`bg-transparent font-bold text-xs outline-none cursor-pointer text-zinc-900 dark:text-white`}
               >
-                <option value="All" className={isDark ? "bg-zinc-900 text-white" : "bg-white text-zinc-900"}>All Districts</option>
+                <option value="All" className="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white">All Districts</option>
                 {TAMIL_NADU_DISTRICTS.map((d) => (
-                  <option key={d} value={d} className={isDark ? "bg-zinc-900 text-white" : "bg-white text-zinc-900"}>{d}</option>
+                  <option key={d} value={d} className="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white">{d}</option>
                 ))}
               </select>
             </div>
@@ -863,10 +783,10 @@ export default function HomePage() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1.5 rounded-full whitespace-nowrap font-bold text-xs transition flex-shrink-0 ${
                   selectedCategory === cat
-                    ? isDark
+                    ? (theme === "dark")
                       ? "bg-white text-black"
                       : "bg-zinc-900 text-white shadow-sm"
-                    : isDark
+                    : (theme === "dark")
                     ? "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
                     : "bg-white text-zinc-600 border border-zinc-200 hover:text-zinc-900 shadow-sm"
                 }`}
@@ -885,32 +805,26 @@ export default function HomePage() {
           </div>
         ) : error ? (
           <div
-            className={`text-center py-16 rounded-3xl border p-6 ${
-              isDark ? "bg-zinc-950 border-rose-500/30" : "bg-white border-rose-200 shadow-md"
-            }`}
+            className={`text-center py-16 rounded-3xl border p-6 bg-white border-rose-200 shadow-md dark:bg-zinc-950 dark:border-rose-500/30`}
           >
             <AlertTriangle className="h-8 w-8 text-rose-500 mx-auto mb-2" />
             <p className="text-rose-500 font-bold text-xs mb-3">{error}</p>
             <button
               onClick={() => fetchPosts()}
-              className={`px-4 py-2 rounded-xl text-xs font-bold ${
-                isDark ? "bg-zinc-800 text-white hover:bg-zinc-700" : "bg-zinc-900 text-white hover:bg-zinc-800"
-              }`}
+              className={`px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-800 dark:text-white dark:hover:bg-zinc-700`}
             >
               Retry
             </button>
           </div>
         ) : filteredPosts.length === 0 ? (
           <div
-            className={`text-center py-20 rounded-3xl border p-8 ${
-              isDark ? "bg-zinc-950 border-zinc-900" : "bg-white border-zinc-200 shadow-sm"
-            }`}
+            className={`text-center py-20 rounded-3xl border p-8 bg-white border-zinc-200 shadow-sm dark:bg-zinc-950 dark:border-zinc-900`}
           >
             <Sparkles className="h-8 w-8 text-zinc-400 mx-auto mb-2" />
             <h3 className="font-bold text-sm">
               {activeTab === "myActivity" ? "No activity posts yet" : "No posts found"}
             </h3>
-            <p className={`text-xs mt-1 ${isDark ? "text-zinc-500" : "text-zinc-400"}`}>
+            <p className={`text-xs mt-1 text-zinc-400 dark:text-zinc-500`}>
               {activeTab === "myActivity"
                 ? "Post a civic issue in your neighborhood to initiate university research."
                 : "Try searching for a different keyword or district."}
@@ -972,9 +886,7 @@ export default function HomePage() {
       {postToDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in">
           <div
-            className={`rounded-3xl max-w-md w-full p-6 border shadow-2xl ${
-              isDark ? "bg-zinc-900 border-zinc-800 text-white" : "bg-white border-zinc-200 text-zinc-900"
-            }`}
+            className={`rounded-3xl max-w-md w-full p-6 border shadow-2xl bg-white border-zinc-200 text-zinc-900 dark:bg-zinc-900 dark:border-zinc-800 dark:text-white`}
           >
             <div className="h-12 w-12 rounded-2xl bg-rose-500/20 text-rose-500 flex items-center justify-center mb-4">
               <Trash2 className="h-6 w-6" />
@@ -984,7 +896,7 @@ export default function HomePage() {
               Delete Post?
             </h3>
 
-            <p className={`text-xs mt-2 leading-relaxed ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
+            <p className={`text-xs mt-2 leading-relaxed text-zinc-600 dark:text-zinc-400`}>
               Are you sure you want to permanently delete <span className="font-bold">"{postToDelete.title}"</span> from the database?
             </p>
 
@@ -993,11 +905,7 @@ export default function HomePage() {
                 type="button"
                 onClick={() => setPostToDelete(null)}
                 disabled={deleting}
-                className={`flex-1 py-2.5 rounded-xl border text-xs font-bold transition ${
-                  isDark
-                    ? "border-zinc-700 text-zinc-300 hover:bg-zinc-800"
-                    : "border-zinc-300 text-zinc-700 hover:bg-zinc-100"
-                }`}
+                className={`flex-1 py-2.5 rounded-xl border text-xs font-bold transition border-zinc-300 text-zinc-700 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800`}
               >
                 Cancel
               </button>

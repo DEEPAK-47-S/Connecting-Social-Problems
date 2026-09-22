@@ -48,7 +48,6 @@ const COMMON_PROBLEM_SKILLS = [
 
 export default function CollegeLoginPage() {
   const { theme } = useTheme();
-  const isDark = theme === "dark";
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
 
@@ -264,17 +263,17 @@ export default function CollegeLoginPage() {
   };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 via-slate-950 to-purple-950 text-slate-100 p-4 selection:bg-indigo-500 selection: py-12 ${isDark ? "text-white" : "text-slate-900"}`}>
+    <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 via-slate-950 to-purple-950 text-slate-100 p-4 selection:bg-indigo-500 selection: py-12 text-foreground`}>
       <div className="w-full max-w-lg">
         
         {/* Brand Header */}
         <div className="text-center mb-6">
           <Link
             href="/college"
-            className={`inline-flex items-center gap-2 text-3xl font-black italic tracking-tight  group ${isDark ? "text-white" : "text-slate-900"}`}
+            className={`inline-flex items-center gap-2 text-3xl font-black italic tracking-tight  group text-foreground`}
           >
             <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform">
-              <GraduationCap className={`h-5 w-5 ${isDark ? "text-white" : "text-slate-900"}`} />
+              <GraduationCap className={`h-5 w-5 text-foreground`} />
             </div>
             <span>SocialImpact</span>
           </Link>
@@ -285,11 +284,11 @@ export default function CollegeLoginPage() {
         </div>
 
         {/* Auth Card */}
-        <div className={`/80 backdrop-blur-2xl rounded-3xl shadow-2xl border border-slate-800/80 overflow-hidden ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+        <div className={`/80 backdrop-blur-2xl rounded-3xl shadow-2xl border border-slate-800/80 overflow-hidden bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
           <div className="p-7 sm:p-9">
 
             {/* Tab Switcher */}
-            <div className={`flex  p-1.5 rounded-2xl mb-6 border border-slate-800 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+            <div className={`flex  p-1.5 rounded-2xl mb-6 border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
               <button
                 type="button"
                 onClick={() => {
@@ -323,10 +322,10 @@ export default function CollegeLoginPage() {
             </div>
 
             <div className="mb-6">
-              <h2 className={`text-xl font-black tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
+              <h2 className={`text-xl font-black tracking-tight text-foreground`}>
                 {isLogin ? "Academic Faculty Sign In" : "Register Your University / College"}
               </h2>
-              <p className={`text-xs  mt-1 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+              <p className={`text-xs  mt-1 text-slate-600 dark:text-slate-400`}>
                 {isLogin
                   ? "Enter your academic work email and password to access the college problem dashboard."
                   : "Fill in your institution details and registered problem-solving skills to adopt citizen problem statements."}
@@ -358,7 +357,7 @@ export default function CollegeLoginPage() {
                 <>
                   {/* College Name Search / Autocomplete Field */}
                   <div ref={dropdownRef} className="relative">
-                    <label className={`block text-[11px] font-bold uppercase tracking-wider  mb-1.5 flex items-center justify-between ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                    <label className={`block text-[11px] font-bold uppercase tracking-wider  mb-1.5 flex items-center justify-between text-slate-600 dark:text-slate-400`}>
                       <span>College Name (Smart Autocomplete)</span>
                       <span className="text-[10px] text-indigo-400 font-semibold">{allColleges.length}+ Tamil Nadu Colleges</span>
                     </label>
@@ -372,7 +371,7 @@ export default function CollegeLoginPage() {
                         onChange={handleCollegeInputChange}
                         onFocus={() => setShowSuggestions(true)}
                         placeholder="Type to search or enter college name..."
-                        className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-slate-950  placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium ${isDark ? "text-white" : "text-slate-900"}`}
+                        className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-slate-950  placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
                       />
                       <ChevronDown
                         className="absolute right-3.5 top-3 h-4 w-4 text-slate-500 cursor-pointer"
@@ -382,7 +381,7 @@ export default function CollegeLoginPage() {
 
                     {/* Live Suggestions Dropdown */}
                     {showSuggestions && suggestions.length > 0 && (
-                      <div className={`absolute z-50 left-0 right-0 mt-1  border border-slate-700 rounded-2xl shadow-2xl max-h-56 overflow-y-auto divide-y divide-slate-800 animate-in fade-in ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+                      <div className={`absolute z-50 left-0 right-0 mt-1  border border-slate-700 rounded-2xl shadow-2xl max-h-56 overflow-y-auto divide-y divide-slate-800 animate-in fade-in bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
                         {suggestions.map((c, i) => (
                           <div
                             key={i}
@@ -390,7 +389,7 @@ export default function CollegeLoginPage() {
                             className="p-3 hover:bg-slate-800/80 cursor-pointer transition flex items-start justify-between gap-2"
                           >
                             <div>
-                              <p className={`text-xs font-bold  flex items-center gap-1.5 ${isDark ? "text-white" : "text-slate-900"}`}>
+                              <p className={`text-xs font-bold  flex items-center gap-1.5 text-foreground`}>
                                 <span>{c.name}</span>
                                 {c.district && (
                                   <span className="text-[9px] px-1.5 py-0.2 bg-purple-500/20 text-purple-300 rounded font-semibold">
@@ -403,7 +402,7 @@ export default function CollegeLoginPage() {
                                   </span>
                                 )}
                               </p>
-                              <p className={`text-[10px]  mt-0.5 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                              <p className={`text-[10px]  mt-0.5 text-slate-600 dark:text-slate-400`}>
                                 Specializations: {c.skills.slice(0, 3).join(", ")}
                               </p>
                             </div>
@@ -446,13 +445,13 @@ export default function CollegeLoginPage() {
                     {/* College Type & District */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       <div>
-                        <label className={`block text-[10px] font-bold  mb-1 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                        <label className={`block text-[10px] font-bold  mb-1 text-slate-600 dark:text-slate-400`}>
                           Campus Type
                         </label>
                         <select
                           value={collegeType}
                           onChange={(e) => setCollegeType(e.target.value as TamilNaduCollege["type"])}
-                          className={`w-full px-2.5 py-1.5 bg-slate-950 rounded-lg border border-slate-800 text-xs  focus:ring-2 focus:ring-indigo-500 outline-none ${isDark ? "text-white" : "text-slate-900"}`}
+                          className={`w-full px-2.5 py-1.5 bg-slate-950 rounded-lg border border-slate-800 text-xs  focus:ring-2 focus:ring-indigo-500 outline-none text-foreground`}
                         >
                           <option value="Engineering">Engineering &amp; Tech</option>
                           <option value="University">State / Central University</option>
@@ -464,13 +463,13 @@ export default function CollegeLoginPage() {
                       </div>
 
                       <div>
-                        <label className={`block text-[10px] font-bold  mb-1 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                        <label className={`block text-[10px] font-bold  mb-1 text-slate-600 dark:text-slate-400`}>
                           Tamil Nadu District
                         </label>
                         <select
                           value={district}
                           onChange={(e) => setDistrict(e.target.value)}
-                          className={`w-full px-2.5 py-1.5 bg-slate-950 rounded-lg border border-slate-800 text-xs  focus:ring-2 focus:ring-indigo-500 outline-none ${isDark ? "text-white" : "text-slate-900"}`}
+                          className={`w-full px-2.5 py-1.5 bg-slate-950 rounded-lg border border-slate-800 text-xs  focus:ring-2 focus:ring-indigo-500 outline-none text-foreground`}
                         >
                           {TAMIL_NADU_DISTRICTS.map((d) => (
                             <option key={d} value={d}>
@@ -483,10 +482,10 @@ export default function CollegeLoginPage() {
 
                     {/* Problem-Solving Specializations (Clickable Chips) */}
                     <div>
-                      <label className={`block text-[10px] font-bold  mb-1.5 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                      <label className={`block text-[10px] font-bold  mb-1.5 text-slate-600 dark:text-slate-400`}>
                         Select Problem Areas This College Solves:
                       </label>
-                      <div className={`flex flex-wrap gap-1.5 max-h-32 overflow-y-auto p-1 /60 rounded-xl border border-slate-800 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+                      <div className={`flex flex-wrap gap-1.5 max-h-32 overflow-y-auto p-1 /60 rounded-xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
                         {COMMON_PROBLEM_SKILLS.map((skill, idx) => {
                           const isSelected = selectedSkills.includes(skill);
                           return (
@@ -520,12 +519,12 @@ export default function CollegeLoginPage() {
                             }
                           }}
                           placeholder="Add custom problem skill..."
-                          className={`flex-1 px-3 py-1.5 bg-slate-950 rounded-lg border border-slate-800  placeholder-slate-600 text-xs outline-none ${isDark ? "text-white" : "text-slate-900"}`}
+                          className={`flex-1 px-3 py-1.5 bg-slate-950 rounded-lg border border-slate-800  placeholder-slate-600 text-xs outline-none text-foreground`}
                         />
                         <button
                           type="button"
                           onClick={handleAddCustomSkill}
-                          className={`px-3 py-1.5 bg-slate-800 hover:bg-slate-700  text-xs font-bold rounded-lg transition ${isDark ? "text-white" : "text-slate-900"}`}
+                          className={`px-3 py-1.5 bg-slate-800 hover:bg-slate-700  text-xs font-bold rounded-lg transition text-foreground`}
                         >
                           Add
                         </button>
@@ -534,7 +533,7 @@ export default function CollegeLoginPage() {
 
                     {/* Lead Department */}
                     <div>
-                      <label className={`block text-[10px] font-bold  mb-1 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                      <label className={`block text-[10px] font-bold  mb-1 text-slate-600 dark:text-slate-400`}>
                         Lead Department / Center of Excellence
                       </label>
                       <input
@@ -542,14 +541,14 @@ export default function CollegeLoginPage() {
                         value={leadDept}
                         onChange={(e) => setLeadDept(e.target.value)}
                         placeholder="e.g. Dept of Electrical &amp; Water Systems Lab"
-                        className={`w-full px-3 py-1.5 bg-slate-950 rounded-lg border border-slate-800  text-xs outline-none ${isDark ? "text-white" : "text-slate-900"}`}
+                        className={`w-full px-3 py-1.5 bg-slate-950 rounded-lg border border-slate-800  text-xs outline-none text-foreground`}
                       />
                     </div>
                   </div>
 
                   {/* Faculty Guide / Coordinator */}
                   <div>
-                    <label className={`block text-[11px] font-bold uppercase tracking-wider  mb-1 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                    <label className={`block text-[11px] font-bold uppercase tracking-wider  mb-1 text-slate-600 dark:text-slate-400`}>
                       Faculty Guide / Principal Investigator Name
                     </label>
                     <div className="relative">
@@ -559,7 +558,7 @@ export default function CollegeLoginPage() {
                         required={!isLogin}
                         value={facultyName}
                         onChange={(e) => setFacultyName(e.target.value)}
-                        className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950  placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium ${isDark ? "text-white" : "text-slate-900"}`}
+                        className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950  placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
                         placeholder="e.g. Dr. K. Ramanathan, Ph.D"
                       />
                     </div>
@@ -573,7 +572,7 @@ export default function CollegeLoginPage() {
 
               {/* Academic Email / Username */}
               <div>
-                <label className={`block text-[11px] font-bold uppercase tracking-wider  mb-1 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                <label className={`block text-[11px] font-bold uppercase tracking-wider  mb-1 text-slate-600 dark:text-slate-400`}>
                   {isLogin ? "Academic Work Email / Username" : "Official Academic Work Email"}
                 </label>
                 <div className="relative">
@@ -583,7 +582,7 @@ export default function CollegeLoginPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950  placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium ${isDark ? "text-white" : "text-slate-900"}`}
+                    className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950  placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
                     placeholder="professor@university.edu.in"
                   />
                 </div>
@@ -591,7 +590,7 @@ export default function CollegeLoginPage() {
 
               {/* Password */}
               <div>
-                <label className={`block text-[11px] font-bold uppercase tracking-wider  mb-1 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                <label className={`block text-[11px] font-bold uppercase tracking-wider  mb-1 text-slate-600 dark:text-slate-400`}>
                   Password
                 </label>
                 <div className="relative">
@@ -601,13 +600,13 @@ export default function CollegeLoginPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-slate-950  placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium ${isDark ? "text-white" : "text-slate-900"}`}
+                    className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-slate-950  placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
                     placeholder="••••••••"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPass(!showPass)}
-                    className={`absolute right-3.5 top-3  hover:text-slate-200 transition-colors ${isDark ? "text-slate-400" : "text-slate-600"}`}
+                    className={`absolute right-3.5 top-3  hover:text-slate-200 transition-colors text-slate-600 dark:text-slate-400`}
                   >
                     {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
@@ -618,7 +617,7 @@ export default function CollegeLoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full mt-2 py-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600  font-bold rounded-xl hover:opacity-95 active:scale-[0.99] transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-xl shadow-indigo-500/20 text-xs uppercase tracking-wider ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`w-full mt-2 py-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600  font-bold rounded-xl hover:opacity-95 active:scale-[0.99] transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-xl shadow-indigo-500/20 text-xs uppercase tracking-wider text-foreground`}
               >
                 {loading ? (
                   <>
@@ -635,7 +634,7 @@ export default function CollegeLoginPage() {
             </form>
 
             <div className="mt-6 pt-5 border-t border-slate-800 text-center text-[11px] text-slate-500">
-              <span className={`flex items-center justify-center gap-1.5 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+              <span className={`flex items-center justify-center gap-1.5 text-slate-600 dark:text-slate-400`}>
                 <GraduationCap className="h-3.5 w-3.5 text-indigo-400" />
                 <span>Authorized Tamil Nadu Academic &amp; Research Access Only</span>
               </span>

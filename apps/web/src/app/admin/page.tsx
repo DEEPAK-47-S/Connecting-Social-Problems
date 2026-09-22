@@ -42,8 +42,6 @@ const STATUS_BADGES: Record<string, { label: string; color: string }> = {
 export default function AdminDashboardPage() {
   const router = useRouter();
   const { theme } = useTheme();
-  const isDark = theme === "dark";
-
   const [adminUser, setAdminUser] = useState<any>(null);
   const [adminToken, setAdminToken] = useState<string | null>(null);
   const [posts, setPosts] = useState<any[]>([]);
@@ -291,24 +289,20 @@ export default function AdminDashboardPage() {
   }, [posts]);
 
   return (
-    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-200 ${
-      isDark ? "bg-black text-white selection:bg-rose-500/30" : "bg-zinc-50 text-zinc-900 selection:bg-rose-500/20"
-    }`}>
+    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-200 bg-zinc-50 text-zinc-900 selection:bg-rose-500/20 dark:bg-black dark:text-white dark:selection:bg-rose-500/30`}>
       {/* Toast Notification */}
       {toastMessage && (
-        <div className={`fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-emerald-600  px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-bold animate-in fade-in slide-in-from-top-4 ${isDark ? "text-white" : "text-slate-900"}`}>
+        <div className={`fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-emerald-600  px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-bold animate-in fade-in slide-in-from-top-4 text-foreground`}>
           <CheckCircle2 className="h-5 w-5 flex-shrink-0" />
           <span>{toastMessage}</span>
         </div>
       )}
 
       {/* Header */}
-      <header className={`px-4 sm:px-8 h-18 flex items-center justify-between border-b sticky top-0 z-40 backdrop-blur-md ${
-        isDark ? "bg-black/90 border-zinc-800/80" : "bg-white/90 border-zinc-200 shadow-sm"
-      }`}>
+      <header className={`px-4 sm:px-8 h-18 flex items-center justify-between border-b sticky top-0 z-40 backdrop-blur-md bg-white/90 border-zinc-200 shadow-sm dark:bg-black/90 dark:border-zinc-800/80`}>
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-rose-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-rose-500/20">
-            <ShieldCheck className={`h-5 w-5 ${isDark ? "text-white" : "text-slate-900"}`} />
+            <ShieldCheck className={`h-5 w-5 text-foreground`} />
           </div>
           <div>
             <div className="flex items-center gap-2">
@@ -319,7 +313,7 @@ export default function AdminDashboardPage() {
                 Database Authority
               </span>
             </div>
-            <p className={`text-[11px] ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>
+            <p className={`text-[11px] text-zinc-500 dark:text-zinc-400`}>
               Manage, inspect, and delete complaints permanently
             </p>
           </div>
@@ -330,9 +324,7 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={fetchAllComplaints}
-            className={`p-2 rounded-xl transition ${
-              isDark ? "bg-zinc-800 hover:bg-zinc-700 text-zinc-300" : "bg-zinc-100 hover:bg-zinc-200 text-zinc-700"
-            }`}
+            className={`p-2 rounded-xl transition bg-zinc-100 hover:bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-300`}
             title="Refresh database"
           >
             <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
@@ -340,16 +332,14 @@ export default function AdminDashboardPage() {
 
           <Link
             href="/"
-            className={`hidden sm:inline-flex px-3.5 py-1.5 rounded-xl border text-xs font-bold transition ${
-              isDark ? "border-zinc-700 text-zinc-300 hover:bg-zinc-800" : "border-zinc-300 text-zinc-700 hover:bg-zinc-100"
-            }`}
+            className={`hidden sm:inline-flex px-3.5 py-1.5 rounded-xl border text-xs font-bold transition border-zinc-300 text-zinc-700 hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800`}
           >
             View Public Site
           </Link>
 
           <button
             onClick={handleLogout}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-950/40 border border-rose-500/30 ${isDark ? "text-rose-300" : "text-rose-700"} text-xs font-bold hover:bg-rose-900/50 transition`}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-950/40 border border-rose-500/30 text-rose-700 dark:text-rose-300 text-xs font-bold hover:bg-rose-900/50 transition`}
           >
             <LogOut className="h-3.5 w-3.5" />
             <span>Sign Out</span>
@@ -362,16 +352,16 @@ export default function AdminDashboardPage() {
         
         {/* Metrics Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className={`p-5 rounded-3xl ${isDark ? "bg-zinc-900" : "bg-white shadow-sm border border-gray-200"}/80 border border-zinc-800 shadow-xl`}>
+          <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/80 border border-zinc-800 shadow-xl`}>
             <div className="flex items-center justify-between text-zinc-600 dark:text-zinc-400 mb-2">
               <span className="text-xs font-bold uppercase tracking-wider">Total Complaints</span>
               <FileText className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
             </div>
-            <p className={`text-3xl font-black ${isDark ? "text-white" : "text-slate-900"}`}>{stats.total}</p>
+            <p className={`text-3xl font-black text-foreground`}>{stats.total}</p>
             <p className="text-[11px] text-zinc-500 mt-1">Stored in SQLite `Post` table</p>
           </div>
 
-          <div className={`p-5 rounded-3xl ${isDark ? "bg-zinc-900" : "bg-white shadow-sm border border-gray-200"}/80 border border-zinc-800 shadow-xl`}>
+          <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/80 border border-zinc-800 shadow-xl`}>
             <div className="flex items-center justify-between text-zinc-600 dark:text-zinc-400 mb-2">
               <span className="text-xs font-bold uppercase tracking-wider">College Leads</span>
               <GraduationCap className="h-4 w-4 text-blue-600 dark:text-blue-400" />
@@ -380,7 +370,7 @@ export default function AdminDashboardPage() {
             <p className="text-[11px] text-zinc-500 mt-1">Under R&amp;D Lab prototyping</p>
           </div>
 
-          <div className={`p-5 rounded-3xl ${isDark ? "bg-zinc-900" : "bg-white shadow-sm border border-gray-200"}/80 border border-zinc-800 shadow-xl`}>
+          <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/80 border border-zinc-800 shadow-xl`}>
             <div className="flex items-center justify-between text-zinc-600 dark:text-zinc-400 mb-2">
               <span className="text-xs font-bold uppercase tracking-wider">Industry Sponsors</span>
               <Handshake className="h-4 w-4 text-pink-600 dark:text-pink-400" />
@@ -389,7 +379,7 @@ export default function AdminDashboardPage() {
             <p className="text-[11px] text-zinc-500 mt-1">Funded by CSR corporate partners</p>
           </div>
 
-          <div className={`p-5 rounded-3xl ${isDark ? "bg-zinc-900" : "bg-white shadow-sm border border-gray-200"}/80 border border-zinc-800 shadow-xl`}>
+          <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/80 border border-zinc-800 shadow-xl`}>
             <div className="flex items-center justify-between text-zinc-600 dark:text-zinc-400 mb-2">
               <span className="text-xs font-bold uppercase tracking-wider">Resolved Issues</span>
               <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
@@ -405,9 +395,9 @@ export default function AdminDashboardPage() {
             onClick={() => setActiveTab("complaints")}
             className={`px-6 py-2 rounded-xl text-sm font-bold transition ${
               activeTab === "complaints"
-                ? "bg-indigo-600 text-slate-900 dark:text-white shadow-lg"
-                : isDark
-                ? "bg-white shadow-sm border border-zinc-200 dark:bg-zinc-900 dark:border-transparent text-zinc-600 dark:text-zinc-400 hover:text-slate-900 dark:text-white"
+                ? "bg-indigo-600 text-foreground shadow-lg"
+                : (theme === "dark")
+                ? "bg-white shadow-sm border border-zinc-200 dark:bg-zinc-900 dark:border-transparent text-zinc-600 dark:text-zinc-400 hover:text-foreground"
                 : "bg-white text-zinc-600 border hover:text-zinc-900"
             }`}
           >
@@ -417,9 +407,9 @@ export default function AdminDashboardPage() {
             onClick={() => setActiveTab("users")}
             className={`px-6 py-2 rounded-xl text-sm font-bold transition ${
               activeTab === "users"
-                ? "bg-indigo-600 text-slate-900 dark:text-white shadow-lg"
-                : isDark
-                ? "bg-white shadow-sm border border-zinc-200 dark:bg-zinc-900 dark:border-transparent text-zinc-600 dark:text-zinc-400 hover:text-slate-900 dark:text-white"
+                ? "bg-indigo-600 text-foreground shadow-lg"
+                : (theme === "dark")
+                ? "bg-white shadow-sm border border-zinc-200 dark:bg-zinc-900 dark:border-transparent text-zinc-600 dark:text-zinc-400 hover:text-foreground"
                 : "bg-white text-zinc-600 border hover:text-zinc-900"
             }`}
           >
@@ -429,8 +419,8 @@ export default function AdminDashboardPage() {
 
         {/* Users Tab View */}
         {activeTab === "users" && (
-          <div className={`p-6 rounded-3xl border shadow-xl ${isDark ? "bg-zinc-900/90 border-zinc-800" : "bg-white border-zinc-200"}`}>
-            <h2 className={`text-xl font-black mb-4 ${isDark ? "text-white" : "text-zinc-900"}`}>Registered Users</h2>
+          <div className={`p-6 rounded-3xl border shadow-xl bg-white border-zinc-200 dark:bg-zinc-900/90 dark:border-zinc-800`}>
+            <h2 className={`text-xl font-black mb-4 text-zinc-900 dark:text-white`}>Registered Users</h2>
             
             {loadingUsers ? (
               <div className="py-20 flex justify-center"><Loader2 className="h-8 w-8 animate-spin text-indigo-500" /></div>
@@ -438,7 +428,7 @@ export default function AdminDashboardPage() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm border-collapse">
                   <thead>
-                    <tr className={`border-b ${isDark ? "border-zinc-800 text-zinc-400" : "border-zinc-200 text-zinc-500"}`}>
+                    <tr className={`border-b border-zinc-200 text-zinc-500 dark:border-zinc-800 dark:text-zinc-400`}>
                       <th className="p-3 font-bold uppercase tracking-wider text-xs">User / Email</th>
                       <th className="p-3 font-bold uppercase tracking-wider text-xs">Role</th>
                       <th className="p-3 font-bold uppercase tracking-wider text-xs">Organization</th>
@@ -447,9 +437,9 @@ export default function AdminDashboardPage() {
                   </thead>
                   <tbody>
                     {users.map(u => (
-                      <tr key={u.id} className={`border-b transition hover:bg-zinc-500/5 ${isDark ? "border-zinc-800/50" : "border-zinc-100"}`}>
+                      <tr key={u.id} className={`border-b transition hover:bg-zinc-500/5 border-zinc-100 dark:border-zinc-800/50`}>
                         <td className="p-3">
-                          <div className={`font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{u.name}</div>
+                          <div className={`font-bold text-zinc-900 dark:text-white`}>{u.name}</div>
                           <div className="text-xs text-zinc-500">{u.email}</div>
                         </td>
                         <td className="p-3">
@@ -481,27 +471,27 @@ export default function AdminDashboardPage() {
         {/* Delete User Modal */}
         {userToDelete && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white dark:bg-black/60 backdrop-blur-sm animate-in fade-in">
-            <div className={`max-w-md w-full rounded-3xl p-6 shadow-2xl border ${isDark ? "bg-zinc-950 border-zinc-800" : "bg-white border-zinc-200"}`}>
+            <div className={`max-w-md w-full rounded-3xl p-6 shadow-2xl border bg-white border-zinc-200 dark:bg-zinc-950 dark:border-zinc-800`}>
               <div className="flex items-center gap-3 text-rose-500 mb-4">
                 <AlertTriangle className="h-6 w-6" />
-                <h3 className={`text-xl font-black ${isDark ? "text-white" : "text-zinc-900"}`}>Delete User</h3>
+                <h3 className={`text-xl font-black text-zinc-900 dark:text-white`}>Delete User</h3>
               </div>
               <p className="text-zinc-500 text-sm mb-6 leading-relaxed">
-                Are you sure you want to permanently delete <strong className={isDark ? "text-white" : "text-zinc-900"}>{userToDelete.email}</strong>? 
+                Are you sure you want to permanently delete <strong className="text-zinc-900 dark:text-white">{userToDelete.email}</strong>? 
                 This action is irreversible and will cascade to all their data.
               </p>
               <div className="flex items-center gap-3 justify-end">
                 <button
                   onClick={() => setUserToDelete(null)}
                   disabled={deleting}
-                  className={`px-4 py-2 rounded-xl text-sm font-bold transition ${isDark ? "text-zinc-400 hover:text-white hover:bg-zinc-900" : "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"}`}
+                  className={`px-4 py-2 rounded-xl text-sm font-bold transition text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-900`}
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleConfirmDeleteUser}
                   disabled={deleting}
-                  className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-slate-900 dark:text-white rounded-xl text-sm font-bold flex items-center gap-2 transition disabled:opacity-50"
+                  className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-foreground rounded-xl text-sm font-bold flex items-center gap-2 transition disabled:opacity-50"
                 >
                   {deleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
                   <span>Delete Permanently</span>
@@ -514,7 +504,7 @@ export default function AdminDashboardPage() {
         {activeTab === "complaints" && (
           <>
             {/* Filter & Action Toolbar */}
-        <div className={`p-5 rounded-3xl ${isDark ? "bg-zinc-900" : "bg-white shadow-sm border border-gray-200"}/90 border border-zinc-800 mb-6 shadow-xl space-y-4`}>
+        <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/90 border border-zinc-800 mb-6 shadow-xl space-y-4`}>
           <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
             {/* Search Input */}
             <div className="relative w-full md:w-96">
@@ -524,7 +514,7 @@ export default function AdminDashboardPage() {
                 placeholder="Search by title, description, citizen email, landmark..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full pl-10 pr-10 py-2.5 bg-zinc-950 border border-zinc-800 rounded-2xl text-xs sm:text-sm  placeholder-zinc-500 focus:outline-none focus:border-rose-500 ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`w-full pl-10 pr-10 py-2.5 bg-zinc-950 border border-zinc-800 rounded-2xl text-xs sm:text-sm  placeholder-zinc-500 focus:outline-none focus:border-rose-500 text-foreground`}
               />
               {searchQuery && (
                 <button
@@ -539,12 +529,12 @@ export default function AdminDashboardPage() {
             {/* Bulk Action Controls */}
             {selectedIds.size > 0 && (
               <div className="flex items-center gap-3 bg-rose-950/40 border border-rose-500/40 px-4 py-2 rounded-2xl animate-in fade-in">
-                <span className={`text-xs font-bold ${isDark ? "text-rose-300" : "text-rose-700"}`}>
+                <span className={`text-xs font-bold text-rose-700 dark:text-rose-300`}>
                   {selectedIds.size} {selectedIds.size === 1 ? "complaint" : "complaints"} selected
                 </span>
                 <button
                   onClick={() => setShowBulkModal(true)}
-                  className={`px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700  rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-rose-600/30 transition ${isDark ? "text-white" : "text-slate-900"}`}
+                  className={`px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700  rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-rose-600/30 transition text-foreground`}
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                   <span>Delete Selected ({selectedIds.size})</span>
@@ -555,26 +545,26 @@ export default function AdminDashboardPage() {
 
           {/* Filter Dropdowns */}
           <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-zinc-800/80 text-xs">
-            <div className={`flex items-center gap-1.5 ${isDark ? "bg-zinc-950" : "bg-white shadow-sm border border-gray-200"} px-3 py-1.5 rounded-xl border border-zinc-800`}>
+            <div className={`flex items-center gap-1.5 bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 px-3 py-1.5 rounded-xl border border-zinc-800`}>
               <span className="text-zinc-500 font-bold">District:</span>
               <select
                 value={selectedDistrict}
                 onChange={(e) => setSelectedDistrict(e.target.value)}
-                className={`bg-transparent font-semibold  outline-none cursor-pointer ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`bg-transparent font-semibold  outline-none cursor-pointer text-foreground`}
               >
                 <option value="All">All Districts</option>
                 {TAMIL_NADU_DISTRICTS.map((d) => (
-                  <option key={d} value={d} className={`${isDark ? "bg-zinc-900" : "bg-white shadow-sm border border-gray-200"}`}>{d}</option>
+                  <option key={d} value={d} className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900`}>{d}</option>
                 ))}
               </select>
             </div>
 
-            <div className={`flex items-center gap-1.5 ${isDark ? "bg-zinc-950" : "bg-white shadow-sm border border-gray-200"} px-3 py-1.5 rounded-xl border border-zinc-800`}>
+            <div className={`flex items-center gap-1.5 bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 px-3 py-1.5 rounded-xl border border-zinc-800`}>
               <span className="text-zinc-500 font-bold">Category:</span>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className={`bg-transparent font-semibold  outline-none cursor-pointer ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`bg-transparent font-semibold  outline-none cursor-pointer text-foreground`}
               >
                 <option value="All">All Categories</option>
                 <option value="Water">Water Management</option>
@@ -585,16 +575,16 @@ export default function AdminDashboardPage() {
               </select>
             </div>
 
-            <div className={`flex items-center gap-1.5 ${isDark ? "bg-zinc-950" : "bg-white shadow-sm border border-gray-200"} px-3 py-1.5 rounded-xl border border-zinc-800`}>
+            <div className={`flex items-center gap-1.5 bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 px-3 py-1.5 rounded-xl border border-zinc-800`}>
               <span className="text-zinc-500 font-bold">Status:</span>
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className={`bg-transparent font-semibold  outline-none cursor-pointer ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`bg-transparent font-semibold  outline-none cursor-pointer text-foreground`}
               >
                 <option value="All">All Statuses</option>
                 {Object.keys(STATUS_BADGES).map((k) => (
-                  <option key={k} value={k} className={`${isDark ? "bg-zinc-900" : "bg-white shadow-sm border border-gray-200"}`}>{STATUS_BADGES[k].label}</option>
+                  <option key={k} value={k} className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900`}>{STATUS_BADGES[k].label}</option>
                 ))}
               </select>
             </div>
@@ -606,7 +596,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Complaints Table */}
-        <div className={`rounded-3xl ${isDark ? "bg-zinc-900" : "bg-white shadow-sm border border-gray-200"}/90 border border-zinc-800 overflow-hidden shadow-2xl`}>
+        <div className={`rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/90 border border-zinc-800 overflow-hidden shadow-2xl`}>
           {loading ? (
             <div className="flex flex-col items-center justify-center py-24 gap-4">
               <Loader2 className="h-10 w-10 animate-spin text-rose-500" />
@@ -630,10 +620,10 @@ export default function AdminDashboardPage() {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className={`${isDark ? "bg-zinc-950" : "bg-white shadow-sm border border-gray-200"} text-zinc-400 font-bold uppercase tracking-wider border-b border-zinc-800 text-[10px]`}>
+                <thead className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 text-zinc-400 font-bold uppercase tracking-wider border-b border-zinc-800 text-[10px]`}>
                   <tr>
                     <th className="p-4 w-12 text-center">
-                      <button onClick={toggleSelectAll} className={`hover: ${isDark ? "text-white" : "text-slate-900"}`}>
+                      <button onClick={toggleSelectAll} className={`hover: text-foreground`}>
                         {selectedIds.size === filteredPosts.length ? (
                           <CheckSquare className="h-4 w-4 text-rose-500" />
                         ) : (
@@ -673,7 +663,7 @@ export default function AdminDashboardPage() {
                         </td>
 
                         <td className="p-4 max-w-xs">
-                          <p className={`font-bold  text-xs sm:text-sm line-clamp-1 ${isDark ? "text-white" : "text-slate-900"}`}>{post.title}</p>
+                          <p className={`font-bold  text-xs sm:text-sm line-clamp-1 text-foreground`}>{post.title}</p>
                           <p className="text-[11px] text-zinc-600 dark:text-zinc-400 line-clamp-1 mt-0.5">{post.description}</p>
                           {post.category && (
                             <span className="inline-block px-2 py-0.5 rounded-md bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-[9px] font-bold mt-1">
@@ -693,7 +683,7 @@ export default function AdminDashboardPage() {
                         </td>
 
                         <td className="p-4 text-zinc-700 dark:text-zinc-300 whitespace-nowrap">
-                          <p className={`font-bold  text-xs ${isDark ? "text-white" : "text-slate-900"}`}>{post.user?.name || "Citizen"}</p>
+                          <p className={`font-bold  text-xs text-foreground`}>{post.user?.name || "Citizen"}</p>
                           <p className="text-[10px] text-zinc-500 font-mono">{post.user?.email || "N/A"}</p>
                         </td>
 
@@ -729,7 +719,7 @@ export default function AdminDashboardPage() {
 
                             <button
                               onClick={() => setPostToDelete(post)}
-                              className={`p-2 rounded-xl bg-rose-950/50 hover:bg-rose-900 border border-rose-500/40 text-rose-300 hover: transition ${isDark ? "text-white" : "text-slate-900"}`}
+                              className={`p-2 rounded-xl bg-rose-950/50 hover:bg-rose-900 border border-rose-500/40 text-rose-300 hover: transition text-foreground`}
                               title="Delete Complaint from Database"
                             >
                               <Trash2 className="h-3.5 w-3.5" />
@@ -751,20 +741,20 @@ export default function AdminDashboardPage() {
       {/* Delete Single Confirmation Modal */}
       {postToDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white dark:bg-black/80 backdrop-blur-md animate-in fade-in">
-          <div className={`${isDark ? "bg-zinc-900" : "bg-white shadow-sm border border-gray-200"} rounded-3xl max-w-md w-full p-6 border border-zinc-800 shadow-2xl`}>
+          <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900 rounded-3xl max-w-md w-full p-6 border border-zinc-800 shadow-2xl`}>
             <div className="h-12 w-12 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
               <Trash2 className="h-6 w-6" />
             </div>
 
-            <h3 className={`font-black text-lg ${isDark ? "text-white" : "text-slate-900"}`}>
+            <h3 className={`font-black text-lg text-foreground`}>
               Permanently Delete Complaint?
             </h3>
 
             <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-2 leading-relaxed">
-              You are deleting <span className={`font-bold ${isDark ? "text-white" : "text-slate-900"}`}>"{postToDelete.title}"</span>.
+              You are deleting <span className={`font-bold text-foreground`}>"{postToDelete.title}"</span>.
             </p>
 
-            <div className={`mt-4 p-3 bg-rose-950/40 rounded-2xl border border-rose-500/40 text-[11px] ${isDark ? "text-rose-300" : "text-rose-700"} space-y-1`}>
+            <div className={`mt-4 p-3 bg-rose-950/40 rounded-2xl border border-rose-500/40 text-[11px] text-rose-700 dark:text-rose-300 space-y-1`}>
               <p className="font-bold">⚠️ Irreversible Admin Action:</p>
               <p>This will permanently purge this complaint, comments, likes, images, and AI collaboration records from the SQLite database.</p>
             </div>
@@ -783,7 +773,7 @@ export default function AdminDashboardPage() {
                 type="button"
                 onClick={handleConfirmSingleDelete}
                 disabled={deleting}
-                className={`flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700  text-xs font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-rose-600/30 ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700  text-xs font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-rose-600/30 text-foreground`}
               >
                 {deleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
                 <span>{deleting ? "Purging from DB..." : "Confirm Delete"}</span>
@@ -796,17 +786,17 @@ export default function AdminDashboardPage() {
       {/* Bulk Delete Modal */}
       {showBulkModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white dark:bg-black/80 backdrop-blur-md animate-in fade-in">
-          <div className={`${isDark ? "bg-zinc-900" : "bg-white shadow-sm border border-gray-200"} rounded-3xl max-w-md w-full p-6 border border-zinc-800 shadow-2xl`}>
+          <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900 rounded-3xl max-w-md w-full p-6 border border-zinc-800 shadow-2xl`}>
             <div className="h-12 w-12 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
               <AlertTriangle className="h-6 w-6" />
             </div>
 
-            <h3 className={`font-black text-lg ${isDark ? "text-white" : "text-slate-900"}`}>
+            <h3 className={`font-black text-lg text-foreground`}>
               Delete {selectedIds.size} Selected Complaints?
             </h3>
 
             <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-2 leading-relaxed">
-              You are about to permanently purge <strong className={` ${isDark ? "text-white" : "text-slate-900"}`}>{selectedIds.size} complaints</strong> from the database.
+              You are about to permanently purge <strong className={` text-foreground`}>{selectedIds.size} complaints</strong> from the database.
             </p>
 
             <div className="flex gap-3 mt-6">
@@ -823,7 +813,7 @@ export default function AdminDashboardPage() {
                 type="button"
                 onClick={handleConfirmBulkDelete}
                 disabled={isBulkDeleting}
-                className={`flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700  text-xs font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-rose-600/30 ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700  text-xs font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-rose-600/30 text-foreground`}
               >
                 {isBulkDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
                 <span>{isBulkDeleting ? "Deleting..." : `Yes, Purge ${selectedIds.size} Records`}</span>
@@ -836,16 +826,16 @@ export default function AdminDashboardPage() {
       {/* Detail Inspection Drawer */}
       {inspectPost && (
         <div className="fixed inset-0 z-50 flex items-center justify-end bg-white dark:bg-black/70 backdrop-blur-sm animate-in fade-in">
-          <div className={`${isDark ? "bg-zinc-900" : "bg-white shadow-sm border border-gray-200"} border-l border-zinc-800 h-full w-full max-w-lg p-6 overflow-y-auto shadow-2xl flex flex-col justify-between`}>
+          <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900 border-l border-zinc-800 h-full w-full max-w-lg p-6 overflow-y-auto shadow-2xl flex flex-col justify-between`}>
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="h-5 w-5 text-rose-500" />
-                  <span className={`font-bold  text-sm ${isDark ? "text-white" : "text-slate-900"}`}>Complaint Record Inspector</span>
+                  <span className={`font-bold  text-sm text-foreground`}>Complaint Record Inspector</span>
                 </div>
                 <button
                   onClick={() => setInspectPost(null)}
-                  className={`p-1 rounded-lg text-zinc-400 hover: ${isDark ? "text-white" : "text-slate-900"}`}
+                  className={`p-1 rounded-lg text-zinc-400 hover: text-foreground`}
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -854,17 +844,17 @@ export default function AdminDashboardPage() {
               <div className="mt-6 space-y-4 text-xs">
                 <div>
                   <span className="text-zinc-500 font-bold uppercase tracking-wider text-[10px]">Database ID</span>
-                  <p className={`font-mono text-zinc-300 ${isDark ? "bg-zinc-950" : "bg-white shadow-sm border border-gray-200"} p-2 rounded-xl mt-1 text-[11px] select-all`}>{inspectPost.id}</p>
+                  <p className={`font-mono text-zinc-300 bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 p-2 rounded-xl mt-1 text-[11px] select-all`}>{inspectPost.id}</p>
                 </div>
 
                 <div>
                   <span className="text-zinc-500 font-bold uppercase tracking-wider text-[10px]">Title</span>
-                  <p className={`text-sm font-bold  mt-1 ${isDark ? "text-white" : "text-slate-900"}`}>{inspectPost.title}</p>
+                  <p className={`text-sm font-bold  mt-1 text-foreground`}>{inspectPost.title}</p>
                 </div>
 
                 <div>
                   <span className="text-zinc-500 font-bold uppercase tracking-wider text-[10px]">Description</span>
-                  <p className={`text-zinc-300 mt-1 leading-relaxed ${isDark ? "bg-zinc-950" : "bg-white shadow-sm border border-gray-200"} p-3 rounded-xl whitespace-pre-line`}>{inspectPost.description}</p>
+                  <p className={`text-zinc-300 mt-1 leading-relaxed bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 p-3 rounded-xl whitespace-pre-line`}>{inspectPost.description}</p>
                 </div>
 
                 {inspectPost.imageUrl && (
@@ -879,13 +869,13 @@ export default function AdminDashboardPage() {
                 )}
 
                 <div className="grid grid-cols-2 gap-3 pt-2">
-                  <div className={`p-3 ${isDark ? "bg-zinc-950" : "bg-white shadow-sm border border-gray-200"} rounded-xl`}>
+                  <div className={`p-3 bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 rounded-xl`}>
                     <span className="text-zinc-500 font-bold text-[10px]">District</span>
-                    <p className={`font-bold mt-0.5 ${isDark ? "text-white" : "text-slate-900"}`}>{inspectPost.district || "Tamil Nadu"}</p>
+                    <p className={`font-bold mt-0.5 text-foreground`}>{inspectPost.district || "Tamil Nadu"}</p>
                   </div>
-                  <div className={`p-3 ${isDark ? "bg-zinc-950" : "bg-white shadow-sm border border-gray-200"} rounded-xl`}>
+                  <div className={`p-3 bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 rounded-xl`}>
                     <span className="text-zinc-500 font-bold text-[10px]">Category</span>
-                    <p className={`font-bold mt-0.5 ${isDark ? "text-white" : "text-slate-900"}`}>{inspectPost.category || "General"}</p>
+                    <p className={`font-bold mt-0.5 text-foreground`}>{inspectPost.category || "General"}</p>
                   </div>
                 </div>
 
@@ -897,9 +887,9 @@ export default function AdminDashboardPage() {
                 )}
 
                 {inspectPost.user && (
-                  <div className={`p-3 ${isDark ? "bg-zinc-950" : "bg-white shadow-sm border border-gray-200"} rounded-xl`}>
+                  <div className={`p-3 bg-white shadow-sm border border-gray-200 dark:bg-zinc-950 rounded-xl`}>
                     <span className="text-zinc-500 font-bold text-[10px]">Submitted By Citizen</span>
-                    <p className={`font-bold ${isDark ? "text-white" : "text-slate-900"}`}>{inspectPost.user.name || "Citizen"}</p>
+                    <p className={`font-bold text-foreground`}>{inspectPost.user.name || "Citizen"}</p>
                     <p className="text-zinc-600 dark:text-zinc-400 font-mono text-[10px]">{inspectPost.user.email}</p>
                   </div>
                 )}
@@ -919,7 +909,7 @@ export default function AdminDashboardPage() {
                   setInspectPost(null);
                   setPostToDelete(p);
                 }}
-                className={`flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700  text-xs font-bold flex items-center justify-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700  text-xs font-bold flex items-center justify-center gap-2 text-foreground`}
               >
                 <Trash2 className="h-4 w-4" />
                 <span>Delete Complaint</span>

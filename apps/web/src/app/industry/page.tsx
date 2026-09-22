@@ -57,8 +57,6 @@ const PRESET_COMPANIES = [
 export default function IndustryPortal() {
   const router = useRouter();
   const { theme } = useTheme();
-  const isDark = theme === "dark";
-
   const [authChecking, setAuthChecking] = useState(true);
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -336,11 +334,9 @@ export default function IndustryPortal() {
 
   if (authChecking) {
     return (
-      <div className={`min-h-screen flex flex-col items-center justify-center gap-4 ${
-        isDark ? "bg-zinc-950 text-zinc-100" : "bg-zinc-50 text-zinc-900"
-      }`}>
+      <div className={`min-h-screen flex flex-col items-center justify-center gap-4 bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100`}>
         <Loader2 className="h-10 w-10 animate-spin text-pink-500" />
-        <p className={`text-sm font-semibold ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
+        <p className={`text-sm font-semibold text-zinc-600 dark:text-zinc-400`}>
           Verifying Corporate Partner Session...
         </p>
       </div>
@@ -348,9 +344,7 @@ export default function IndustryPortal() {
   }
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-pink-500 selection:text-white transition-colors duration-200 ${
-      isDark ? "bg-zinc-950 text-zinc-100" : "bg-zinc-50 text-zinc-900"
-    }`}>
+    <div className={`min-h-screen font-sans selection:bg-pink-500 selection:text-white transition-colors duration-200 bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100`}>
       
       {/* Toast Notification */}
       {notification && (
@@ -365,9 +359,7 @@ export default function IndustryPortal() {
       )}
 
       {/* Top Header */}
-      <header className={`border-b backdrop-blur-xl sticky top-0 z-40 transition-colors ${
-        isDark ? "border-zinc-800/80 bg-zinc-900/60 text-white" : "border-zinc-200 bg-white/90 text-zinc-900 shadow-sm"
-      }`}>
+      <header className={`border-b backdrop-blur-xl sticky top-0 z-40 transition-colors border-zinc-200 bg-white/90 text-zinc-900 shadow-sm dark:border-zinc-800/80 dark:bg-zinc-900/60 dark:text-white`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
           <div className="flex items-center gap-3">
@@ -386,7 +378,7 @@ export default function IndustryPortal() {
                   🛡️ Isolated Workspace
                 </span>
               </div>
-              <p className={`text-xs ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>
+              <p className={`text-xs text-zinc-500 dark:text-zinc-400`}>
                 10-Industry AI Dispatch &amp; Locking Mechanism (Private CSR Pool)
               </p>
             </div>
@@ -396,16 +388,12 @@ export default function IndustryPortal() {
             <ThemeToggle />
 
             {/* Dedicated Industry User Profile & Logout */}
-            <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs shadow-inner ${
-              isDark ? "bg-zinc-900 border-zinc-800 text-white" : "bg-white border-zinc-300 text-zinc-900"
-            }`}>
+            <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs shadow-inner bg-white border-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:border-zinc-800 dark:text-white`}>
               <div className="h-2 w-2 rounded-full bg-pink-400 animate-pulse" />
               <span className="font-bold truncate max-w-[150px]">{industryUser?.companyName || currentCompany}</span>
               <button
                 onClick={() => setShowProfile(true)}
-                className={`flex items-center gap-1 text-pink-500 hover:text-pink-400 ml-2 pl-2 border-l transition-colors ${
-                  isDark ? "border-zinc-800" : "border-zinc-200"
-                }`}
+                className={`flex items-center gap-1 text-pink-500 hover:text-pink-400 ml-2 pl-2 border-l transition-colors border-zinc-200 dark:border-zinc-800`}
                 title="Edit Corporate Profile"
               >
                 <UserCheck className="h-3.5 w-3.5" />
@@ -413,9 +401,7 @@ export default function IndustryPortal() {
               </button>
               <button
                 onClick={handleLogout}
-                className={`flex items-center gap-1 hover:text-rose-500 ml-2 pl-2 border-l transition-colors ${
-                  isDark ? "text-zinc-400 border-zinc-800" : "text-zinc-500 border-zinc-200"
-                }`}
+                className={`flex items-center gap-1 hover:text-rose-500 ml-2 pl-2 border-l transition-colors text-zinc-500 border-zinc-200 dark:text-zinc-400 dark:border-zinc-800`}
                 title="Logout from Industry Portal"
               >
                 <LogOut className="h-3.5 w-3.5" />

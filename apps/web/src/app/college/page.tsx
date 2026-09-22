@@ -52,8 +52,6 @@ const PIPELINE_STAGES = [
 export default function CollegePortal() {
   const router = useRouter();
   const { theme } = useTheme();
-  const isDark = theme === "dark";
-
   const [authChecking, setAuthChecking] = useState(true);
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -370,11 +368,9 @@ export default function CollegePortal() {
 
   if (authChecking) {
     return (
-      <div className={`min-h-screen flex flex-col items-center justify-center gap-4 ${
-        isDark ? "bg-slate-950 text-slate-100" : "bg-slate-50 text-slate-900"
-      }`}>
+      <div className={`min-h-screen flex flex-col items-center justify-center gap-4 bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100`}>
         <Loader2 className="h-10 w-10 animate-spin text-indigo-500" />
-        <p className={`text-sm font-semibold ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+        <p className={`text-sm font-semibold text-slate-600 dark:text-slate-400`}>
           Verifying Academic Lab Session...
         </p>
       </div>
@@ -382,9 +378,7 @@ export default function CollegePortal() {
   }
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-indigo-500 selection:text-slate-900 dark:text-white transition-colors duration-200 ${
-      isDark ? "bg-slate-950 text-slate-100" : "bg-slate-50 text-slate-900"
-    }`}>
+    <div className={`min-h-screen font-sans selection:bg-indigo-500 selection:text-foreground transition-colors duration-200 bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100`}>
       
       {/* Toast Notification */}
       {notification && (
@@ -399,13 +393,11 @@ export default function CollegePortal() {
       )}
 
       {/* Top Academic Header */}
-      <header className={`border-b backdrop-blur-xl sticky top-0 z-40 transition-colors ${
-        isDark ? "border-slate-800/80 bg-slate-900/60 text-white" : "border-slate-200 bg-white/90 text-slate-900 shadow-sm"
-      }`}>
+      <header className={`border-b backdrop-blur-xl sticky top-0 z-40 transition-colors border-slate-200 bg-white/90 text-slate-900 shadow-sm dark:border-slate-800/80 dark:bg-slate-900/60 dark:text-white`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-11 w-11 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-              <GraduationCap className={`h-6 w-6 ${isDark ? "text-white" : "text-slate-900"}`} />
+              <GraduationCap className={`h-6 w-6 text-foreground`} />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -419,7 +411,7 @@ export default function CollegePortal() {
                   🛡️ Isolated Workspace
                 </span>
               </div>
-              <p className={`text-xs ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+              <p className={`text-xs text-slate-500 dark:text-slate-400`}>
                 Transforming Citizen Problems into Student Engineering Solutions (Private Institution Scope)
               </p>
             </div>
@@ -429,9 +421,7 @@ export default function CollegePortal() {
             <ThemeToggle />
 
             {/* Dedicated College User Profile & Logout */}
-            <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs shadow-inner ${
-              isDark ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-slate-300 text-slate-900"
-            }`}>
+            <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs shadow-inner bg-white border-slate-300 text-slate-900 dark:bg-slate-900 dark:border-slate-800 dark:text-white`}>
               <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               <div className="text-left">
                 <p className="font-bold truncate max-w-[160px]">{collegeUser?.collegeName || "Academic Lab"}</p>
@@ -439,9 +429,7 @@ export default function CollegePortal() {
               </div>
               <button
                 onClick={() => setShowProfile(true)}
-                className={`flex items-center gap-1 text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 ml-2 pl-2 border-l transition-colors ${
-                  isDark ? "border-slate-800" : "border-slate-200"
-                }`}
+                className={`flex items-center gap-1 text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 ml-2 pl-2 border-l transition-colors border-slate-200 dark:border-slate-800`}
                 title="Edit College Profile"
               >
                 <UserCheck className="h-3.5 w-3.5" />
@@ -449,9 +437,7 @@ export default function CollegePortal() {
               </button>
               <button
                 onClick={handleLogout}
-                className={`flex items-center gap-1 hover:text-rose-500 ml-2 pl-2 border-l transition-colors ${
-                  isDark ? "text-slate-400 border-slate-800" : "text-slate-500 border-slate-200"
-                }`}
+                className={`flex items-center gap-1 hover:text-rose-500 ml-2 pl-2 border-l transition-colors text-slate-500 border-slate-200 dark:text-slate-400 dark:border-slate-800`}
                 title="Logout from College Portal"
               >
                 <LogOut className="h-3.5 w-3.5" />
@@ -472,25 +458,25 @@ export default function CollegePortal() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className={`text-xs font-semibold ${isDark ? "text-slate-400" : "text-slate-600"}`}>Active Tamil Nadu Institution:</span>
-                <span className={`px-2 py-0.5 rounded-full bg-indigo-500/20 ${isDark ? "text-indigo-300" : "text-indigo-700"} border border-indigo-500/30 text-[10px] font-bold`}>
+                <span className={`text-xs font-semibold text-slate-600 dark:text-slate-400`}>Active Tamil Nadu Institution:</span>
+                <span className={`px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 text-[10px] font-bold`}>
                   {activeCollege.type || "Institution"}
                 </span>
                 {(activeCollege.district || collegeUser?.district) && (
-                  <span className={`px-2 py-0.5 rounded-full bg-purple-500/20 ${isDark ? "text-purple-300" : "text-purple-700"} border border-purple-500/30 text-[10px] font-bold flex items-center gap-1`}>
+                  <span className={`px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 text-[10px] font-bold flex items-center gap-1`}>
                     <MapPin className="h-2.5 w-2.5" />
                     <span>{activeCollege.district || collegeUser?.district} District</span>
                   </span>
                 )}
               </div>
-              <h2 className={`text-lg font-black ${isDark ? "text-white" : "text-slate-900"}`}>{activeCollege.name}</h2>
-              <p className={`text-xs ${isDark ? "text-indigo-300" : "text-indigo-700"} font-mono mt-0.5`}>{activeCollege.leadDept || "R&D Center"}</p>
+              <h2 className={`text-lg font-black text-foreground`}>{activeCollege.name}</h2>
+              <p className={`text-xs text-indigo-700 dark:text-indigo-300 font-mono mt-0.5`}>{activeCollege.leadDept || "R&D Center"}</p>
             </div>
           </div>
 
           {/* Suitable Problem Areas Tag Badges */}
           <div className="flex flex-col md:items-end gap-1.5">
-            <p className={`text-[11px] font-bold  flex items-center gap-1 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+            <p className={`text-[11px] font-bold  flex items-center gap-1 text-slate-600 dark:text-slate-400`}>
               <Target className="h-3 w-3 text-indigo-600 dark:text-indigo-400" />
               <span>Registered Problem-Solving Skills:</span>
             </p>
@@ -498,7 +484,7 @@ export default function CollegePortal() {
               {activeSkills.map((skill, si) => (
                 <span
                   key={si}
-                  className={`px-2.5 py-1 rounded-xl bg-indigo-500/15 hover:bg-indigo-500/25 ${isDark ? "text-indigo-200" : "text-indigo-700"} border border-indigo-500/30 text-xs font-bold transition flex items-center gap-1`}
+                  className={`px-2.5 py-1 rounded-xl bg-indigo-500/15 hover:bg-indigo-500/25 text-indigo-700 dark:text-indigo-200 border border-indigo-500/30 text-xs font-bold transition flex items-center gap-1`}
                 >
                   <Sparkles className="h-2.5 w-2.5 text-indigo-600 dark:text-indigo-400" />
                   <span>{skill}</span>
@@ -512,11 +498,11 @@ export default function CollegePortal() {
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-950/60 via-purple-950/40 to-slate-900/80 border border-indigo-500/20 p-8 sm:p-10 mb-10 shadow-2xl">
           <div className="absolute top-0 right-0 -mt-8 -mr-8 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
           <div className="relative z-10 max-w-3xl">
-            <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 ${isDark ? "text-indigo-300" : "text-indigo-700"} text-xs font-semibold border border-indigo-500/30 mb-4`}>
+            <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-xs font-semibold border border-indigo-500/30 mb-4`}>
               <Sparkles className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" />
               <span>Tamil Nadu Colleges R&amp;D Problem Solver Network</span>
             </div>
-            <h1 className={`text-3xl sm:text-4xl font-black tracking-tight  leading-tight ${isDark ? "text-white" : "text-slate-900"}`}>
+            <h1 className={`text-3xl sm:text-4xl font-black tracking-tight  leading-tight text-foreground`}>
               Solve Community Grievances Matching Your College Skills
             </h1>
             <p className="mt-3 text-slate-300 text-base leading-relaxed">
@@ -526,20 +512,20 @@ export default function CollegePortal() {
 
           {/* Quick Metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-800/80">
-            <div className={`/60 rounded-2xl p-4 border border-slate-800/60 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
-              <p className={`text-xs  font-medium ${isDark ? "text-slate-400" : "text-slate-600"}`}>Challenges for Intake</p>
+            <div className={`/60 rounded-2xl p-4 border border-slate-800/60 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+              <p className={`text-xs  font-medium text-slate-600 dark:text-slate-400`}>Challenges for Intake</p>
               <p className="text-2xl font-black text-amber-600 dark:text-amber-400 mt-1">{intakeCount}</p>
             </div>
-            <div className={`/60 rounded-2xl p-4 border border-slate-800/60 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
-              <p className={`text-xs  font-medium ${isDark ? "text-slate-400" : "text-slate-600"}`}>Active Lab Projects</p>
+            <div className={`/60 rounded-2xl p-4 border border-slate-800/60 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+              <p className={`text-xs  font-medium text-slate-600 dark:text-slate-400`}>Active Lab Projects</p>
               <p className="text-2xl font-black text-indigo-600 dark:text-indigo-400 mt-1">{activeCount}</p>
             </div>
-            <div className={`/60 rounded-2xl p-4 border border-slate-800/60 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
-              <p className={`text-xs  font-medium ${isDark ? "text-slate-400" : "text-slate-600"}`}>Industry Partner Labs</p>
+            <div className={`/60 rounded-2xl p-4 border border-slate-800/60 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+              <p className={`text-xs  font-medium text-slate-600 dark:text-slate-400`}>Industry Partner Labs</p>
               <p className="text-2xl font-black text-pink-600 dark:text-pink-400 mt-1">10 Per Project</p>
             </div>
-            <div className={`/60 rounded-2xl p-4 border border-slate-800/60 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
-              <p className={`text-xs  font-medium ${isDark ? "text-slate-400" : "text-slate-600"}`}>Deployed Solutions</p>
+            <div className={`/60 rounded-2xl p-4 border border-slate-800/60 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+              <p className={`text-xs  font-medium text-slate-600 dark:text-slate-400`}>Deployed Solutions</p>
               <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400 mt-1">{completedCount}</p>
             </div>
           </div>
@@ -547,13 +533,13 @@ export default function CollegePortal() {
 
         {/* Tab & Filter Bar */}
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-8 pb-4 border-b border-slate-800">
-          <div className={`flex /90 p-1.5 rounded-2xl border border-slate-800 w-full sm:w-auto overflow-x-auto ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+          <div className={`flex /90 p-1.5 rounded-2xl border border-slate-800 w-full sm:w-auto overflow-x-auto bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
             <button
               onClick={() => setActiveTab("intake")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
                 activeTab === "intake"
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-slate-900 dark:text-white shadow-lg shadow-indigo-500/25"
-                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:text-white"
+                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-foreground shadow-lg shadow-indigo-500/25"
+                  : "text-slate-600 dark:text-slate-400 hover:text-foreground"
               }`}
             >
               <Sparkles className="h-4 w-4" />
@@ -564,8 +550,8 @@ export default function CollegePortal() {
               onClick={() => setActiveTab("active")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
                 activeTab === "active"
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-slate-900 dark:text-white shadow-lg shadow-indigo-500/25"
-                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:text-white"
+                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-foreground shadow-lg shadow-indigo-500/25"
+                  : "text-slate-600 dark:text-slate-400 hover:text-foreground"
               }`}
             >
               <Layers className="h-4 w-4" />
@@ -576,8 +562,8 @@ export default function CollegePortal() {
               onClick={() => setActiveTab("completed")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition whitespace-nowrap ${
                 activeTab === "completed"
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-slate-900 dark:text-white shadow-lg shadow-indigo-500/25"
-                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:text-white"
+                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-foreground shadow-lg shadow-indigo-500/25"
+                  : "text-slate-600 dark:text-slate-400 hover:text-foreground"
               }`}
             >
               <Award className="h-4 w-4" />
@@ -586,13 +572,13 @@ export default function CollegePortal() {
           </div>
 
           <div className="relative w-full sm:w-72">
-            <Search className={`absolute left-3.5 top-3 h-4 w-4 ${isDark ? "text-slate-400" : "text-slate-600"}`} />
+            <Search className={`absolute left-3.5 top-3 h-4 w-4 text-slate-600 dark:text-slate-400`} />
             <input
               type="text"
               placeholder="Search challenges..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className={`w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-sm  placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition ${isDark ? "text-white" : "text-slate-900"}`}
+              className={`w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-sm  placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition text-foreground`}
             />
           </div>
         </div>
@@ -601,13 +587,13 @@ export default function CollegePortal() {
         {loading ? (
           <div className="py-24 text-center">
             <Loader2 className="h-10 w-10 animate-spin text-indigo-500 mx-auto mb-4" />
-            <p className={`text-sm ${isDark ? "text-slate-400" : "text-slate-600"}`}>Loading university challenge queue...</p>
+            <p className={`text-sm text-slate-600 dark:text-slate-400`}>Loading university challenge queue...</p>
           </div>
         ) : filteredPosts.length === 0 ? (
-          <div className={`py-24 text-center /40 rounded-3xl border border-slate-800/60 p-8 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+          <div className={`py-24 text-center /40 rounded-3xl border border-slate-800/60 p-8 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
             <CheckCircle2 className="h-12 w-12 text-slate-600 mx-auto mb-3" />
-            <h3 className={`text-lg font-bold ${isDark ? "text-white" : "text-slate-900"}`}>No challenges found in this section</h3>
-            <p className={`text-sm  max-w-md mx-auto mt-1 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+            <h3 className={`text-lg font-bold text-foreground`}>No challenges found in this section</h3>
+            <p className={`text-sm  max-w-md mx-auto mt-1 text-slate-600 dark:text-slate-400`}>
               Check back soon as new citizen complaints are raised.
             </p>
           </div>
@@ -626,7 +612,7 @@ export default function CollegePortal() {
               return (
                 <div
                   key={post.id}
-                  className={`/90 rounded-3xl border border-slate-800 overflow-hidden flex flex-col justify-between hover:border-indigo-500/40 transition shadow-xl group ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}
+                  className={`/90 rounded-3xl border border-slate-800 overflow-hidden flex flex-col justify-between hover:border-indigo-500/40 transition shadow-xl group bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}
                 >
                   <div className="p-6 sm:p-7">
                     
@@ -661,11 +647,11 @@ export default function CollegePortal() {
                             </span>
                           </div>
 
-                          <h3 className={`text-xl font-black  group-hover:text-indigo-300 transition line-clamp-2 ${isDark ? "text-white" : "text-slate-900"}`}>
+                          <h3 className={`text-xl font-black  group-hover:text-indigo-300 transition line-clamp-2 text-foreground`}>
                             {post.title}
                           </h3>
 
-                          <div className={`flex items-center gap-2 text-xs  mt-2 mb-3 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                          <div className={`flex items-center gap-2 text-xs  mt-2 mb-3 text-slate-600 dark:text-slate-400`}>
                             {post.location && (
                               <div className="flex items-center gap-1">
                                 <MapPin className="h-3 w-3 text-slate-500" />
@@ -678,11 +664,11 @@ export default function CollegePortal() {
 
                           {/* Problem Solving Skill Badges */}
                           <div className="flex flex-wrap items-center gap-1.5 mb-4">
-                            <span className={`text-[10px] uppercase font-bold ${isDark ? "text-slate-400" : "text-slate-600"}`}>Suitable Skills:</span>
+                            <span className={`text-[10px] uppercase font-bold text-slate-600 dark:text-slate-400`}>Suitable Skills:</span>
                             {displaySkills.map((sk, idx) => (
                               <span
                                 key={idx}
-                                className={`px-2 py-0.5 rounded-md bg-indigo-500/20 ${isDark ? "text-indigo-300" : "text-indigo-700"} border border-indigo-500/30 text-[10px] font-semibold`}
+                                className={`px-2 py-0.5 rounded-md bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30 text-[10px] font-semibold`}
                               >
                                 {sk}
                               </span>
@@ -712,17 +698,17 @@ export default function CollegePortal() {
                       <div className="p-3.5 bg-pink-950/40 rounded-2xl border border-pink-500/30 flex items-center justify-between mb-4">
                         <div>
                           <p className="text-[10px] uppercase font-black text-pink-600 dark:text-pink-400">Industry Partner Locked</p>
-                          <p className={`text-xs font-bold  mt-0.5 ${isDark ? "text-white" : "text-slate-900"}`}>{post.acceptedIndustryName}</p>
+                          <p className={`text-xs font-bold  mt-0.5 text-foreground`}>{post.acceptedIndustryName}</p>
                         </div>
                         <button
                           onClick={() => openChat(post)}
-                          className={`px-3 py-1.5 bg-pink-600 hover:bg-pink-500  rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-pink-500/20 ${isDark ? "text-white" : "text-slate-900"}`}
+                          className={`px-3 py-1.5 bg-pink-600 hover:bg-pink-500  rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-pink-500/20 text-foreground`}
                         >
                           <MessageSquare className="h-3.5 w-3.5" /> Collaboration Chat
                         </button>
                       </div>
                     ) : (
-                      <div className={`p-3.5 /80 rounded-2xl border border-slate-800 mb-4 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+                      <div className={`p-3.5 /80 rounded-2xl border border-slate-800 mb-4 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
                         <div className="flex items-center justify-between text-xs font-bold text-slate-300">
                           <div className="flex items-center gap-1.5">
                             <Sparkles className="h-4 w-4 text-pink-600 dark:text-pink-400" />
@@ -730,7 +716,7 @@ export default function CollegePortal() {
                           </div>
                           <span className="text-[10px] text-amber-600 dark:text-amber-400 font-bold">Awaiting Industry Partner</span>
                         </div>
-                        <p className={`text-[11px]  mt-1 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                        <p className={`text-[11px]  mt-1 text-slate-600 dark:text-slate-400`}>
                           Invitations dispatched to verified CSR partners. The first industry partner to accept will fund the lab prototype.
                         </p>
                       </div>
@@ -739,7 +725,7 @@ export default function CollegePortal() {
                   </div>
 
                   {/* Actions Footer with Accept & REJECT (Task 2) */}
-                  <div className={`p-6 pt-4 border-t border-slate-800/80 /40 flex items-center gap-2 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+                  <div className={`p-6 pt-4 border-t border-slate-800/80 /40 flex items-center gap-2 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
                     {isOpen ? (
                       <>
                         <button
@@ -747,7 +733,7 @@ export default function CollegePortal() {
                             setSelectedPost(post);
                             setActionModalType("accept");
                           }}
-                          className={`flex-1 py-3 px-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600  rounded-xl text-xs font-bold hover:opacity-95 transition flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 ${isDark ? "text-white" : "text-slate-900"}`}
+                          className={`flex-1 py-3 px-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600  rounded-xl text-xs font-bold hover:opacity-95 transition flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 text-foreground`}
                         >
                           <BookOpen className="h-4 w-4" />
                           <span>Accept Challenge</span>
@@ -774,7 +760,7 @@ export default function CollegePortal() {
                             setNextStage(post.status === "UNIVERSITY_ACCEPTED" ? "PROTOTYPING" : post.status === "PROTOTYPING" ? "TESTING" : post.status === "TESTING" ? "INDUSTRY_MATCHING" : "COMPLETED");
                             setActionModalType("progress");
                           }}
-                          className={`flex-1 py-3 px-4 bg-indigo-600 hover:bg-indigo-500  rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}
+                          className={`flex-1 py-3 px-4 bg-indigo-600 hover:bg-indigo-500  rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 text-foreground`}
                         >
                           <Zap className="h-4 w-4" />
                           <span>Update Stage Progress</span>
@@ -813,19 +799,19 @@ export default function CollegePortal() {
       {/* MODAL 1: ACCEPT CHALLENGE */}
       {actionModalType === "accept" && selectedPost && (
         <div className="fixed inset-0 z-50 bg-white dark:bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className={`border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-200 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+          <div className={`border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-200 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
               <div className="flex items-center gap-2">
                 <GraduationCap className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
-                <h3 className={`text-lg font-black ${isDark ? "text-white" : "text-slate-900"}`}>Accept Challenge for R&amp;D</h3>
+                <h3 className={`text-lg font-black text-foreground`}>Accept Challenge for R&amp;D</h3>
               </div>
-              <button onClick={() => setActionModalType(null)} className={`text-slate-400 hover: text-sm ${isDark ? "text-white" : "text-slate-900"}`}>✕</button>
+              <button onClick={() => setActionModalType(null)} className={`text-slate-400 hover: text-sm text-foreground`}>✕</button>
             </div>
 
-            <div className={`my-5 p-4  rounded-2xl border border-slate-800 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+            <div className={`my-5 p-4  rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
               <p className="text-xs text-indigo-600 dark:text-indigo-400 font-bold uppercase tracking-wider">Problem Statement</p>
-              <h4 className={`font-bold  text-sm mt-1 ${isDark ? "text-white" : "text-slate-900"}`}>{selectedPost.title}</h4>
-              <p className={`text-xs  mt-1 line-clamp-2 ${isDark ? "text-slate-400" : "text-slate-600"}`}>{selectedPost.description}</p>
+              <h4 className={`font-bold  text-sm mt-1 text-foreground`}>{selectedPost.title}</h4>
+              <p className={`text-xs  mt-1 line-clamp-2 text-slate-600 dark:text-slate-400`}>{selectedPost.description}</p>
             </div>
 
             <div className="space-y-4">
@@ -837,7 +823,7 @@ export default function CollegePortal() {
                   type="text"
                   value={teamName}
                   onChange={(e) => setTeamName(e.target.value)}
-                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm  focus:outline-none focus:border-indigo-500 ${isDark ? "text-white" : "text-slate-900"}`}
+                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm  focus:outline-none focus:border-indigo-500 text-foreground`}
                 />
               </div>
 
@@ -849,7 +835,7 @@ export default function CollegePortal() {
                   type="text"
                   value={facultyGuide}
                   onChange={(e) => setFacultyGuide(e.target.value)}
-                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm  focus:outline-none focus:border-indigo-500 ${isDark ? "text-white" : "text-slate-900"}`}
+                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm  focus:outline-none focus:border-indigo-500 text-foreground`}
                 />
               </div>
             </div>
@@ -864,7 +850,7 @@ export default function CollegePortal() {
               <button
                 onClick={handleAcceptChallenge}
                 disabled={submittingAction}
-                className={`flex-1 py-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600  font-bold rounded-xl text-xs hover:opacity-95 transition disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25 ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`flex-1 py-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600  font-bold rounded-xl text-xs hover:opacity-95 transition disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25 text-foreground`}
               >
                 {submittingAction ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
                 <span>Confirm &amp; Notify 10 Industries</span>
@@ -877,11 +863,11 @@ export default function CollegePortal() {
       {/* Task 2: MODAL 2 — REJECT CHALLENGE */}
       {actionModalType === "reject" && selectedPost && (
         <div className="fixed inset-0 z-50 bg-white dark:bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className={`border border-slate-800 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl animate-in zoom-in-95 duration-200 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+          <div className={`border border-slate-800 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl animate-in zoom-in-95 duration-200 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
             <div className="h-12 w-12 rounded-2xl bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center mx-auto mb-4 border border-rose-500/30">
               <XCircle className="h-6 w-6" />
             </div>
-            <h3 className={`text-lg font-black ${isDark ? "text-white" : "text-slate-900"}`}>Decline Citizen Challenge</h3>
+            <h3 className={`text-lg font-black text-foreground`}>Decline Citizen Challenge</h3>
             <p className="text-xs text-slate-300 mt-1 leading-relaxed truncate">
               "{selectedPost.title}"
             </p>
@@ -893,7 +879,7 @@ export default function CollegePortal() {
               <select
                 value={rejectReason}
                 onChange={(e) => setRejectReason(e.target.value)}
-                className={`w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs  focus:outline-none focus:border-rose-500 ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs  focus:outline-none focus:border-rose-500 text-foreground`}
               >
                 <option>Outside Department Specialization &amp; Scope</option>
                 <option>Lab Capacity &amp; Research Cohort Full</option>
@@ -912,7 +898,7 @@ export default function CollegePortal() {
               <button
                 onClick={handleRejectChallenge}
                 disabled={submittingAction}
-                className={`flex-1 py-3 bg-rose-600 hover:bg-rose-500  font-bold rounded-xl text-xs transition flex items-center justify-center gap-1.5 ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`flex-1 py-3 bg-rose-600 hover:bg-rose-500  font-bold rounded-xl text-xs transition flex items-center justify-center gap-1.5 text-foreground`}
               >
                 {submittingAction ? <Loader2 className="h-4 w-4 animate-spin" /> : <XCircle className="h-4 w-4" />}
                 <span>Confirm Decline</span>
@@ -925,18 +911,18 @@ export default function CollegePortal() {
       {/* MODAL 3: ADVANCE PROGRESS */}
       {actionModalType === "progress" && selectedPost && (
         <div className="fixed inset-0 z-50 bg-white dark:bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className={`border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-200 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+          <div className={`border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-200 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
               <div className="flex items-center gap-2">
                 <Zap className="h-6 w-6 text-amber-600 dark:text-amber-400" />
-                <h3 className={`text-lg font-black ${isDark ? "text-white" : "text-slate-900"}`}>Advance Project Stage</h3>
+                <h3 className={`text-lg font-black text-foreground`}>Advance Project Stage</h3>
               </div>
-              <button onClick={() => setActionModalType(null)} className={`text-slate-400 hover: text-sm ${isDark ? "text-white" : "text-slate-900"}`}>✕</button>
+              <button onClick={() => setActionModalType(null)} className={`text-slate-400 hover: text-sm text-foreground`}>✕</button>
             </div>
 
             <div className="my-5">
-              <p className={`text-xs ${isDark ? "text-slate-400" : "text-slate-600"}`}>Current Stage: <strong className={` ${isDark ? "text-white" : "text-slate-900"}`}>{selectedPost.status}</strong></p>
-              <h4 className={`font-bold  text-sm mt-1 ${isDark ? "text-white" : "text-slate-900"}`}>{selectedPost.title}</h4>
+              <p className={`text-xs text-slate-600 dark:text-slate-400`}>Current Stage: <strong className={` text-foreground`}>{selectedPost.status}</strong></p>
+              <h4 className={`font-bold  text-sm mt-1 text-foreground`}>{selectedPost.title}</h4>
             </div>
 
             <div className="space-y-4">
@@ -947,7 +933,7 @@ export default function CollegePortal() {
                 <select
                   value={nextStage}
                   onChange={(e) => setNextStage(e.target.value)}
-                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm  focus:outline-none focus:border-indigo-500 ${isDark ? "text-white" : "text-slate-900"}`}
+                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm  focus:outline-none focus:border-indigo-500 text-foreground`}
                 >
                   <option value="PROTOTYPING">🔧 Prototyping (Lab testing started)</option>
                   <option value="TESTING">🧪 Field Testing (Validating on site)</option>
@@ -965,7 +951,7 @@ export default function CollegePortal() {
                   rows={3}
                   value={progressNotes}
                   onChange={(e) => setProgressNotes(e.target.value)}
-                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm  focus:outline-none focus:border-indigo-500 placeholder-slate-500 ${isDark ? "text-white" : "text-slate-900"}`}
+                  className={`w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm  focus:outline-none focus:border-indigo-500 placeholder-slate-500 text-foreground`}
                   placeholder="e.g. Completed initial 3D design and circuit testing with 94% efficiency."
                 />
               </div>
@@ -981,7 +967,7 @@ export default function CollegePortal() {
               <button
                 onClick={handleAdvancePipeline}
                 disabled={submittingAction}
-                className={`flex-1 py-3 bg-indigo-600 hover:bg-indigo-500  font-bold rounded-xl text-xs transition disabled:opacity-50 flex items-center justify-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`flex-1 py-3 bg-indigo-600 hover:bg-indigo-500  font-bold rounded-xl text-xs transition disabled:opacity-50 flex items-center justify-center gap-2 text-foreground`}
               >
                 {submittingAction ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
                 <span>Publish Update</span>
@@ -994,32 +980,32 @@ export default function CollegePortal() {
       {/* TASK 5: LIVE COLLABORATION MESSENGER */}
       {actionModalType === "chat" && selectedPost && (
         <div className="fixed inset-0 z-50 bg-white dark:bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className={`border border-slate-800 rounded-3xl max-w-2xl w-full h-[85vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+          <div className={`border border-slate-800 rounded-3xl max-w-2xl w-full h-[85vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
             
-            <div className={`p-5 border-b border-slate-800 /70 flex items-center justify-between ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+            <div className={`p-5 border-b border-slate-800 /70 flex items-center justify-between bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
               <div>
                 <div className="flex items-center gap-2">
                   <MessageSquare className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
-                  <h3 className={`font-black  text-base ${isDark ? "text-white" : "text-slate-900"}`}>University &amp; Industry Collaboration Channel</h3>
+                  <h3 className={`font-black  text-base text-foreground`}>University &amp; Industry Collaboration Channel</h3>
                 </div>
-                <p className={`text-xs  mt-0.5 truncate max-w-md ${isDark ? "text-slate-400" : "text-slate-600"}`}>
-                  Project: <strong className={` ${isDark ? "text-white" : "text-slate-900"}`}>{selectedPost.title}</strong>
+                <p className={`text-xs  mt-0.5 truncate max-w-md text-slate-600 dark:text-slate-400`}>
+                  Project: <strong className={` text-foreground`}>{selectedPost.title}</strong>
                 </p>
               </div>
 
               <div className="flex items-center gap-3">
-                <span className={`px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-500/20 ${isDark ? "text-indigo-300" : "text-indigo-700"} border border-indigo-500/30`}>
+                <span className={`px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30`}>
                   🎓 College Lead Session
                 </span>
-                <button onClick={() => setActionModalType(null)} className={`text-slate-400 hover: text-sm ${isDark ? "text-white" : "text-slate-900"}`}>✕</button>
+                <button onClick={() => setActionModalType(null)} className={`text-slate-400 hover: text-sm text-foreground`}>✕</button>
               </div>
             </div>
 
-            <div className={`flex-1 p-5 overflow-y-auto space-y-4 /40 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+            <div className={`flex-1 p-5 overflow-y-auto space-y-4 /40 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
               {chatLoading ? (
                 <div className="py-20 text-center">
                   <Loader2 className="h-8 w-8 animate-spin text-indigo-500 mx-auto mb-2" />
-                  <p className={`text-xs ${isDark ? "text-slate-400" : "text-slate-600"}`}>Loading channel messages...</p>
+                  <p className={`text-xs text-slate-600 dark:text-slate-400`}>Loading channel messages...</p>
                 </div>
               ) : chatMessages.length === 0 ? (
                 <div className="py-20 text-center text-slate-500">
@@ -1033,7 +1019,7 @@ export default function CollegePortal() {
 
                   if (isAi) {
                     return (
-                      <div key={i} className={`p-3 bg-purple-950/30 border border-purple-500/20 rounded-2xl text-xs ${isDark ? "text-purple-200" : "text-purple-700"}`}>
+                      <div key={i} className={`p-3 bg-purple-950/30 border border-purple-500/20 rounded-2xl text-xs text-purple-700 dark:text-purple-200`}>
                         <div className="flex items-center gap-1.5 font-bold text-pink-600 dark:text-pink-400 mb-1">
                           <Bot className="h-3.5 w-3.5" />
                           <span>{msg.senderName}</span>
@@ -1048,13 +1034,13 @@ export default function CollegePortal() {
                       key={i}
                       className={`flex flex-col ${isCol ? "items-end" : "items-start"}`}
                     >
-                      <span className={`text-[10px] font-bold  mb-1 px-1 ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                      <span className={`text-[10px] font-bold  mb-1 px-1 text-slate-600 dark:text-slate-400`}>
                         {isCol ? `🎓 ${msg.senderName}` : `🏭 ${msg.senderName}`}
                       </span>
                       <div
                         className={`max-w-[80%] p-3.5 rounded-2xl text-xs leading-relaxed ${
                           isCol
-                            ? "bg-indigo-600 text-slate-900 dark:text-white rounded-tr-none shadow-md shadow-indigo-600/20"
+                            ? "bg-indigo-600 text-foreground rounded-tr-none shadow-md shadow-indigo-600/20"
                             : "bg-pink-950/60 border border-pink-500/40 text-pink-100 rounded-tl-none"
                         }`}
                       >
@@ -1066,18 +1052,18 @@ export default function CollegePortal() {
               )}
             </div>
 
-            <form onSubmit={handleSendMessage} className={`p-4 border-t border-slate-800  flex items-center gap-2 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+            <form onSubmit={handleSendMessage} className={`p-4 border-t border-slate-800  flex items-center gap-2 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
               <input
                 type="text"
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
                 placeholder="Message the Industry Partner (prototype specs, funding release, meeting request)..."
-                className={`flex-1 bg-slate-900 border border-slate-800 rounded-2xl px-4 py-3 text-xs  placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`flex-1 bg-slate-900 border border-slate-800 rounded-2xl px-4 py-3 text-xs  placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition text-foreground`}
               />
               <button
                 type="submit"
                 disabled={!chatInput.trim()}
-                className={`p-3 bg-indigo-600 hover:bg-indigo-500  rounded-2xl transition disabled:opacity-40 ${isDark ? "text-white" : "text-slate-900"}`}
+                className={`p-3 bg-indigo-600 hover:bg-indigo-500  rounded-2xl transition disabled:opacity-40 text-foreground`}
               >
                 <Send className="h-4 w-4" />
               </button>
@@ -1090,14 +1076,14 @@ export default function CollegePortal() {
       {/* MODAL 4: FULL DETAILS */}
       {actionModalType === "details" && selectedPost && (
         <div className="fixed inset-0 z-50 bg-white dark:bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className={`border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
+          <div className={`border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
             <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-              <h3 className={`text-xl font-black ${isDark ? "text-white" : "text-slate-900"}`}>{selectedPost.title}</h3>
-              <button onClick={() => setActionModalType(null)} className={`text-slate-400 hover: text-sm ${isDark ? "text-white" : "text-slate-900"}`}>✕</button>
+              <h3 className={`text-xl font-black text-foreground`}>{selectedPost.title}</h3>
+              <button onClick={() => setActionModalType(null)} className={`text-slate-400 hover: text-sm text-foreground`}>✕</button>
             </div>
 
             <div className="my-6 space-y-4">
-              <div className={`flex items-center gap-4 text-xs ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+              <div className={`flex items-center gap-4 text-xs text-slate-600 dark:text-slate-400`}>
                 <span>Raised by: <strong className="text-slate-200">{selectedPost.user?.name || "Citizen"}</strong></span>
                 <span>•</span>
                 <span>Location: <strong className="text-slate-200">{selectedPost.location || "N/A"}</strong></span>
@@ -1105,8 +1091,8 @@ export default function CollegePortal() {
                 <span>Category: <strong className="text-indigo-600 dark:text-indigo-400">{selectedPost.category}</strong></span>
               </div>
 
-              <div className={`p-4  rounded-2xl border border-slate-800 ${isDark ? "bg-slate-900 border-slate-800" : "bg-white border-slate-200 shadow-sm"}`}>
-                <p className={`text-xs font-bold  uppercase tracking-wider mb-1 ${isDark ? "text-slate-400" : "text-slate-600"}`}>Citizen Problem Description</p>
+              <div className={`p-4  rounded-2xl border border-slate-800 bg-white border-slate-200 shadow-sm dark:bg-slate-900 dark:border-slate-800`}>
+                <p className={`text-xs font-bold  uppercase tracking-wider mb-1 text-slate-600 dark:text-slate-400`}>Citizen Problem Description</p>
                 <p className="text-sm text-slate-200 leading-relaxed whitespace-pre-wrap">{selectedPost.description}</p>
               </div>
 
@@ -1119,14 +1105,14 @@ export default function CollegePortal() {
               )}
 
               <div className="p-4 bg-indigo-950/40 rounded-2xl border border-indigo-500/30">
-                <p className={`text-xs font-bold ${isDark ? "text-indigo-300" : "text-indigo-700"} uppercase tracking-wider mb-1`}>Problem-Specific Approval Memorandum</p>
-                <p className={`text-xs font-mono  whitespace-pre-line leading-relaxed ${isDark ? "text-white" : "text-slate-900"}`}>{selectedPost.approvalMemo || selectedPost.statusMessage}</p>
+                <p className={`text-xs font-bold text-indigo-700 dark:text-indigo-300 uppercase tracking-wider mb-1`}>Problem-Specific Approval Memorandum</p>
+                <p className={`text-xs font-mono  whitespace-pre-line leading-relaxed text-foreground`}>{selectedPost.approvalMemo || selectedPost.statusMessage}</p>
               </div>
             </div>
 
             <button
               onClick={() => setActionModalType(null)}
-              className={`w-full py-3 bg-slate-800 hover:bg-slate-700  font-bold rounded-xl text-xs transition ${isDark ? "text-white" : "text-slate-900"}`}
+              className={`w-full py-3 bg-slate-800 hover:bg-slate-700  font-bold rounded-xl text-xs transition text-foreground`}
             >
               Close Details
             </button>
