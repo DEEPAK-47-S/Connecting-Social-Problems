@@ -738,7 +738,7 @@ export default function CollegePortal() {
  setSelectedPost(post);
  setActionModalType("reject");
  }}
- className={`py-3 px-4 bg-slate-800 hover:bg-rose-950/50 hover:text-rose-700 dark:text-rose-300 hover:border-rose-500/30 border border-slate-700/60 text-zinc-900 dark:text-zinc-100 rounded-xl text-xs font-bold transition flex items-center gap-1.5`}
+ className={`py-3 px-4 bg-slate-200 dark:bg-slate-800 hover:bg-rose-100 dark:hover:bg-rose-950/50 text-slate-900 dark:text-zinc-100 hover:text-rose-700 dark:hover:text-rose-300 border border-slate-300 dark:border-slate-700/60 rounded-xl text-xs font-bold transition flex items-center gap-1.5`}
  title="Reject this challenge"
  >
  <XCircle className="h-4 w-4 text-rose-600 dark:text-rose-400" />
@@ -761,7 +761,7 @@ export default function CollegePortal() {
 
  <button
  onClick={() => openChat(post)}
- className="py-3 px-4 bg-slate-800 hover:bg-slate-700 text-pink-600 dark:text-pink-400 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
+ className="py-3 px-4 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-pink-700 dark:text-pink-400 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
  >
  <MessageSquare className="h-4 w-4" />
  <span>Chat</span>
@@ -774,7 +774,7 @@ export default function CollegePortal() {
  setSelectedPost(post);
  setActionModalType("details");
  }}
- className="p-3 bg-slate-800 hover:bg-slate-700 text-zinc-900 dark:text-zinc-100 rounded-xl transition"
+ className="p-3 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-zinc-100 rounded-xl transition"
  title="View details"
  >
  <ChevronRight className="h-4 w-4" />
