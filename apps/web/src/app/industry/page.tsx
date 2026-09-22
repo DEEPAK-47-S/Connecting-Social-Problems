@@ -642,7 +642,7 @@ export default function IndustryPortal() {
  setSelectedPost(post);
  setActionModalType("reject");
  }}
- className="py-3 px-4 bg-zinc-800 hover:bg-rose-950/50 hover:text-rose-300 hover:border-rose-500/30 border border-zinc-700/60 text-zinc-900 dark:text-zinc-100 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
+ className="py-3 px-4 bg-zinc-100 hover:bg-rose-100 dark:bg-zinc-800 dark:hover:bg-rose-950/50 hover:text-rose-600 dark:hover:text-rose-300 hover:border-rose-500/30 border border-zinc-200 dark:border-zinc-700/60 text-zinc-900 dark:text-zinc-100 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
  title="Decline this collaboration opportunity"
  >
  <XCircle className="h-4 w-4 text-rose-400" />
@@ -672,7 +672,7 @@ export default function IndustryPortal() {
  className={`py-3 px-4 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
  post.acceptedIndustryName
  ? "bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-500/20"
- : "bg-zinc-800 hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100"
+ : "bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100"
  }`}
  >
  <MessageSquare className="h-4 w-4" />
@@ -765,7 +765,7 @@ export default function IndustryPortal() {
  <div className="mt-8 flex gap-3">
  <button
  onClick={() => setActionModalType(null)}
- className="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 font-bold rounded-xl text-xs transition"
+ className="flex-1 py-3 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 font-bold rounded-xl text-xs transition"
  >
  Cancel
  </button>
@@ -813,7 +813,7 @@ export default function IndustryPortal() {
  <div className="flex gap-3">
  <button
  onClick={() => setActionModalType(null)}
- className="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 font-bold rounded-xl text-xs transition"
+ className="flex-1 py-3 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 font-bold rounded-xl text-xs transition"
  >
  Cancel
  </button>
