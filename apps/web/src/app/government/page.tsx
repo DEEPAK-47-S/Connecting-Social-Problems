@@ -133,15 +133,34 @@ export default function GovernmentPortal() {
     setTimeout(() => setNotification(null), 4000);
   };
 
-  // Filter posts based on active tab
+  // Multi-Tenant Isolation: Check if post belongs to THIS government authority
+  const isSanctionedByMyAuthority = (p: any) => {
+    const myAuth = (govtUser?.authorityName || department || "").toLowerCase().trim();
+    if (!myAuth) return false;
+
+    if (p.governmentSanctions && Array.isArray(p.governmentSanctions)) {
+      const match = p.governmentSanctions.some((gs: any) => 
+        (govtUser?.id && gs.govtId === govtUser.id) ||
+        (gs.authorityName && gs.authorityName.toLowerCase().includes(myAuth))
+      );
+      if (match) return true;
+    }
+    return p.statusHistory?.some((sh: any) => sh.actor && sh.actor.toLowerCase().includes(myAuth));
+  };
+
+  // Filter posts based on active tab with municipal isolation
   const filteredPosts = posts.filter((p) => {
     if (activeTab === "reviews") {
       // Pending review / approval
       if (["INDUSTRY_ACCEPTED", "GOVT_REVIEW"].indexOf(p.status) === -1) return false;
     } else if (activeTab === "implementation") {
       if (["GOVT_APPROVED", "IMPLEMENTATION"].indexOf(p.status) === -1) return false;
+      // Scoped to this authority
+      if (!isSanctionedByMyAuthority(p)) return false;
     } else if (activeTab === "completed") {
       if (p.status !== "COMPLETED") return false;
+      // Scoped to this authority
+      if (!isSanctionedByMyAuthority(p)) return false;
     }
 
     if (searchQuery.trim()) {
@@ -158,11 +177,19 @@ export default function GovernmentPortal() {
     if (!selectedPost) return;
     setSubmittingAction(true);
     try {
+      const token = localStorage.getItem("government_token");
       const res = await fetch(`${API}/api/posts/${selectedPost.id}/status`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({
           status: "GOVT_APPROVED",
+          authorityName: govtUser?.authorityName || department,
+          department: department || govtUser?.dept,
+          sanctionNumber: sanctionNumber,
+          scheme: allocatedScheme,
           message: `Official Sanction Order #${sanctionNumber} issued by ${officerName} (${department}) under ${allocatedScheme}.`,
           actor: officerName,
         }),
@@ -184,11 +211,17 @@ export default function GovernmentPortal() {
     if (!selectedPost) return;
     setSubmittingAction(true);
     try {
+      const token = localStorage.getItem("government_token");
       const res = await fetch(`${API}/api/posts/${selectedPost.id}/status`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({
           status: "COMPLETED",
+          authorityName: govtUser?.authorityName || department,
+          department: department || govtUser?.dept,
           message: completionNotes || `Ground installation inspected & verified active by ${department}. Issue permanently resolved.`,
           actor: officerName || "Municipal Authority",
           beneficiaries: beneficiaries,
@@ -214,8 +247,8 @@ export default function GovernmentPortal() {
   };
 
   const reviewsCount = posts.filter((p) => ["INDUSTRY_ACCEPTED", "GOVT_REVIEW"].includes(p.status)).length;
-  const implementationCount = posts.filter((p) => ["GOVT_APPROVED", "IMPLEMENTATION"].includes(p.status)).length;
-  const completedCount = posts.filter((p) => p.status === "COMPLETED").length;
+  const implementationCount = posts.filter((p) => ["GOVT_APPROVED", "IMPLEMENTATION"].includes(p.status) && isSanctionedByMyAuthority(p)).length;
+  const completedCount = posts.filter((p) => p.status === "COMPLETED" && isSanctionedByMyAuthority(p)).length;
 
   if (authChecking) {
     return (
@@ -264,9 +297,12 @@ export default function GovernmentPortal() {
                 <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-teal-500/20 text-teal-600 dark:text-teal-400 border border-teal-500/30">
                   Civic Governance
                 </span>
+                <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hidden md:inline-flex items-center gap-1">
+                  🛡️ Isolated Workspace
+                </span>
               </div>
               <p className={`text-xs ${isDark ? "text-slate-400" : "text-slate-500"}`}>
-                Official Municipal Sanctions, Scheme Alignment &amp; Ground Verification
+                Official Municipal Sanctions &amp; Ground Verification (Private Authority Scope)
               </p>
             </div>
           </div>

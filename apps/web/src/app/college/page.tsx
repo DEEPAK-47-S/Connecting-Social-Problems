@@ -218,19 +218,27 @@ export default function CollegePortal() {
     if (!selectedPost) return;
     setSubmittingAction(true);
     try {
+      const activeCollegeName = collegeUser?.collegeName || activeCollege.name;
+      const fullCollegeIdentifier = `${activeCollegeName} — ${teamName}`;
+      const token = localStorage.getItem("college_token");
+
       const res = await fetch(`${API}/api/posts/${selectedPost.id}/status`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({
           status: "UNIVERSITY_ACCEPTED",
-          collegeName: `${teamName} (Guide: ${facultyGuide})`,
-          message: `Accepted by ${teamName} (Guide: ${facultyGuide}). 10 Industry candidates notified by AI.`,
-          actor: teamName,
+          collegeName: activeCollegeName,
+          facultyGuide: facultyGuide,
+          message: `Accepted by ${activeCollegeName} (${teamName}, Guide: ${facultyGuide}). 10 Industry candidates notified by AI.`,
+          actor: fullCollegeIdentifier,
         }),
       });
       if (!res.ok) throw new Error("Failed to accept challenge.");
       
-      showToast("success", `🎯 Challenge accepted! Assigned to ${teamName}. 10 Industry candidates notified.`);
+      showToast("success", `🎯 Challenge accepted! Locked exclusively to ${activeCollegeName}.`);
       setActionModalType(null);
       fetchChallenges();
     } catch (err: any) {
@@ -245,11 +253,12 @@ export default function CollegePortal() {
     if (!selectedPost) return;
     setSubmittingAction(true);
     try {
+      const activeCollegeName = collegeUser?.collegeName || activeCollege.name;
       const res = await fetch(`${API}/api/posts/${selectedPost.id}/college/reject`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          collegeName: teamName,
+          collegeName: activeCollegeName,
           reason: rejectReason,
         }),
       });
@@ -270,13 +279,19 @@ export default function CollegePortal() {
     if (!selectedPost) return;
     setSubmittingAction(true);
     try {
+      const activeCollegeName = collegeUser?.collegeName || activeCollege.name;
+      const token = localStorage.getItem("college_token");
       const res = await fetch(`${API}/api/posts/${selectedPost.id}/status`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({
           status: nextStage,
+          collegeName: activeCollegeName,
           message: progressNotes || `Advanced to ${nextStage} stage.`,
-          actor: facultyGuide || "Academic R&D Team",
+          actor: facultyGuide || activeCollegeName,
           beneficiaries: nextStage === "COMPLETED" ? "10,000+ Citizens impacted" : undefined,
         }),
       });
@@ -293,14 +308,39 @@ export default function CollegePortal() {
     }
   };
 
-  // Filter posts
+  // Multi-Tenant Isolation: Check if a post belongs to THIS logged-in college
+  const isOwnedByMyCollege = (p: any) => {
+    const myCol = (collegeUser?.collegeName || activeCollege?.name || "").toLowerCase().trim();
+    if (!myCol) return false;
+
+    // Direct match on acceptedCollegeName
+    if (p.acceptedCollegeName && p.acceptedCollegeName.toLowerCase().includes(myCol)) return true;
+
+    // Match in isolated collegeProjects table
+    if (p.collegeProjects && Array.isArray(p.collegeProjects)) {
+      const match = p.collegeProjects.some((cp: any) => 
+        (collegeUser?.id && cp.collegeId === collegeUser.id) ||
+        (cp.collegeName && cp.collegeName.toLowerCase().includes(myCol))
+      );
+      if (match) return true;
+    }
+    return false;
+  };
+
+  // Filter posts with strict isolation
   const filteredPosts = posts.filter((p) => {
     if (activeTab === "intake") {
       if (p.status !== "UNIVERSITY_MATCHING" && p.status !== "SUBMITTED" && p.status !== "AI_ANALYZING") return false;
+      // If another college has already adopted this problem, hide it from other colleges' intake!
+      if (p.acceptedCollegeName && !isOwnedByMyCollege(p)) return false;
     } else if (activeTab === "active") {
       if (["UNIVERSITY_ACCEPTED", "PROTOTYPING", "TESTING", "INDUSTRY_MATCHING", "INDUSTRY_ACCEPTED", "GOVT_REVIEW", "GOVT_APPROVED", "IMPLEMENTATION"].indexOf(p.status) === -1) return false;
+      // Strict Data Isolation: ONLY show if adopted by THIS college
+      if (!isOwnedByMyCollege(p)) return false;
     } else if (activeTab === "completed") {
       if (p.status !== "COMPLETED") return false;
+      // Strict Data Isolation: ONLY show if completed by THIS college
+      if (!isOwnedByMyCollege(p)) return false;
     }
 
     if (searchQuery.trim()) {
@@ -312,9 +352,21 @@ export default function CollegePortal() {
     return true;
   });
 
-  const intakeCount = posts.filter((p) => p.status === "UNIVERSITY_MATCHING" || p.status === "SUBMITTED" || p.status === "AI_ANALYZING").length;
-  const activeCount = posts.filter((p) => ["UNIVERSITY_ACCEPTED", "PROTOTYPING", "TESTING", "INDUSTRY_MATCHING", "INDUSTRY_ACCEPTED", "GOVT_REVIEW", "GOVT_APPROVED", "IMPLEMENTATION"].includes(p.status)).length;
-  const completedCount = posts.filter((p) => p.status === "COMPLETED").length;
+  const intakeCount = posts.filter((p) => {
+    if (p.status !== "UNIVERSITY_MATCHING" && p.status !== "SUBMITTED" && p.status !== "AI_ANALYZING") return false;
+    if (p.acceptedCollegeName && !isOwnedByMyCollege(p)) return false;
+    return true;
+  }).length;
+
+  const activeCount = posts.filter((p) => {
+    if (!["UNIVERSITY_ACCEPTED", "PROTOTYPING", "TESTING", "INDUSTRY_MATCHING", "INDUSTRY_ACCEPTED", "GOVT_REVIEW", "GOVT_APPROVED", "IMPLEMENTATION"].includes(p.status)) return false;
+    return isOwnedByMyCollege(p);
+  }).length;
+
+  const completedCount = posts.filter((p) => {
+    if (p.status !== "COMPLETED") return false;
+    return isOwnedByMyCollege(p);
+  }).length;
 
   if (authChecking) {
     return (
@@ -363,9 +415,12 @@ export default function CollegePortal() {
                 <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30">
                   Academic Portal
                 </span>
+                <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hidden md:inline-flex items-center gap-1">
+                  🛡️ Isolated Workspace
+                </span>
               </div>
               <p className={`text-xs ${isDark ? "text-slate-400" : "text-slate-500"}`}>
-                Transforming Citizen Problems into Student Engineering Solutions
+                Transforming Citizen Problems into Student Engineering Solutions (Private Institution Scope)
               </p>
             </div>
           </div>

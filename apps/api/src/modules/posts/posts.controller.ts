@@ -183,6 +183,16 @@ export const getPosts = async (req: AuthRequest, res: Response) => {
       ];
     }
 
+    const filterCollegeName = (req.query.collegeName as string || req.query.college as string || '').trim();
+    const filterIndustryName = (req.query.industryName as string || req.query.companyName as string || '').trim();
+
+    if (filterCollegeName) {
+      whereClause.acceptedCollegeName = { contains: filterCollegeName };
+    }
+    if (filterIndustryName) {
+      whereClause.acceptedIndustryName = { contains: filterIndustryName };
+    }
+
     const posts = await prisma.post.findMany({
       where: Object.keys(whereClause).length > 0 ? whereClause : undefined,
       skip,
@@ -192,6 +202,9 @@ export const getPosts = async (req: AuthRequest, res: Response) => {
         user: { select: { id: true, name: true, email: true, avatarUrl: true, companyName: true, role: true } },
         industryMatches: { orderBy: { matchScore: 'desc' } },
         collaborationMessages: { orderBy: { createdAt: 'asc' }, take: 30 },
+        collegeProjects: true,
+        industrySponsorships: true,
+        governmentSanctions: true,
         _count: { select: { likes: true, comments: true } },
       },
     });
@@ -411,7 +424,7 @@ export const rejectIndustryChallenge = async (req: Request, res: Response) => {
 };
 
 // Task 4 & 5: POST /api/posts/:id/industry/accept — First-Come First-Served Industry Acceptance & Locking
-export const acceptIndustryChallenge = async (req: Request, res: Response) => {
+export const acceptIndustryChallenge = async (req: AuthRequest, res: Response) => {
   try {
     const postId = req.params.id;
     const { companyName, sponsorType, grantAmount, mentorLead, notes } = req.body;
@@ -451,6 +464,41 @@ export const acceptIndustryChallenge = async (req: Request, res: Response) => {
         statusMessage: statusMsg,
       },
     });
+
+    // 1b. Record in isolated IndustrySponsorship tenant table
+    try {
+      let industryUserId = req.user?.id;
+      if (!industryUserId) {
+        const found = await prisma.user.findFirst({ where: { companyName: { contains: cleanCompany } } })
+          || await prisma.user.findFirst({ where: { role: 'INDUSTRY' } });
+        industryUserId = found?.id;
+      }
+      if (industryUserId) {
+        await prisma.industrySponsorship.upsert({
+          where: { industryId_postId: { industryId: industryUserId, postId } },
+          update: {
+            companyName: cleanCompany,
+            grantAmount: cleanGrant,
+            mentorLead: mentorLead || 'Executive Mentor',
+            sponsorType: cleanSponsor,
+            notes: notes || null,
+            status: 'ACTIVE',
+          },
+          create: {
+            industryId: industryUserId,
+            companyName: cleanCompany,
+            postId,
+            grantAmount: cleanGrant,
+            mentorLead: mentorLead || 'Executive Mentor',
+            sponsorType: cleanSponsor,
+            notes: notes || null,
+            status: 'ACTIVE',
+          },
+        });
+      }
+    } catch (e) {
+      console.warn('[INDUSTRY SPONSORSHIP RECORD WARN]', e);
+    }
 
     // 2. Update Industry Matches: Mark this one ACCEPTED, all others LOCKED_OUT
     await prisma.industryMatch.updateMany({
@@ -847,6 +895,82 @@ export const updatePostStatus = async (req: AuthRequest, res: Response) => {
         actor: actor || req.user?.email || 'System Actor',
       },
     });
+
+    // Isolated College Project Record
+    if (collegeName || (req.user && req.user.role === 'UNIVERSITY') || status.startsWith('UNIVERSITY_') || status === 'PROTOTYPING' || status === 'TESTING') {
+      try {
+        let collegeUserId = req.user?.id;
+        if (!collegeUserId) {
+          const found = await prisma.user.findFirst({ where: { role: 'UNIVERSITY' } });
+          collegeUserId = found?.id;
+        }
+        if (collegeUserId) {
+          const cleanCollegeName = collegeName || (req.user as any)?.name || actor || 'Academic Research Lab';
+          await prisma.collegeProject.upsert({
+            where: { collegeId_postId: { collegeId: collegeUserId, postId } },
+            update: {
+              collegeName: cleanCollegeName,
+              stage: status,
+              status: status === 'COMPLETED' ? 'COMPLETED' : 'ACTIVE',
+              teamName: actor || cleanCollegeName,
+              facultyGuide: req.body.facultyGuide || null,
+              notes: message || null,
+            },
+            create: {
+              collegeId: collegeUserId,
+              collegeName: cleanCollegeName,
+              postId,
+              stage: status,
+              status: status === 'COMPLETED' ? 'COMPLETED' : 'ACTIVE',
+              teamName: actor || cleanCollegeName,
+              facultyGuide: req.body.facultyGuide || null,
+              notes: message || null,
+            },
+          });
+        }
+      } catch (e) {
+        console.warn('[COLLEGE PROJECT RECORD WARN]', e);
+      }
+    }
+
+    // Isolated Government Sanction Record
+    if (status === 'GOVT_APPROVED' || status === 'GOVT_REVIEW' || status === 'IMPLEMENTATION' || req.body.sanctionNumber) {
+      try {
+        let govtUserId = req.user?.id;
+        if (!govtUserId) {
+          const found = await prisma.user.findFirst({ where: { role: 'GOVERNMENT' } });
+          govtUserId = found?.id;
+        }
+        if (govtUserId) {
+          const authName = req.body.authorityName || actor || 'Municipal Authority';
+          await prisma.governmentSanction.upsert({
+            where: { govtId_postId: { govtId: govtUserId, postId } },
+            update: {
+              authorityName: authName,
+              department: req.body.department || null,
+              officerName: actor || req.body.officerName || null,
+              sanctionNumber: req.body.sanctionNumber || null,
+              scheme: req.body.scheme || null,
+              status,
+              notes: message || null,
+            },
+            create: {
+              govtId: govtUserId,
+              authorityName: authName,
+              department: req.body.department || null,
+              officerName: actor || req.body.officerName || null,
+              postId,
+              sanctionNumber: req.body.sanctionNumber || null,
+              scheme: req.body.scheme || null,
+              status,
+              notes: message || null,
+            },
+          });
+        }
+      } catch (e) {
+        console.warn('[GOVT SANCTION RECORD WARN]', e);
+      }
+    }
 
     res.json({ message: 'Status updated successfully', post: updated });
   } catch (err) {

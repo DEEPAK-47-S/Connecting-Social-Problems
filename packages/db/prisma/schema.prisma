@@ -26,9 +26,12 @@ model User {
 
   otps         Otp[]
   posts        Post[]
-  likes        Like[]
-  comments     Comment[]
-  commentLikes CommentLike[]
+  likes                Like[]
+  comments             Comment[]
+  commentLikes         CommentLike[]
+  collegeProjects      CollegeProject[]
+  industrySponsorships IndustrySponsorship[]
+  governmentSanctions  GovernmentSanction[]
 
   @@index([email])
   @@index([role])
@@ -88,6 +91,9 @@ model Post {
   statusHistory         PostStatusHistory[]
   industryMatches       IndustryMatch[]
   collaborationMessages CollaborationMessage[]
+  collegeProjects       CollegeProject[]
+  industrySponsorships  IndustrySponsorship[]
+  governmentSanctions   GovernmentSanction[]
 
   @@index([userId])
   @@index([status])
@@ -193,4 +199,71 @@ model CommentLike {
 
   @@unique([userId, commentId])
   @@index([commentId])
+}
+
+// ============================================
+// MULTI-TENANT ISOLATED INSTITUTION ACTIVITIES
+// ============================================
+model CollegeProject {
+  id           String   @id @default(uuid())
+  collegeId    String
+  collegeUser  User     @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  collegeName  String
+  postId       String
+  post         Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  status       String   @default("ACTIVE") // ACTIVE, COMPLETED, DROPPED
+  stage        String   @default("UNIVERSITY_ACCEPTED") // UNIVERSITY_ACCEPTED, PROTOTYPING, TESTING, COMPLETED
+  teamName     String?
+  facultyGuide String?
+  notes        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([collegeId, postId])
+  @@index([collegeId])
+  @@index([collegeName])
+  @@index([status])
+}
+
+model IndustrySponsorship {
+  id           String   @id @default(uuid())
+  industryId   String
+  industryUser User     @relation(fields: [industryId], references: [id], onDelete: Cascade)
+  companyName  String
+  postId       String
+  post         Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  grantAmount  String?
+  mentorLead   String?
+  sponsorType  String?
+  notes        String?
+  status       String   @default("ACTIVE") // ACTIVE, COMPLETED
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([industryId, postId])
+  @@index([industryId])
+  @@index([companyName])
+  @@index([status])
+}
+
+model GovernmentSanction {
+  id             String   @id @default(uuid())
+  govtId         String
+  govtUser       User     @relation(fields: [govtId], references: [id], onDelete: Cascade)
+  authorityName  String
+  department     String?
+  officerName    String?
+  postId         String
+  post           Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  sanctionNumber String?
+  scheme         String?
+  status         String   @default("APPROVED") // APPROVED, IMPLEMENTING, COMPLETED
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([govtId, postId])
+  @@index([govtId])
+  @@index([authorityName])
+  @@index([status])
 }

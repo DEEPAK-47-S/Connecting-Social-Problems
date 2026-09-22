@@ -191,9 +191,13 @@ export default function IndustryPortal() {
     if (!selectedPost) return;
     setSubmittingAction(true);
     try {
+      const token = localStorage.getItem("industry_token");
       const res = await fetch(`${API}/api/posts/${selectedPost.id}/industry/accept`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({
           companyName: currentCompany,
           sponsorType,
@@ -230,9 +234,13 @@ export default function IndustryPortal() {
     if (!selectedPost) return;
     setSubmittingAction(true);
     try {
+      const token = localStorage.getItem("industry_token");
       const res = await fetch(`${API}/api/posts/${selectedPost.id}/industry/reject`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({
           companyName: currentCompany,
           reason: declineReason,
@@ -266,14 +274,39 @@ export default function IndustryPortal() {
     router.replace("/industry/login");
   };
 
-  // Filter posts
+  // Multi-Tenant Isolation: Check if post is sponsored by THIS logged-in industry
+  const isSponsoredByMyCompany = (p: any) => {
+    const myCo = (currentCompany || industryUser?.companyName || "").toLowerCase().trim();
+    if (!myCo) return false;
+
+    // Direct match on acceptedIndustryName
+    if (p.acceptedIndustryName && p.acceptedIndustryName.toLowerCase().includes(myCo)) return true;
+
+    // Match in isolated industrySponsorships table
+    if (p.industrySponsorships && Array.isArray(p.industrySponsorships)) {
+      const match = p.industrySponsorships.some((s: any) => 
+        (industryUser?.id && s.industryId === industryUser.id) ||
+        (s.companyName && s.companyName.toLowerCase().includes(myCo))
+      );
+      if (match) return true;
+    }
+    return false;
+  };
+
+  // Filter posts with strict multi-tenant isolation
   const filteredPosts = posts.filter((p) => {
     if (activeTab === "opportunities") {
       if (["UNIVERSITY_ACCEPTED", "PROTOTYPING", "TESTING", "INDUSTRY_MATCHING"].indexOf(p.status) === -1) return false;
+      // If another company has already adopted this, hide it from other companies' opportunities
+      if (p.acceptedIndustryName && !isSponsoredByMyCompany(p)) return false;
     } else if (activeTab === "active") {
       if (["INDUSTRY_ACCEPTED", "GOVT_REVIEW", "GOVT_APPROVED", "IMPLEMENTATION"].indexOf(p.status) === -1) return false;
+      // Strict Isolation: Only show if sponsored by THIS company
+      if (!isSponsoredByMyCompany(p)) return false;
     } else if (activeTab === "impact") {
       if (p.status !== "COMPLETED") return false;
+      // Strict Isolation: Only show if completed with THIS company's sponsorship
+      if (!isSponsoredByMyCompany(p)) return false;
     }
 
     if (searchQuery.trim()) {
@@ -285,9 +318,21 @@ export default function IndustryPortal() {
     return true;
   });
 
-  const oppsCount = posts.filter((p) => ["UNIVERSITY_ACCEPTED", "PROTOTYPING", "TESTING", "INDUSTRY_MATCHING"].includes(p.status)).length;
-  const activeCount = posts.filter((p) => ["INDUSTRY_ACCEPTED", "GOVT_REVIEW", "GOVT_APPROVED", "IMPLEMENTATION"].includes(p.status)).length;
-  const impactCount = posts.filter((p) => p.status === "COMPLETED").length;
+  const oppsCount = posts.filter((p) => {
+    if (!["UNIVERSITY_ACCEPTED", "PROTOTYPING", "TESTING", "INDUSTRY_MATCHING"].includes(p.status)) return false;
+    if (p.acceptedIndustryName && !isSponsoredByMyCompany(p)) return false;
+    return true;
+  }).length;
+
+  const activeCount = posts.filter((p) => {
+    if (!["INDUSTRY_ACCEPTED", "GOVT_REVIEW", "GOVT_APPROVED", "IMPLEMENTATION"].includes(p.status)) return false;
+    return isSponsoredByMyCompany(p);
+  }).length;
+
+  const impactCount = posts.filter((p) => {
+    if (p.status !== "COMPLETED") return false;
+    return isSponsoredByMyCompany(p);
+  }).length;
 
   if (authChecking) {
     return (
@@ -337,9 +382,12 @@ export default function IndustryPortal() {
                 <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-pink-500/20 text-pink-400 border border-pink-500/30">
                   Corporate Portal
                 </span>
+                <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hidden md:inline-flex items-center gap-1">
+                  🛡️ Isolated Workspace
+                </span>
               </div>
               <p className={`text-xs ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>
-                10-Industry AI Dispatch &amp; First-Come Locking Mechanism
+                10-Industry AI Dispatch &amp; Locking Mechanism (Private CSR Pool)
               </p>
             </div>
           </div>
