@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Connecting Social Problem — Citizen Grievance & Solution Hub",
   description: "Connecting Citizen Problems with University Research Labs, Industry CSR Partners & Municipal Governance.",
+  icons: {
+    icon: "/logo.jpg",
+  },
 };
 
 export default function RootLayout({
