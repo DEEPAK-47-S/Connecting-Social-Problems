@@ -94,7 +94,7 @@ export default function CollegeLoginPage() {
       setSuccessMsg("A new OTP has been sent!");
       setResendCooldown(60);
       
-  if (isLogin && data.requiresOtp) {
+  if (data.requiresOtp) {
     setUserId(data.userId);
     setStep(2);
     setSuccessMsg("OTP sent to your email.");

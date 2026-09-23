@@ -60,30 +60,31 @@ export const register = async (req: Request, res: Response) => {
         role: assignedRole,
         companyName: companyName?.trim() || null,
         sector: sector?.trim() || null,
-        isVerified: true,
+        sector: sector?.trim() || null,
+        isVerified: false,
       },
     });
 
-    const token = jwt.sign(
-      { id: user.id, role: user.role, email: user.email },
-      JWT_SECRET,
-      { expiresIn: '7d' }
-    );
+    // Generate and send OTP instead of instantly logging in
+    const otpCode = generateOtp();
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 mins
 
-    console.log(`✅ [AUTH] Registered ${user.role} user: ${user.email} (ID: ${user.id})`);
+    await prisma.otp.create({
+      data: {
+        userId: user.id,
+        code: otpCode,
+        expiresAt,
+      },
+    });
+
+    await sendOtpEmail(user.email, otpCode);
+
+    console.log(`✅ [AUTH] Registered ${user.role} user: ${user.email} (ID: ${user.id}). Awaiting OTP verification.`);
 
     res.status(201).json({
-      message: 'Account created successfully!',
-      token,
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        companyName: user.companyName,
-        sector: user.sector,
-        avatarUrl: user.avatarUrl,
-      },
+      message: 'Account created successfully! OTP sent to email.',
+      requiresOtp: true,
+      userId: user.id,
     });
   } catch (err: any) {
     console.error('[REGISTER ERROR]', err);
@@ -179,11 +180,17 @@ export const verifyOtp = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Invalid or expired OTP.' });
     }
 
-    // Mark as used
-    await prisma.otp.update({
-      where: { id: validOtp.id },
-      data: { used: true },
-    });
+    // Mark as used and set user as verified
+    await prisma.$transaction([
+      prisma.otp.update({
+        where: { id: validOtp.id },
+        data: { used: true },
+      }),
+      prisma.user.update({
+        where: { id: user.id },
+        data: { isVerified: true },
+      }),
+    ]);
 
     const token = jwt.sign({ id: user.id, role: user.role, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
     
