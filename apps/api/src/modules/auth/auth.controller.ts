@@ -123,30 +123,26 @@ export const login = async (req: Request, res: Response) => {
       }
     }
 
-    // Generate and send OTP instead of instantly logging in
-    const otpCode = generateOtp();
-    const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 mins
+    const token = jwt.sign(
+      { id: user.id, role: user.role, email: user.email },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
 
-    // Invalidate old OTPs
-    await prisma.otp.updateMany({
-      where: { userId: user.id, used: false },
-      data: { used: true },
-    });
-
-    await prisma.otp.create({
-      data: {
-        userId: user.id,
-        code: otpCode,
-        expiresAt,
-      },
-    });
-
-    await sendOtpEmail(user.email, otpCode);
+    console.log(`✅ [AUTH] ${user.role} logged in: ${user.email} (ID: ${user.id})`);
 
     res.status(200).json({
-      message: 'OTP sent to your email.',
-      requiresOtp: true,
-      userId: user.id,
+      message: 'Login successful!',
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+        companyName: user.companyName,
+        sector: user.sector,
+        avatarUrl: user.avatarUrl,
+      },
     });
   } catch (err: any) {
     console.error('[LOGIN ERROR]', err);

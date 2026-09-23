@@ -102,15 +102,7 @@ export default function IndustryLoginPage() {
       if (!res.ok) throw new Error(data.error);
       setSuccessMsg("A new OTP has been sent!");
       setResendCooldown(60);
-      
-  if (data.requiresOtp) {
-    setUserId(data.userId);
-    setStep(2);
-    setSuccessMsg("OTP sent to your email.");
-    setLoading(false);
-    return;
-  }
-  const timer = setInterval(() => {
+      const timer = setInterval(() => {
         setResendCooldown((c) => {
           if (c <= 1) clearInterval(timer);
           return c - 1;
@@ -271,6 +263,14 @@ export default function IndustryLoginPage() {
  if (!res.ok) {
  throw new Error(data.error || "Authentication failed. Please check your credentials.");
  }
+      if (data.requiresOtp) {
+        setUserId(data.userId);
+        setStep(2);
+        setSuccessMsg("OTP sent to your email.");
+        setLoading(false);
+        return;
+      }
+
 
  // If new industry registration, save to custom list
  if (!isLogin) {
