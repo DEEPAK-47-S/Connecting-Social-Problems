@@ -19,6 +19,8 @@ function getTransporter(): nodemailer.Transporter | null {
           user: process.env.SMTP_USER!,
           pass: process.env.SMTP_PASS!,
         },
+        connectionTimeout: 5000,
+        greetingTimeout: 5000,
       });
       console.log('✅ [EMAIL] Configured real Gmail SMTP for:', process.env.SMTP_USER);
     } catch (e) {
