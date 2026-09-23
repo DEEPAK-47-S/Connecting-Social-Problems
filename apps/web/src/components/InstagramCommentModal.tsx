@@ -68,8 +68,8 @@ export default function InstagramCommentModal({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Load comments
-  const loadComments = async () => {
-    setLoading(true);
+  const loadComments = async (silent = false) => {
+    if (!silent) setLoading(true);
     try {
       const res = await fetch(`${API}/api/posts/${post.id}/comments`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -81,13 +81,20 @@ export default function InstagramCommentModal({
     } catch (err) {
       console.error("Failed to load comments:", err);
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   };
 
   useEffect(() => {
     if (isOpen && post?.id) {
       loadComments();
+      
+      // Silent Poller for live comments (1.5 seconds)
+      const interval = setInterval(() => {
+        loadComments(true);
+      }, 1500);
+      
+      return () => clearInterval(interval);
     }
   }, [isOpen, post?.id]);
 
@@ -139,6 +146,36 @@ export default function InstagramCommentModal({
     }
     if (!commentText.trim() || submitting) return;
 
+    const tempId = `temp-${Date.now()}`;
+    const optimisticComment: CommentItem = {
+      id: tempId,
+      postId: post.id,
+      parentId: replyingTo?.id || null,
+      text: commentText.trim(),
+      createdAt: new Date().toISOString(),
+      likeCount: 0,
+      likedByMe: false,
+      user: currentUser, // Assuming currentUser has id, name, avatarUrl
+    };
+
+    // 1. Optimistic Update (Immediate)
+    if (replyingTo?.id) {
+      setComments((prev) =>
+        prev.map((c) => {
+          if (c.id === replyingTo.id) return { ...c, replies: [...(c.replies || []), optimisticComment] };
+          return c;
+        })
+      );
+      setExpandedReplies((prev) => ({ ...prev, [replyingTo.id]: true }));
+    } else {
+      setComments((prev) => [optimisticComment, ...prev]);
+    }
+    
+    const originalText = commentText;
+    setCommentText("");
+    setReplyingTo(null);
+    if (onCommentCountChange) onCommentCountChange(post.id, 1);
+
     setSubmitting(true);
     try {
       const res = await fetch(`${API}/api/posts/${post.id}/comments`, {
@@ -148,7 +185,7 @@ export default function InstagramCommentModal({
           Authorization: `Bearer ${activeToken}`,
         },
         body: JSON.stringify({
-          text: commentText.trim(),
+          text: originalText.trim(),
           parentId: replyingTo?.id || null,
         }),
       });
@@ -159,31 +196,17 @@ export default function InstagramCommentModal({
         window.location.href = "/login";
         return;
       }
+      
       if (res.ok && data.comment) {
-        const newC = data.comment;
-        if (replyingTo?.id) {
-          // Add to nested replies
-          setComments((prev) =>
-            prev.map((c) => {
-              if (c.id === replyingTo.id) {
-                return {
-                  ...c,
-                  replies: [...(c.replies || []), newC],
-                };
-              }
-              return c;
-            })
-          );
-          setExpandedReplies((prev) => ({ ...prev, [replyingTo.id]: true }));
-        } else {
-          // Add to top-level comments
-          setComments((prev) => [newC, ...prev]);
-        }
-
-        setCommentText("");
-        setReplyingTo(null);
-        if (onCommentCountChange) onCommentCountChange(post.id, 1);
-
+        // Swap temp comment with real server comment silently
+        setComments((prev) => {
+          if (replyingTo?.id) {
+            return prev.map(c => c.id === replyingTo.id ? { ...c, replies: c.replies?.map(r => r.id === tempId ? data.comment : r) } : c);
+          } else {
+            return prev.map(c => c.id === tempId ? data.comment : c);
+          }
+        });
+        
         // Scroll to bottom or top
         setTimeout(() => {
           if (scrollContainerRef.current) {
@@ -191,9 +214,17 @@ export default function InstagramCommentModal({
           }
         }, 100);
       } else {
+        // Revert on error
+        setComments((prev) => prev.filter(c => c.id !== tempId));
+        if (onCommentCountChange) onCommentCountChange(post.id, -1);
+        setCommentText(originalText);
         alert(data.error || "Failed to post comment");
       }
     } catch {
+      // Revert on error
+      setComments((prev) => prev.filter(c => c.id !== tempId));
+      if (onCommentCountChange) onCommentCountChange(post.id, -1);
+      setCommentText(originalText);
       alert("Error posting comment. Please try again.");
     } finally {
       setSubmitting(false);

@@ -127,26 +127,35 @@ function InstagramPost({
  };
 
  const handleAddQuickComment = async (e: React.FormEvent) => {
- e.preventDefault();
- if (!token) return (window.location.href = "/login");
- if (!commentText.trim()) return;
- setLoadingComment(true);
- try {
- const res = await fetch(`${API}/api/posts/${post.id}/comments`, {
- method: "POST",
- headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
- body: JSON.stringify({ text: commentText.trim() }),
- });
- const data = await res.json();
- if (res.ok) {
- setCommentText("");
- setCommentCount((c: number) => c + 1);
- onOpenComments(post);
- }
- } finally {
- setLoadingComment(false);
- }
- };
+  e.preventDefault();
+  if (!token) return (window.location.href = "/login");
+  if (!commentText.trim()) return;
+  
+  const originalText = commentText;
+  
+  // 1. Instant optimistic update
+  setCommentText("");
+  setCommentCount((c: number) => c + 1);
+  
+  setLoadingComment(true);
+  try {
+  const res = await fetch(`${API}/api/posts/${post.id}/comments`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+  body: JSON.stringify({ text: originalText.trim() }),
+  });
+  if (!res.ok) {
+    // Revert optimistic update on failure
+    setCommentCount((c: number) => Math.max(0, c - 1));
+    setCommentText(originalText);
+  }
+  } catch {
+    setCommentCount((c: number) => Math.max(0, c - 1));
+    setCommentText(originalText);
+  } finally {
+  setLoadingComment(false);
+  }
+  };
 
  const handleShare = async () => {
  try {
@@ -513,37 +522,44 @@ export default function HomePage() {
  };
  }, [socket]);
 
- const fetchPosts = useCallback(async (authToken?: string | null) => {
- setLoading(true);
- setError("");
- try {
- const currentToken = authToken !== undefined ? authToken : localStorage.getItem("token");
- const headers: HeadersInit = currentToken ? { Authorization: `Bearer ${currentToken}` } : {};
- const res = await fetch(`${API}/api/posts?limit=100`, { headers });
- const data = await res.json();
- if (res.ok) {
- setPosts(data.posts || []);
- } else {
- setError(data.error || "Failed to load posts.");
- }
- } catch {
- setError("Cannot reach backend server. Please verify it is running on port 4000.");
- } finally {
- setLoading(false);
- }
- }, []);
+ const fetchPosts = useCallback(async (authToken?: string | null, silent = false) => {
+  if (!silent) setLoading(true);
+  try {
+  const currentToken = authToken !== undefined ? authToken : (typeof window !== "undefined" ? localStorage.getItem("token") : null);
+  const headers: HeadersInit = currentToken ? { Authorization: `Bearer ${currentToken}` } : {};
+  const res = await fetch(`${API}/api/posts?limit=100`, { headers });
+  const data = await res.json();
+  if (res.ok) {
+  setPosts(data.posts || []);
+  } else {
+  if (!silent) setError(data.error || "Failed to load posts.");
+  }
+  } catch {
+  if (!silent) setError("Cannot reach backend server. Please verify it is running on port 4000.");
+  } finally {
+  if (!silent) setLoading(false);
+  }
+  }, []);
 
  useEffect(() => {
- const storedToken = localStorage.getItem("token");
- const storedUser = localStorage.getItem("user");
- if (storedToken && storedUser) {
- setToken(storedToken);
- try {
- setUser(JSON.parse(storedUser));
- } catch {}
- }
- fetchPosts(storedToken);
- }, [fetchPosts]);
+  const storedToken = localStorage.getItem("token");
+  const storedUser = localStorage.getItem("user");
+  if (storedToken && storedUser) {
+  setToken(storedToken);
+  try {
+  setUser(JSON.parse(storedUser));
+  } catch {}
+  }
+  fetchPosts(storedToken);
+
+  // Silent Background Poller for real-time updates across users (1.5 seconds)
+  // Ensures Vercel updates without needing WebSockets or page refresh
+  const interval = setInterval(() => {
+    fetchPosts(storedToken, true);
+  }, 1500);
+
+  return () => clearInterval(interval);
+  }, [fetchPosts]);
 
  const handleLogout = () => {
  localStorage.removeItem("token");
