@@ -98,7 +98,7 @@ function InstagramPost({
 
  const statusCfg = STATUS_CONFIG[post.status] || STATUS_CONFIG["SUBMITTED"];
  const isOwner = Boolean(user && (user.id === post.userId || user.email === post.user?.email));
- const authorName = post.user?.name || post.user?.email?.split("@")[0] || "citizen_user";
+ const authorName = post.user?.name || "citizen_user";
 
  const handleLike = async () => {
  if (!token) return (window.location.href = "/login");

@@ -133,7 +133,7 @@ export default function InstagramCommentModal({
 
   if (!isOpen || !post) return null;
 
-  const postAuthorName = post.user?.name || post.user?.email?.split("@")[0] || "citizen_user";
+  const postAuthorName = post.user?.name || "citizen_user";
 
   // Add Comment or Reply
   const handleAddComment = async (e?: React.FormEvent) => {
@@ -331,7 +331,7 @@ export default function InstagramCommentModal({
 
   // Start Reply Mode
   const handleReplyClick = (comment: CommentItem) => {
-    const authorName = comment.user?.name || comment.user?.email?.split("@")[0] || "user";
+    const authorName = comment.user?.name || "user";
     setReplyingTo({ id: comment.id, name: authorName });
     setCommentText(`@${authorName} `);
     if (inputRef.current) {
@@ -428,7 +428,7 @@ export default function InstagramCommentModal({
             /* 3. Top-Level Comments List */
             comments.map((comment) => {
               const commenterName =
-                comment.user?.name || comment.user?.email?.split("@")[0] || "community_user";
+                comment.user?.name || "community_user";
               const isOwner = Boolean(
                 currentUser &&
                   (currentUser.id === comment.user?.id || currentUser.email === comment.user?.email)
@@ -535,7 +535,7 @@ export default function InstagramCommentModal({
                         <div className="mt-3 space-y-3 pl-2 border-l border-zinc-800">
                           {comment.replies?.map((reply) => {
                             const replyAuthor =
-                              reply.user?.name || reply.user?.email?.split("@")[0] || "user";
+                              reply.user?.name || "user";
                             const isReplyOwner = Boolean(
                               currentUser &&
                                 (currentUser.id === reply.user?.id ||
