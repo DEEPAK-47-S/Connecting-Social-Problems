@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -154,9 +155,7 @@ export default function LoginPage() {
   href="/"
   className="inline-flex flex-wrap justify-center items-center gap-2 text-2xl sm:text-3xl font-black italic tracking-tight text-zinc-900 dark:text-white group"
   >
-  <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-rose-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-rose-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
-  <Activity className="h-5 w-5 text-white" />
-  </div>
+  <Image src="/logo.jpg" alt="Connecting Social Problem Logo" width={40} height={40} className="rounded-xl shadow-lg shadow-rose-500/20 group-hover:scale-105 transition-transform flex-shrink-0 object-cover" />
   <span className="break-words text-center">Connecting Social Problem</span>
   </Link>
  <p className="mt-2 text-sm font-medium text-zinc-500 dark:text-zinc-400">

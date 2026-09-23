@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useTheme } from "@/context/ThemeContext";
@@ -337,9 +338,7 @@ export default function CollegeLoginPage() {
  href="/college"
  className={`inline-flex items-center gap-2 text-3xl font-black italic tracking-tight group text-foreground`}
  >
- <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform">
- <GraduationCap className={`h-5 w-5 text-foreground`} />
- </div>
+ <Image src="/logo.jpg" alt="Connecting Social Problem Logo" width={40} height={40} className="rounded-full shadow-lg group-hover:scale-105 transition-transform flex-shrink-0 object-cover" />
  <span>Connecting Social Problem</span>
  </Link>
  <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-bold text-indigo-400">

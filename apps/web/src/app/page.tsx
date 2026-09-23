@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
@@ -261,9 +262,7 @@ function InstagramPost({
  <div
  className={`w-full py-16 px-6 flex flex-col items-center justify-center text-center border-y bg-card text-card-foreground border-border`}
  >
- <div className="h-14 w-14 rounded-2xl bg-gradient-to-tr from-rose-500 to-indigo-600 flex items-center justify-center mb-3 shadow-lg shadow-rose-500/20">
- <Activity className="h-7 w-7 text-white" />
- </div>
+ <Image src="/logo.jpg" alt="Logo" width={56} height={56} className="rounded-full shadow-lg flex-shrink-0 object-cover mb-3" />
  <h4
  className={`font-extrabold text-lg max-w-md leading-snug px-4 text-zinc-900 dark:text-white`}
  >
@@ -716,9 +715,7 @@ export default function HomePage() {
   >
   <div className="max-w-xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0">
   <Link href="/" className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 group w-full sm:w-auto">
-  <div className="h-9 w-9 rounded-2xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center shadow-lg shadow-rose-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
-  <Activity className="h-5 w-5 text-white" />
-  </div>
+  <Image src="/logo.jpg" alt="Logo" width={36} height={36} className="rounded-full shadow-lg group-hover:scale-105 transition-transform flex-shrink-0 object-cover" />
   <span className="font-black text-lg sm:text-xl tracking-tight italic text-center sm:text-left break-words">
   Connecting Social Problem
   </span>

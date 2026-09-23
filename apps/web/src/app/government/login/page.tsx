@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -114,9 +115,7 @@ export default function GovernmentLoginPage() {
  href="/government"
  className="inline-flex items-center gap-2 text-3xl font-black italic tracking-tight text-zinc-900 dark:text-white group"
  >
- <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-teal-500 via-emerald-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-teal-500/25 group-hover:scale-105 transition-transform">
- <Landmark className="h-5 w-5 text-zinc-900 dark:text-white" />
- </div>
+ <Image src="/logo.jpg" alt="Connecting Social Problem Logo" width={40} height={40} className="rounded-full shadow-lg group-hover:scale-105 transition-transform flex-shrink-0 object-cover" />
  <span>Connecting Social Problem</span>
  </Link>
  <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-teal-500/10 border border-teal-500/20 text-xs font-bold text-teal-400">
