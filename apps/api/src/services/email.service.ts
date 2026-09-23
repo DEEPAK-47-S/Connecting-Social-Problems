@@ -1,35 +1,8 @@
-import * as nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
-const USE_REAL_SMTP =
-  !!process.env.SMTP_USER &&
-  process.env.SMTP_USER !== 'your_gmail@gmail.com' &&
-  !!process.env.SMTP_PASS &&
-  process.env.SMTP_PASS !== 'your_16_char_app_password';
-
-let transporter: nodemailer.Transporter | null = null;
-
-function getTransporter(): nodemailer.Transporter | null {
-  if (transporter) return transporter;
-
-  if (USE_REAL_SMTP) {
-    try {
-      transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.SMTP_USER!,
-          pass: process.env.SMTP_PASS!,
-        },
-        connectionTimeout: 5000,
-        greetingTimeout: 5000,
-      });
-      console.log('✅ [EMAIL] Configured real Gmail SMTP for:', process.env.SMTP_USER);
-    } catch (e) {
-      console.error('⚠️ [EMAIL] Failed to create Gmail transporter:', e);
-      transporter = null;
-    }
-  }
-  return transporter;
-}
+// Initialize Resend with the provided API key
+// We fall back to a dummy key if not set to prevent crashes during build
+const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy');
 
 export const sendOtpEmail = async (
   to: string,
@@ -46,15 +19,18 @@ export const sendOtpEmail = async (
   console.log(`⏰  Valid for : 10 minutes`);
   console.log('═'.repeat(60) + '\n');
 
-  const transport = getTransporter();
+  // If we don't have a real API key configured, stop here (local dev mode)
+  if (!process.env.RESEND_API_KEY) {
+    console.log(`ℹ️ [EMAIL] RESEND_API_KEY not configured. Use the OTP above in console.`);
+    return;
+  }
 
-  if (transport && USE_REAL_SMTP) {
-    try {
-      await transport.sendMail({
-        from: `"Connecting Social Problem" <${process.env.SMTP_USER}>`,
-        to,
-        subject: `🔐 Your OTP Code: ${otp}`,
-        html: `
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'Connecting Social Problem <onboarding@resend.dev>',
+      to: [to],
+      subject: `🔐 Your OTP Code: ${otp}`,
+      html: `
           <!DOCTYPE html>
           <html>
           <head><meta charset="utf-8"></head>
@@ -96,15 +72,18 @@ export const sendOtpEmail = async (
             </table>
           </body>
           </html>
-        `,
-        text: `Your Connecting Social Problem OTP is: ${otp}\n\nThis code expires in 10 minutes. Do not share it with anyone.`,
-      });
-      console.log(`✅ [EMAIL] Successfully delivered real email to: ${to}`);
-    } catch (err: any) {
-      console.error(`⚠️ [EMAIL] Failed to send real email to ${to}:`, err.message);
+        `
+    });
+
+    if (error) {
+      console.error(`⚠️ [EMAIL] Resend API error sending to ${to}:`, error);
       console.log(`💡 [EMAIL] The OTP code (${otp}) is still valid and displayed in console above.`);
+      return;
     }
-  } else {
-    console.log(`ℹ️ [EMAIL] Real SMTP not configured. Use the OTP above in console.`);
+
+    console.log(`✅ [EMAIL] Successfully delivered via Resend API to: ${to} (ID: ${data?.id})`);
+  } catch (err: any) {
+    console.error(`⚠️ [EMAIL] Failed to send email via Resend to ${to}:`, err.message);
+    console.log(`💡 [EMAIL] The OTP code (${otp}) is still valid and displayed in console above.`);
   }
 };
