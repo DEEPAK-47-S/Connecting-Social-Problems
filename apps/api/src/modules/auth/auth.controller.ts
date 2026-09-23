@@ -60,7 +60,6 @@ export const register = async (req: Request, res: Response) => {
         role: assignedRole,
         companyName: companyName?.trim() || null,
         sector: sector?.trim() || null,
-        sector: sector?.trim() || null,
         isVerified: false,
       },
     });
