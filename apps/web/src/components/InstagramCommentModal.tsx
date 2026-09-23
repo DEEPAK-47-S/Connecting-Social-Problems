@@ -89,10 +89,10 @@ export default function InstagramCommentModal({
     if (isOpen && post?.id) {
       loadComments();
       
-      // Silent Poller for live comments (1.5 seconds)
+      // Silent Poller for live comments (1.0 seconds)
       const interval = setInterval(() => {
         loadComments(true);
-      }, 1500);
+      }, 1000);
       
       return () => clearInterval(interval);
     }
@@ -487,10 +487,10 @@ export default function InstagramCommentModal({
                           {isOwner && (
                             <button
                               onClick={() => handleDeleteComment(comment.id)}
-                              className="text-zinc-500 hover:text-rose-400 opacity-0 group-hover:opacity-100 transition"
+                              className="text-zinc-500 dark:text-zinc-400 hover:text-rose-500 dark:hover:text-rose-400 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition p-1"
                               title="Delete comment"
                             >
-                              <Trash2 className="h-3 w-3" />
+                              <Trash2 className="h-3.5 w-3.5" />
                             </button>
                           )}
                         </div>
@@ -588,9 +588,10 @@ export default function InstagramCommentModal({
                                           onClick={() =>
                                             handleDeleteComment(reply.id, true, comment.id)
                                           }
-                                          className="text-zinc-500 hover:text-rose-400 opacity-0 group-hover:opacity-100 transition"
+                                          className="text-zinc-500 dark:text-zinc-400 hover:text-rose-500 dark:hover:text-rose-400 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition p-1"
+                                          title="Delete reply"
                                         >
-                                          <Trash2 className="h-2.5 w-2.5" />
+                                          <Trash2 className="h-3 w-3" />
                                         </button>
                                       )}
                                     </div>

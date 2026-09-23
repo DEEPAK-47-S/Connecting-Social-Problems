@@ -176,7 +176,7 @@ function InstagramPost({
  >
  {/* 1. Instagram Post Header */}
  <div
- className={`flex items-center justify-between p-3.5 sm:p-4 border-b bg-zinc-50/80 border-zinc-200 text-zinc-900 dark:bg-zinc-950 dark:border-zinc-800/80 dark:text-white`}
+ className={`flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 p-3.5 sm:p-4 border-b bg-zinc-50/80 border-zinc-200 text-zinc-900 dark:bg-zinc-950 dark:border-zinc-800/80 dark:text-white`}
  >
  <div className="flex items-center gap-3">
  {/* Instagram Story-style Gradient Ring Avatar */}
@@ -211,7 +211,7 @@ function InstagramPost({
  </div>
 
  {/* Right side: Status Badge and Menu/Delete */}
- <div className="flex items-center gap-2">
+ <div className="flex flex-wrap items-center justify-end gap-2 flex-shrink-0 w-full sm:w-auto mt-2 sm:mt-0">
  <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${statusCfg.color}`}>
  {statusCfg.label}
  </span>
@@ -219,7 +219,7 @@ function InstagramPost({
  {isOwner && onRequestDelete && (
  <button
  onClick={() => onRequestDelete(post)}
- className="p-1.5 text-zinc-400 hover:text-rose-500 transition-colors"
+ className="p-2 text-zinc-600 dark:text-zinc-400 hover:text-rose-500 dark:hover:text-rose-400 transition-colors bg-zinc-100 dark:bg-zinc-900 rounded-full sm:bg-transparent sm:dark:bg-transparent"
  title="Delete post permanently"
  >
  <Trash2 className="h-4 w-4" />
@@ -552,11 +552,11 @@ export default function HomePage() {
   }
   fetchPosts(storedToken);
 
-  // Silent Background Poller for real-time updates across users (1.5 seconds)
+  // Silent Background Poller for real-time updates across users (1.0 seconds)
   // Ensures Vercel updates without needing WebSockets or page refresh
   const interval = setInterval(() => {
     fetchPosts(storedToken, true);
-  }, 1500);
+  }, 1000);
 
   return () => clearInterval(interval);
   }, [fetchPosts]);
