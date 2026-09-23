@@ -474,7 +474,7 @@ export default function GovernmentPortal() {
  {post.imageUrl && (
  <div className="px-6 py-2">
  <img
- src={post.imageUrl.startsWith("data:") ? post.imageUrl : `${API}${post.imageUrl}`}
+ src={post.imageUrl.startsWith('http') ? post.imageUrl : (post.imageUrl.startsWith('data:') ? post.imageUrl : `${API}${post.imageUrl}`)}
  alt={post.title}
  className="w-full h-36 object-cover rounded-2xl border border-slate-800"
  />

@@ -622,7 +622,19 @@ export default function IndustryPortal() {
  <span>University: <strong className="text-indigo-400">{post.acceptedCollegeName || "Academic R&D Lab"}</strong></span>
  </div>
 
- <p className="text-xs text-zinc-900 dark:text-zinc-100 leading-relaxed mb-5">
+ 
+  {/* Citizen Uploaded Image */}
+  {post.imageUrl && (
+   <div className="mb-4">
+    <img
+     src={post.imageUrl.startsWith('http') ? post.imageUrl : `${API}${post.imageUrl}`}
+     alt={post.title}
+     className="w-full max-h-56 object-cover rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm"
+     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+    />
+   </div>
+  )}
+<p className="text-xs text-zinc-900 dark:text-zinc-100 leading-relaxed mb-5">
  {post.description}
  </p>
 
@@ -734,7 +746,8 @@ export default function IndustryPortal() {
 
  </main>
 
- 
+ 
+
   {/* MODAL: UPDATE STATUS */}
   {actionModalType === "updateStatus" && selectedPost && (
    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
@@ -782,7 +795,8 @@ export default function IndustryPortal() {
      </div>
     </div>
    </div>
-  )}
+  )}
+
   {/* MODAL 1: ACCEPT & LOCK SPONSORSHIP */}
  {actionModalType === "sponsor" && selectedPost && (
  <div className="fixed inset-0 z-50 bg-white dark:bg-zinc-900/75 flex items-center justify-center p-4">

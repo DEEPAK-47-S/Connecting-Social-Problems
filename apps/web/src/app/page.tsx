@@ -545,7 +545,13 @@ export default function HomePage() {
   try {
   const currentToken = authToken !== undefined ? authToken : (typeof window !== "undefined" ? localStorage.getItem("token") : null);
   const headers: HeadersInit = currentToken ? { Authorization: `Bearer ${currentToken}` } : {};
-  const res = await fetch(`${API}/api/posts?limit=100`, { headers });
+  let res = await fetch(`${API}/api/posts?limit=100`, { headers });
+  
+  if (!res.ok) {
+    // Retry once after 1 second if the server is temporarily unavailable
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    res = await fetch(`${API}/api/posts?limit=100`, { headers });
+  }
   const data = await res.json();
   if (res.ok) {
   setPosts(data.posts || []);
@@ -570,11 +576,11 @@ export default function HomePage() {
   }
   fetchPosts(storedToken);
 
-  // Silent Background Poller for real-time updates across users (1.0 seconds)
-  // Ensures Vercel updates without needing WebSockets or page refresh
+  // Silent Background Poller for keep-alive (30 seconds)
+  // Real-time updates are handled by WebSockets
   const interval = setInterval(() => {
     fetchPosts(storedToken, true);
-  }, 1000);
+  }, 30000);
 
   return () => clearInterval(interval);
   }, [fetchPosts]);

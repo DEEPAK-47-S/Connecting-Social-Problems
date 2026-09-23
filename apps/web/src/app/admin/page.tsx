@@ -398,7 +398,7 @@ export default function AdminDashboardPage() {
  ? "bg-indigo-600 text-foreground shadow-lg"
  : (theme === "dark")
  ? "bg-white shadow-sm border border-zinc-200 dark:bg-zinc-900/75 dark:border-transparent text-zinc-600 dark:text-zinc-400 hover:text-foreground"
- : "bg-white text-zinc-600 border hover:text-zinc-900"
+ : "bg-white text-zinc-600 border hover:text-zinc-900 dark:text-zinc-100"
  }`}
  >
  Complaints Management
@@ -410,7 +410,7 @@ export default function AdminDashboardPage() {
  ? "bg-indigo-600 text-foreground shadow-lg"
  : (theme === "dark")
  ? "bg-white shadow-sm border border-zinc-200 dark:bg-zinc-900/75 dark:border-transparent text-zinc-600 dark:text-zinc-400 hover:text-foreground"
- : "bg-white text-zinc-600 border hover:text-zinc-900"
+ : "bg-white text-zinc-600 border hover:text-zinc-900 dark:text-zinc-100"
  }`}
  >
  Users Management
@@ -484,7 +484,7 @@ export default function AdminDashboardPage() {
  <button
  onClick={() => setUserToDelete(null)}
  disabled={deleting}
- className={`px-4 py-2 rounded-xl text-sm font-bold transition text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-white dark:bg-zinc-900/75`}
+ className={`px-4 py-2 rounded-xl text-sm font-bold transition text-zinc-600 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-white dark:bg-zinc-900/75`}
  >
  Cancel
  </button>
@@ -504,7 +504,7 @@ export default function AdminDashboardPage() {
  {activeTab === "complaints" && (
  <>
  {/* Filter & Action Toolbar */}
- <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 border border-zinc-800 mb-6 shadow-xl space-y-4`}>
+ <div className={`p-5 rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 border dark:border-zinc-800 mb-6 shadow-xl space-y-4`}>
  <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
  {/* Search Input */}
  <div className="relative w-full md:w-96">
@@ -514,7 +514,7 @@ export default function AdminDashboardPage() {
  placeholder="Search by title, description, citizen email, landmark..."
  value={searchQuery}
  onChange={(e) => setSearchQuery(e.target.value)}
- className={`w-full pl-10 pr-10 py-2.5 bg-white dark:bg-zinc-900/75 border border-zinc-800 rounded-2xl text-xs sm:text-sm placeholder-zinc-500 focus:outline-none focus:border-rose-500 text-foreground`}
+ className={`w-full pl-10 pr-10 py-2.5 bg-white dark:bg-zinc-900/75 border dark:border-zinc-800 rounded-2xl text-xs sm:text-sm placeholder-zinc-500 focus:outline-none focus:border-rose-500 text-foreground`}
  />
  {searchQuery && (
  <button
@@ -544,8 +544,8 @@ export default function AdminDashboardPage() {
  </div>
 
  {/* Filter Dropdowns */}
- <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-zinc-800 text-xs">
- <div className={`flex items-center gap-1.5 bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 px-3 py-1.5 rounded-xl border border-zinc-800`}>
+ <div className="flex flex-wrap items-center gap-3 pt-3 border-t dark:border-zinc-800 text-xs">
+ <div className={`flex items-center gap-1.5 bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 px-3 py-1.5 rounded-xl border dark:border-zinc-800`}>
  <span className="text-zinc-500 font-bold">District:</span>
  <select
  value={selectedDistrict}
@@ -559,7 +559,7 @@ export default function AdminDashboardPage() {
  </select>
  </div>
 
- <div className={`flex items-center gap-1.5 bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 px-3 py-1.5 rounded-xl border border-zinc-800`}>
+ <div className={`flex items-center gap-1.5 bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 px-3 py-1.5 rounded-xl border dark:border-zinc-800`}>
  <span className="text-zinc-500 font-bold">Category:</span>
  <select
  value={selectedCategory}
@@ -575,7 +575,7 @@ export default function AdminDashboardPage() {
  </select>
  </div>
 
- <div className={`flex items-center gap-1.5 bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 px-3 py-1.5 rounded-xl border border-zinc-800`}>
+ <div className={`flex items-center gap-1.5 bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 px-3 py-1.5 rounded-xl border dark:border-zinc-800`}>
  <span className="text-zinc-500 font-bold">Status:</span>
  <select
  value={selectedStatus}
@@ -596,7 +596,7 @@ export default function AdminDashboardPage() {
  </div>
 
  {/* Complaints Table */}
- <div className={`rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 border border-zinc-800 overflow-hidden shadow-md`}>
+ <div className={`rounded-3xl bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 border dark:border-zinc-800 overflow-hidden shadow-md`}>
  {loading ? (
  <div className="flex flex-col items-center justify-center py-24 gap-4">
  <Loader2 className="h-10 w-10 animate-spin text-rose-500" />
@@ -620,7 +620,7 @@ export default function AdminDashboardPage() {
  ) : (
  <div className="overflow-x-auto">
  <table className="w-full text-left text-xs">
- <thead className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 text-zinc-600 dark:text-zinc-400 font-bold uppercase tracking-wider border-b border-zinc-800 text-[10px]`}>
+ <thead className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 text-zinc-600 dark:text-zinc-400 font-bold uppercase tracking-wider border-b dark:border-zinc-800 text-[10px]`}>
  <tr>
  <th className="p-4 w-12 text-center">
  <button onClick={toggleSelectAll} className={`hover: text-foreground`}>
@@ -741,7 +741,7 @@ export default function AdminDashboardPage() {
  {/* Delete Single Confirmation Modal */}
  {postToDelete && (
  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white dark:bg-zinc-900/75 animate-in fade-in">
- <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 rounded-3xl max-w-md w-full p-6 border border-zinc-800 shadow-md`}>
+ <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 rounded-3xl max-w-md w-full p-6 border dark:border-zinc-800 shadow-md`}>
  <div className="h-12 w-12 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
  <Trash2 className="h-6 w-6" />
  </div>
@@ -786,7 +786,7 @@ export default function AdminDashboardPage() {
  {/* Bulk Delete Modal */}
  {showBulkModal && (
  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white dark:bg-zinc-900/75 animate-in fade-in">
- <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 rounded-3xl max-w-md w-full p-6 border border-zinc-800 shadow-md`}>
+ <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 rounded-3xl max-w-md w-full p-6 border dark:border-zinc-800 shadow-md`}>
  <div className="h-12 w-12 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
  <AlertTriangle className="h-6 w-6" />
  </div>
@@ -826,9 +826,9 @@ export default function AdminDashboardPage() {
  {/* Detail Inspection Drawer */}
  {inspectPost && (
  <div className="fixed inset-0 z-50 flex items-center justify-end bg-white dark:bg-zinc-900/75 animate-in fade-in">
- <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 border-l border-zinc-800 h-full w-full max-w-lg p-6 overflow-y-auto shadow-md flex flex-col justify-between`}>
+ <div className={`bg-white shadow-sm border border-gray-200 dark:bg-zinc-900/75 border-l dark:border-zinc-800 h-full w-full max-w-lg p-6 overflow-y-auto shadow-md flex flex-col justify-between`}>
  <div>
- <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
+ <div className="flex items-center justify-between pb-4 border-b dark:border-zinc-800">
  <div className="flex items-center gap-2">
  <ShieldCheck className="h-5 w-5 text-rose-500" />
  <span className={`font-bold text-sm text-foreground`}>Complaint Record Inspector</span>
@@ -863,7 +863,7 @@ export default function AdminDashboardPage() {
  <img
  src={inspectPost.imageUrl.startsWith("data:") ? inspectPost.imageUrl : `${API}${inspectPost.imageUrl}`}
  alt={inspectPost.title}
- className="rounded-2xl mt-1 w-full max-h-60 object-cover border border-zinc-800"
+ className="rounded-2xl mt-1 w-full max-h-60 object-cover border dark:border-zinc-800"
  />
  </div>
  )}
@@ -896,7 +896,7 @@ export default function AdminDashboardPage() {
  </div>
  </div>
 
- <div className="pt-6 border-t border-zinc-800 flex gap-3">
+ <div className="pt-6 border-t dark:border-zinc-800 flex gap-3">
  <button
  onClick={() => setInspectPost(null)}
  className="flex-1 py-2.5 rounded-xl border border-zinc-700 text-xs font-bold text-zinc-900 dark:text-zinc-100"

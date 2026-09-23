@@ -671,7 +671,19 @@ export default function CollegePortal() {
  );
  })()}
 
- <p className="text-xs text-zinc-900 dark:text-zinc-100 leading-relaxed mb-5">
+ 
+  {/* Citizen Uploaded Image */}
+  {post.imageUrl && (
+   <div className="px-6 pb-3">
+    <img
+     src={post.imageUrl.startsWith('http') ? post.imageUrl : `${API}${post.imageUrl}`}
+     alt={post.title}
+     className="w-full max-h-60 object-cover rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm"
+     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+    />
+   </div>
+  )}
+<p className="text-xs text-zinc-900 dark:text-zinc-100 leading-relaxed mb-5">
  {post.description}
  </p>
 

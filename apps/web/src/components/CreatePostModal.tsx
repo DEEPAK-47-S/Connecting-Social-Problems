@@ -10,7 +10,8 @@ import {
   AlertCircle,
   Navigation,
   Building,
-  Compass
+  Compass,
+  LocateFixed
 } from "lucide-react";
 import { TAMIL_NADU_DISTRICTS } from "@/data/tamilNaduDistricts";
 
@@ -50,7 +51,57 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [geoLocating, setGeoLocating] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  const handleUseMyLocation = async () => {
+    if (!navigator.geolocation) {
+      setError("Geolocation is not supported by your browser.");
+      return;
+    }
+    setGeoLocating(true);
+    setError("");
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        try {
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=en`,
+            { headers: { 'User-Agent': 'ConnectingSocialProblems/1.0' } }
+          );
+          const data = await res.json();
+          const addr = data.address || {};
+          // Fill fields from the Nominatim address object
+          const detectedLandmark = addr.amenity || addr.tourism || addr.building || addr.shop || addr.road || "";
+          const detectedStreet = [addr.house_number, addr.road].filter(Boolean).join(', ');
+          const detectedArea = addr.suburb || addr.neighbourhood || addr.village || addr.town || addr.city_district || "";
+          const detectedDistrict = addr.county || addr.state_district || "";
+          const detectedPincode = addr.postcode || "";
+          if (detectedLandmark) setLandmark(detectedLandmark);
+          if (detectedStreet) setStreet(detectedStreet);
+          if (detectedArea) setArea(detectedArea);
+          // Try to match detected district to Tamil Nadu districts list
+          if (detectedDistrict) {
+            const match = TAMIL_NADU_DISTRICTS.find(
+              d => detectedDistrict.toLowerCase().includes(d.toLowerCase()) || d.toLowerCase().includes(detectedDistrict.toLowerCase())
+            );
+            if (match) setDistrict(match);
+          }
+          if (detectedPincode) setPincode(detectedPincode.replace(/\D/g, "").slice(0, 6));
+        } catch {
+          setError("Could not fetch address. Please fill location manually.");
+        } finally {
+          setGeoLocating(false);
+        }
+      },
+      (err) => {
+        setGeoLocating(false);
+        if (err.code === 1) setError("Location permission denied. Please allow location access and try again.");
+        else setError("Could not detect location. Please fill manually.");
+      },
+      { timeout: 10000, maximumAge: 0, enableHighAccuracy: true }
+    );
+  };
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -188,9 +239,20 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
 
           {/* Accurate Ground Location Section */}
           <div className="p-4 bg-indigo-50/50 dark:bg-indigo-950/20 rounded-2xl border border-indigo-100 dark:border-indigo-900/30 space-y-3">
-            <div className="flex items-center gap-1.5 text-xs font-bold text-indigo-700 dark:text-indigo-300">
-              <Navigation className="h-4 w-4 text-indigo-500" />
-              <span>Accurate Ground Location Details (Tamil Nadu)</span>
+          <div className="flex items-center justify-between gap-1.5">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-indigo-700 dark:text-indigo-300">
+                <Navigation className="h-4 w-4 text-indigo-500" />
+                <span>Accurate Ground Location Details (Tamil Nadu)</span>
+              </div>
+              <button
+                type="button"
+                onClick={handleUseMyLocation}
+                disabled={geoLocating}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white rounded-xl text-[11px] font-bold transition shadow-md shadow-indigo-500/20"
+              >
+                {geoLocating ? <Loader2 className="h-3 w-3 animate-spin" /> : <LocateFixed className="h-3 w-3" />}
+                <span>{geoLocating ? 'Detecting...' : 'Use My Location'}</span>
+              </button>
             </div>
 
             {/* Landmark & Street */}

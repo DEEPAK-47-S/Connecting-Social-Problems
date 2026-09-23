@@ -80,7 +80,7 @@ export default function AdminLoginPage() {
  </div>
 
  {/* Card */}
- <div className="bg-white dark:bg-zinc-900/75 rounded-3xl border border-zinc-800 p-8 shadow-md ">
+ <div className="bg-white dark:bg-zinc-900/75 rounded-3xl border dark:border-zinc-800 p-8 shadow-md ">
  {error && (
  <div className="mb-6 p-3.5 rounded-2xl bg-red-950/40 border border-red-500/40 text-red-300 text-xs flex items-center gap-2.5">
  <AlertCircle className="h-4 w-4 flex-shrink-0 text-red-400" />
@@ -107,7 +107,7 @@ export default function AdminLoginPage() {
  value={email}
  onChange={(e) => setEmail(e.target.value)}
  placeholder="admin@socialimpact.org"
- className={`w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900/75 border border-zinc-800 rounded-xl text-xs sm:text-sm placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition text-foreground`}
+ className={`w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900/75 border dark:border-zinc-800 rounded-xl text-xs sm:text-sm placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition text-foreground`}
  />
  </div>
  </div>
@@ -124,7 +124,7 @@ export default function AdminLoginPage() {
  value={password}
  onChange={(e) => setPassword(e.target.value)}
  placeholder="••••••••"
- className={`w-full pl-10 pr-12 py-2.5 bg-white dark:bg-zinc-900/75 border border-zinc-800 rounded-xl text-xs sm:text-sm placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition text-foreground`}
+ className={`w-full pl-10 pr-12 py-2.5 bg-white dark:bg-zinc-900/75 border dark:border-zinc-800 rounded-xl text-xs sm:text-sm placeholder-zinc-500 focus:outline-none focus:border-rose-500 transition text-foreground`}
  />
  <button
  type="button"
@@ -155,7 +155,7 @@ export default function AdminLoginPage() {
  </button>
  </form>
 
- <div className="mt-6 pt-4 border-t border-zinc-800 text-center">
+ <div className="mt-6 pt-4 border-t dark:border-zinc-800 text-center">
  <Link href="/" className="text-xs text-zinc-500 hover:text-zinc-700 dark:text-zinc-300 transition">
  ← Return to Public Portal
  </Link>
