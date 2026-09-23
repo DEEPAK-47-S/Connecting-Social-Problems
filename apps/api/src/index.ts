@@ -12,7 +12,7 @@ const httpServer = createServer(app);
 
 const allowedOrigins = [process.env.FRONTEND_URL || 'http://localhost:3000'];
 
-const io = new Server(httpServer, {
+export const io = new Server(httpServer, {
   cors: { origin: allowedOrigins, methods: ['GET', 'POST'] },
 });
 
@@ -75,8 +75,7 @@ io.on('connection', (socket) => {
   });
 });
 
-// Export io for use in controllers
-export { io };
+// io is exported above directly on declaration
 
 // Global Error Handler (Prevents HTML error pages on crash)
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {

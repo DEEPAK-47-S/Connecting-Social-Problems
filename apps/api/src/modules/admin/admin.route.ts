@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getUsers, deleteUser } from './admin.controller';
+import { getUsers, deleteUser, deleteUsersBulk } from './admin.controller';
 
 const router = Router();
 
@@ -8,6 +8,7 @@ const router = Router();
 // For simplicity in this demo, we'll expose the routes and assume the frontend guards them appropriately.
 
 router.get('/users', getUsers);
+router.post('/users/bulk-delete', deleteUsersBulk);
 router.delete('/users/:id', deleteUser);
 
 export default router;

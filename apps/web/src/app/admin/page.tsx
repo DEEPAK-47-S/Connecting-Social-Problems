@@ -54,6 +54,9 @@ export default function AdminDashboardPage() {
  const [users, setUsers] = useState<any[]>([]);
  const [loadingUsers, setLoadingUsers] = useState(false);
  const [userToDelete, setUserToDelete] = useState<any | null>(null);
+ const [selectedUserIds, setSelectedUserIds] = useState<Set<string>>(new Set());
+ const [showBulkUserModal, setShowBulkUserModal] = useState(false);
+ const [isBulkDeletingUsers, setIsBulkDeletingUsers] = useState(false);
 
  // Search & Filter
  const [searchQuery, setSearchQuery] = useState("");
@@ -139,6 +142,32 @@ export default function AdminDashboardPage() {
  } finally {
  setDeleting(false);
  }
+ };
+
+ const handleBulkDeleteUsers = async () => {
+  try {
+   setIsBulkDeletingUsers(true);
+   const token = localStorage.getItem("admin_token");
+   const res = await fetch(`${API}/api/admin/users/bulk-delete`, {
+    method: "POST",
+    headers: {
+     "Content-Type": "application/json",
+     Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({ userIds: Array.from(selectedUserIds) })
+   });
+
+   if (!res.ok) throw new Error("Failed to delete users");
+   
+   setUsers(prev => prev.filter(u => !selectedUserIds.has(u.id)));
+   setSelectedUserIds(new Set());
+   setShowBulkUserModal(false);
+  } catch (error) {
+   console.error(error);
+   alert("Error bulk deleting users");
+  } finally {
+   setIsBulkDeletingUsers(false);
+  }
  };
 
  // Load all complaints
@@ -420,6 +449,20 @@ export default function AdminDashboardPage() {
  {activeTab === "users" && (
  <div className={`p-6 rounded-3xl border shadow-xl bg-white border-zinc-200 dark:bg-zinc-900/75 dark:border-zinc-800`}>
  <h2 className={`text-xl font-black mb-4 text-zinc-900 dark:text-white`}>Registered Users</h2>
+  {selectedUserIds.size > 0 && (
+    <div className="flex items-center gap-3 bg-rose-950/40 border border-rose-500/40 px-4 py-2 rounded-2xl mb-4 animate-in fade-in w-fit">
+      <span className="text-xs font-bold text-rose-700 dark:text-rose-300">
+        {selectedUserIds.size} {selectedUserIds.size === 1 ? "user" : "users"} selected
+      </span>
+      <button
+        onClick={() => setShowBulkUserModal(true)}
+        className="px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-rose-600/30 transition text-white"
+      >
+        <Trash2 className="h-3.5 w-3.5" />
+        <span>Delete Selected ({selectedUserIds.size})</span>
+      </button>
+    </div>
+  )}
  
  {loadingUsers ? (
  <div className="py-20 flex justify-center"><Loader2 className="h-8 w-8 animate-spin text-indigo-500" /></div>
@@ -428,6 +471,20 @@ export default function AdminDashboardPage() {
  <table className="w-full text-left text-sm border-collapse">
  <thead>
  <tr className={`border-b border-zinc-200 text-zinc-500 dark:border-zinc-800 dark:text-zinc-400`}>
+  <th className="p-3 w-10">
+    <input 
+      type="checkbox" 
+      className="rounded border-zinc-300 dark:border-zinc-700 bg-transparent text-indigo-600 focus:ring-indigo-500"
+      checked={users.length > 0 && users.filter(u => u.role !== 'SUPERADMIN').length > 0 && selectedUserIds.size === users.filter(u => u.role !== 'SUPERADMIN').length}
+      onChange={(e) => {
+        if (e.target.checked) {
+          setSelectedUserIds(new Set(users.filter(u => u.role !== 'SUPERADMIN').map(u => u.id)));
+        } else {
+          setSelectedUserIds(new Set());
+        }
+      }}
+    />
+  </th>
  <th className="p-3 font-bold uppercase tracking-wider text-xs">User / Email</th>
  <th className="p-3 font-bold uppercase tracking-wider text-xs">Role</th>
  <th className="p-3 font-bold uppercase tracking-wider text-xs">Organization</th>
@@ -437,6 +494,21 @@ export default function AdminDashboardPage() {
  <tbody>
  {users.map(u => (
  <tr key={u.id} className={`border-b transition hover:bg-zinc-500/5 border-zinc-100 dark:border-zinc-800`}>
+  <td className="p-3">
+    {u.role !== 'SUPERADMIN' && (
+      <input 
+        type="checkbox" 
+        className="rounded border-zinc-300 dark:border-zinc-700 bg-transparent text-indigo-600 focus:ring-indigo-500"
+        checked={selectedUserIds.has(u.id)}
+        onChange={(e) => {
+          const newSet = new Set(selectedUserIds);
+          if (e.target.checked) newSet.add(u.id);
+          else newSet.delete(u.id);
+          setSelectedUserIds(newSet);
+        }}
+      />
+    )}
+  </td>
  <td className="p-3">
  <div className={`font-bold text-zinc-900 dark:text-white`}>{u.name}</div>
  <div className="text-xs text-zinc-500">{u.email}</div>

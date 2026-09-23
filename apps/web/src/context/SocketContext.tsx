@@ -37,9 +37,27 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       setIsConnected(false);
     });
 
+    socketInstance.on("user_deleted", (data: { userId: string }) => {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        try {
+          const user = JSON.parse(storedUser);
+          if (user.id === data.userId) {
+            console.log("Your account was deleted by admin. Logging out instantly.");
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            window.location.href = "/?deleted=true";
+          }
+        } catch (e) {
+          console.error("Error parsing user from localStorage", e);
+        }
+      }
+    });
+
     setSocket(socketInstance);
 
     return () => {
+      socketInstance.off("user_deleted");
       socketInstance.disconnect();
     };
   }, []);
