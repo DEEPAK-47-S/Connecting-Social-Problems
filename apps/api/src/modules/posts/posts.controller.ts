@@ -310,7 +310,7 @@ export const updatePost = async (req: AuthRequest, res: Response) => {
     if (state !== undefined) updateData.state = state;
     
     if (req.file) {
-      updateData.imageUrl = `/uploads/${req.file.filename}`;
+      updateData.imageUrl = req.file.path; // Cloudinary secure URL
     }
 
     const updatedPost = await prisma.post.update({
@@ -348,7 +348,7 @@ export const createPost = async (req: AuthRequest, res: Response) => {
     }
     let imageUrl: string | undefined;
     if (req.file) {
-      imageUrl = `/uploads/${req.file.filename}`;
+      imageUrl = req.file.path; // Cloudinary secure URL
     }
 
     const post = await prisma.post.create({
