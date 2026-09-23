@@ -1535,19 +1535,45 @@ export const TAMIL_NADU_COLLEGES: TamilNaduCollege[] = [
   },
 ];
 
-export function matchCollegesForProblem(category: string, title = "", descriptionOrLimit?: string | number, maxLimit = 5): TamilNaduCollege[] {
+export function matchCollegesForProblem(
+  category: string,
+  title = "",
+  descriptionOrLimit?: string | number,
+  maxLimit = 5,
+  district?: string
+): TamilNaduCollege[] {
   const desc = typeof descriptionOrLimit === "string" ? descriptionOrLimit : "";
   const limit = typeof descriptionOrLimit === "number" ? descriptionOrLimit : maxLimit;
   const combined = (category + " " + title + " " + desc).toLowerCase();
-  const scored = TAMIL_NADU_COLLEGES.map((c) => {
-    let score = 0;
-    c.skills.forEach((skill) => {
-      if (combined.includes(skill.toLowerCase())) score += 3;
-    });
-    return { college: c, score };
-  });
-  scored.sort((a, b) => b.score - a.score);
-  return scored.filter((s) => s.score > 0).map((s) => s.college).slice(0, limit);
+
+  const scoreColleges = (list: TamilNaduCollege[]) =>
+    list
+      .map((c) => {
+        let score = 0;
+        c.skills.forEach((skill) => {
+          if (combined.includes(skill.toLowerCase())) score += 3;
+        });
+        return { college: c, score };
+      })
+      .filter((s) => s.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map((s) => s.college);
+
+  // Primary: filter by same district first
+  if (district && district.trim()) {
+    const districtLower = district.trim().toLowerCase();
+    const sameDistrict = TAMIL_NADU_COLLEGES.filter(
+      (c) => c.district.toLowerCase() === districtLower
+    );
+    const ranked = scoreColleges(sameDistrict);
+    if (ranked.length > 0) return ranked.slice(0, limit);
+
+    // If no skill matches in district, return any college from that district
+    if (sameDistrict.length > 0) return sameDistrict.slice(0, limit);
+  }
+
+  // Fallback: match across all districts if no district specified or no match found
+  return scoreColleges(TAMIL_NADU_COLLEGES).slice(0, limit);
 }
 
 export const getCollegesForProblem = matchCollegesForProblem;

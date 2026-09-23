@@ -71,7 +71,11 @@ export default function IndustryPortal() {
 
  // Selected post for Modals
  const [selectedPost, setSelectedPost] = useState<any | null>(null);
- const [actionModalType, setActionModalType] = useState<"sponsor" | "reject" | "chat" | "details" | "lockWarning" | null>(null);
+ const [actionModalType, setActionModalType] = useState<"sponsor" | "reject" | "chat" | "details" | "lockWarning" | "updateStatus" | null>(null);
+
+ // Update Status state
+ const [updateStatusValue, setUpdateStatusValue] = useState("IMPLEMENTATION");
+ const [updateStatusNote, setUpdateStatusNote] = useState("");
 
  // Form states for sponsoring
  const [sponsorType, setSponsorType] = useState("CSR Grant & Pilot Manufacturing");
@@ -225,6 +229,34 @@ export default function IndustryPortal() {
  } finally {
  setSubmittingAction(false);
  }
+ };
+
+ const handleUpdateStatus = async () => {
+  if (!selectedPost) return;
+  setSubmittingAction(true);
+  try {
+   const token = localStorage.getItem("industry_token");
+   const res = await fetch(`${API}/api/posts/${selectedPost.id}/status`, {
+    method: "PATCH",
+    headers: {
+     "Content-Type": "application/json",
+     ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    body: JSON.stringify({
+     status: updateStatusValue,
+     message: updateStatusNote || `Status updated to ${updateStatusValue} by ${currentCompany}`,
+    }),
+   });
+   if (!res.ok) throw new Error("Failed to update status.");
+   showToast("success", `✅ Project status updated to: ${updateStatusValue}`);
+   setActionModalType(null);
+   setUpdateStatusNote("");
+   fetchChallenges();
+  } catch (err: any) {
+   showToast("error", err.message || "Failed to update status.");
+  } finally {
+   setSubmittingAction(false);
+  }
  };
 
  // Task 2: Handle Decline / Reject Collaboration
@@ -650,9 +682,23 @@ export default function IndustryPortal() {
  </button>
  </>
  ) : isAdoptedByCurrent ? (
- <div className="flex-1 py-2.5 px-3 bg-pink-950/40 border border-pink-500/30 rounded-xl text-xs font-bold text-pink-300 text-center">
- ✓ Sponsored &amp; Locked by {currentCompany}
- </div>
+  <div className="flex flex-wrap items-center gap-2 flex-1">
+   <div className="px-3 py-2 bg-emerald-950/40 border border-emerald-500/30 rounded-xl text-xs font-bold text-emerald-300 flex items-center gap-1.5 flex-shrink-0">
+    <CheckCircle2 className="h-3.5 w-3.5" />
+    <span>Sponsored by {currentCompany}</span>
+   </div>
+   <button
+    onClick={() => {
+     setSelectedPost(post);
+     setUpdateStatusValue(post.status || "IMPLEMENTATION");
+     setActionModalType("updateStatus");
+    }}
+    className="flex-1 py-2.5 px-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl text-xs font-bold hover:opacity-90 transition flex items-center justify-center gap-1.5 shadow-md shadow-indigo-500/20"
+   >
+    <TrendingUp className="h-3.5 w-3.5" />
+    <span>Update Status</span>
+   </button>
+  </div>
  ) : (
  <button
  onClick={() => {
@@ -688,7 +734,56 @@ export default function IndustryPortal() {
 
  </main>
 
- {/* MODAL 1: ACCEPT & LOCK SPONSORSHIP */}
+ 
+  {/* MODAL: UPDATE STATUS */}
+  {actionModalType === "updateStatus" && selectedPost && (
+   <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl max-w-md w-full p-6 shadow-2xl animate-in zoom-in-95 duration-200">
+     <div className="flex items-center justify-between pb-4 border-b border-zinc-100 dark:border-zinc-800 mb-4">
+      <div className="flex items-center gap-2">
+       <div className="h-9 w-9 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white">
+        <TrendingUp className="h-5 w-5" />
+       </div>
+       <div>
+        <h3 className="text-base font-black text-zinc-900 dark:text-white">Update Project Status</h3>
+        <p className="text-xs text-zinc-500 dark:text-zinc-400">Report progress to citizens &amp; government</p>
+       </div>
+      </div>
+      <button onClick={() => setActionModalType(null)} className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-xl">x</button>
+     </div>
+     <div className="mb-4 p-3 bg-zinc-50 dark:bg-zinc-800/50 rounded-xl border border-zinc-100 dark:border-zinc-700">
+      <p className="text-[11px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Project</p>
+      <p className="text-sm font-bold text-zinc-900 dark:text-white mt-0.5 truncate">{selectedPost.title}</p>
+     </div>
+     <div className="space-y-4">
+      <div>
+       <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider mb-2">New Status</label>
+       <select value={updateStatusValue} onChange={(e) => setUpdateStatusValue(e.target.value)} className="w-full px-4 py-3 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl text-sm text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <option value="INDUSTRY_ACCEPTED">Industry Accepted - Commitment Confirmed</option>
+        <option value="IMPLEMENTATION">Implementation - Manufacturing and Build Phase</option>
+        <option value="PROTOTYPING">Prototyping - Lab Testing Underway</option>
+        <option value="TESTING">Field Testing - On-Site Evaluation</option>
+        <option value="GOVT_REVIEW">Government Review - Awaiting Sanction</option>
+        <option value="GOVT_APPROVED">Government Approved - Cleared for Rollout</option>
+        <option value="COMPLETED">Completed - Project Successfully Delivered</option>
+       </select>
+      </div>
+      <div>
+       <label className="block text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider mb-2">Progress Note (optional)</label>
+       <textarea value={updateStatusNote} onChange={(e) => setUpdateStatusNote(e.target.value)} rows={3} placeholder="e.g. Hardware fabrication completed, field installation starts next week..." className="w-full px-4 py-3 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl text-xs text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none" />
+      </div>
+     </div>
+     <div className="flex gap-3 mt-6">
+      <button onClick={() => setActionModalType(null)} className="flex-1 py-3 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 font-bold rounded-xl text-xs transition">Cancel</button>
+      <button onClick={handleUpdateStatus} disabled={submittingAction} className="flex-1 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl text-xs hover:opacity-95 transition disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25">
+       {submittingAction ? <Loader2 className="h-4 w-4 animate-spin" /> : <TrendingUp className="h-4 w-4" />}
+       <span>Save Status Update</span>
+      </button>
+     </div>
+    </div>
+   </div>
+  )}
+  {/* MODAL 1: ACCEPT & LOCK SPONSORSHIP */}
  {actionModalType === "sponsor" && selectedPost && (
  <div className="fixed inset-0 z-50 bg-white dark:bg-zinc-900/75 flex items-center justify-center p-4">
  <div className="bg-white dark:bg-zinc-900/75 border border-zinc-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-md animate-in zoom-in-95 duration-200">

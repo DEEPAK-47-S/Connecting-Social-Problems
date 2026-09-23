@@ -18,8 +18,22 @@ export interface StandardIndustryCandidate {
   score: number;
 }
 
-// Helper to generate 10 domain-specific matched industries with standardized common metadata
-export function get10IndustryCandidates(category: string, title: string): StandardIndustryCandidate[] {
+// District → industry presence mapping (Tamil Nadu districts)
+const DISTRICT_INDUSTRIES: Record<string, string[]> = {
+  Chennai: ['Tata Sustainability (Water Div)', 'VA Tech Wabag Ltd', 'Tata Power Solar Systems', 'Schneider Electric India CSR', 'Reliance Foundation CSR', 'Infosys Foundation Social Hub', 'Tata Trusts Innovation Lab', 'Larsen & Toubro Smart World', 'Wipro Cares Foundation', 'Bosch India Social Projects'],
+  Coimbatore: ['Larsen & Toubro Water Infra', 'Thermax Water Solutions', 'Grundfos Pumps India', 'Schneider Electric India CSR', 'Hero Future Energies', 'Waaree Energies Ltd', 'Mahindra Rise Innovation CSR', 'Bosch India Social Projects', 'Honeywell Hometown Solutions', 'Godrej & Boyce CSR'],
+  Vellore: ['Ion Exchange India Ltd', 'Kirloskar Brothers Water Infra', 'Thermax Water Solutions', 'Grundfos Pumps India', 'ABB India Smart Grids', 'Havells India Smart Lighting', 'HCL Foundation Civic Impact', 'Wipro Cares Foundation', 'Forbes Marshall Energy & Water', 'Jain Irrigation Systems'],
+  Madurai: ['ITC Agribusiness Division', 'Mahindra Agri Solutions', 'Bayer CropScience India CSR', 'Godrej Agrovet Ltd', 'UPL Agro Sustainability', 'Coromandel International', 'VA Tech Wabag Ltd', 'Dhanuka Agritech Ltd', 'VST Tillers & Robotics', 'PI Industries Green Fund'],
+  Salem: ['Escorts Kubota Agri R&D', 'PI Industries Green Fund', 'Dhanuka Agritech Ltd', 'VST Tillers & Robotics', 'ABB India Smart Grids', 'Siemens Energy India', 'Thermax Water Solutions', 'Kirloskar Brothers Water Infra', 'Ion Exchange India Ltd', 'Godrej & Boyce CSR'],
+  Trichy: ['VA Tech Wabag Ltd', 'Grundfos Pumps India', 'Kirloskar Brothers Water Infra', 'Ion Exchange India Ltd', 'Tata Sustainability (Water Div)', 'Forbes Marshall Energy & Water', 'Mahindra Agri Solutions', 'ITC Agribusiness Division', 'Coromandel International', 'Godrej Agrovet Ltd'],
+  Tirunelveli: ['Adani Green Energy Ltd', 'ReNew Power Ventures', 'Hero Future Energies', 'Vikram Solar Innovations', 'Waaree Energies Ltd', 'Tata Power Solar Systems', 'VA Tech Wabag Ltd', 'UPL Agro Sustainability', 'Bayer CropScience India CSR', 'Jain Irrigation Systems'],
+  Erode: ['Coromandel International', 'UPL Agro Sustainability', 'Bayer CropScience India CSR', 'ITC Agribusiness Division', 'Godrej Agrovet Ltd', 'Mahindra Agri Solutions', 'Escorts Kubota Agri R&D', 'Dhanuka Agritech Ltd', 'VST Tillers & Robotics', 'Jain Irrigation Systems'],
+  Tirupur: ['Larsen & Toubro Water Infra', 'Thermax Water Solutions', 'Ion Exchange India Ltd', 'Grundfos Pumps India', 'Jain Irrigation Systems', 'Forbes Marshall Energy & Water', 'Kirloskar Brothers Water Infra', 'Wipro Cares Foundation', 'HCL Foundation Civic Impact', 'Godrej & Boyce CSR'],
+  Thanjavur: ['Coromandel International', 'ITC Agribusiness Division', 'Mahindra Agri Solutions', 'Godrej Agrovet Ltd', 'Jain Irrigation Systems', 'VA Tech Wabag Ltd', 'Grundfos Pumps India', 'Bayer CropScience India CSR', 'UPL Agro Sustainability', 'PI Industries Green Fund'],
+};
+
+// Helper to generate 10 domain-specific matched industries (internal base - no district filter)
+function get10IndustryCandidatesBase(category: string, title: string): StandardIndustryCandidate[] {
   const cat = (category || '').toLowerCase();
   const t = (title || '').toLowerCase();
 
@@ -78,6 +92,33 @@ export function get10IndustryCandidates(category: string, title: string): Standa
   }
 }
 
+// Helper that wraps get10IndustryCandidates with district filtering
+function getDistrictFilteredCandidates(category: string, title: string, district?: string): StandardIndustryCandidate[] {
+  const allCandidates = get10IndustryCandidatesBase(category, title);
+  if (!district || !district.trim()) return allCandidates;
+
+  // Find which industries are present in this district
+  const districtKey = Object.keys(DISTRICT_INDUSTRIES).find(
+    k => k.toLowerCase() === district.trim().toLowerCase()
+  );
+  if (!districtKey) return allCandidates; // unknown district — return all
+
+  const districtIndustryNames = DISTRICT_INDUSTRIES[districtKey].map(n => n.toLowerCase());
+
+  // Filter candidates to those present in the district
+  const districtFiltered = allCandidates.filter(c =>
+    districtIndustryNames.some(name => c.name.toLowerCase().includes(name) || name.includes(c.name.toLowerCase()))
+  );
+
+  // If we have at least 3 district matches, use them; otherwise fallback to all
+  return districtFiltered.length >= 3 ? districtFiltered : allCandidates;
+}
+
+// Publicly exported district-aware wrapper
+export function get10IndustryCandidates(category: string, title: string, district?: string): StandardIndustryCandidate[] {
+  return getDistrictFilteredCandidates(category, title, district);
+}
+
 // Task 4: Helper to generate a problem-specific approval memo
 export function generateProblemSpecificApprovalMemo(post: {
   title: string;
@@ -125,10 +166,10 @@ Status: Fully Sanctioned for Fabrication & Ground Rollout.`;
 }
 
 // Automatically ensure 10 industry matches are generated for a challenge
-export async function ensureIndustryMatches(postId: string, category: string, title: string) {
+export async function ensureIndustryMatches(postId: string, category: string, title: string, district?: string) {
   const existing = await prisma.industryMatch.findMany({ where: { postId } });
   if (existing.length === 0) {
-    const candidates = get10IndustryCandidates(category, title);
+    const candidates = get10IndustryCandidates(category, title, district);
     for (const c of candidates) {
       await prisma.industryMatch.create({
         data: {
@@ -227,7 +268,7 @@ export const getPosts = async (req: AuthRequest, res: Response) => {
     // Auto-generate 10 industry matches for posts that have none
     for (const p of posts) {
       if (!p.industryMatches || p.industryMatches.length === 0) {
-        await ensureIndustryMatches(p.id, p.category, p.title);
+        await ensureIndustryMatches(p.id, p.category, p.title, p.district || undefined);
       }
     }
 
@@ -237,7 +278,7 @@ export const getPosts = async (req: AuthRequest, res: Response) => {
       commentCount: post._count?.comments || 0,
       likedByMe: likedPostIds.has(post.id),
       approvalMemo: generateProblemSpecificApprovalMemo(post),
-      matchedTamilNaduColleges: matchCollegesForProblem(post.category, post.title, 5),
+      matchedTamilNaduColleges: matchCollegesForProblem(post.category, post.title, 5, 5, post.district),
     }));
 
     res.json({ posts: mapped, total, page, pages: Math.ceil(total / limit) });
