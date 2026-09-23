@@ -281,6 +281,62 @@ export const deletePost = async (req: AuthRequest, res: Response) => {
   }
 };
 
+// PUT /api/posts/:id — Edit an existing complaint
+export const updatePost = async (req: AuthRequest, res: Response) => {
+  try {
+    const postId = req.params.id;
+    const userId = req.user?.id;
+    
+    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+
+    const post = await prisma.post.findUnique({ where: { id: postId } });
+    if (!post) {
+      return res.status(404).json({ error: 'Complaint post not found.' });
+    }
+
+    // Only creator can edit
+    if (post.userId !== userId) {
+      return res.status(403).json({ error: 'You can only edit your own complaints.' });
+    }
+
+    const { title, description, category, location, district, state } = req.body;
+    
+    const updateData: any = {};
+    if (title) updateData.title = title;
+    if (description) updateData.description = description;
+    if (category) updateData.category = category;
+    if (location !== undefined) updateData.location = location;
+    if (district !== undefined) updateData.district = district;
+    if (state !== undefined) updateData.state = state;
+    
+    if (req.file) {
+      updateData.imageUrl = `/uploads/${req.file.filename}`;
+    }
+
+    const updatedPost = await prisma.post.update({
+      where: { id: postId },
+      data: updateData,
+      include: {
+        user: { select: { id: true, name: true, email: true, avatarUrl: true } },
+        _count: { select: { likes: true, comments: true } },
+      },
+    });
+
+    const formattedPost = {
+      ...updatedPost,
+      likeCount: updatedPost._count?.likes || 0,
+      commentCount: updatedPost._count?.comments || 0,
+    };
+
+    console.log(`📝 [EDIT POST] Post ${postId} updated successfully`);
+
+    res.json({ message: 'Complaint successfully updated.', post: formattedPost });
+  } catch (err: any) {
+    console.error('[UPDATE POST ERROR]', err);
+    res.status(500).json({ error: 'Failed to update complaint.' });
+  }
+};
+
 // POST /api/posts — Create a new complaint
 export const createPost = async (req: AuthRequest, res: Response) => {
   try {

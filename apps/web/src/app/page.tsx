@@ -7,9 +7,11 @@ import {
  ShieldCheck, MapPin, Activity, Plus, Loader2, X, Clock,
  Search, Trash2, AlertTriangle, CheckCircle2,
  Folder, User, Sparkles, Building2, ChevronRight, RefreshCw,
- GraduationCap, Handshake, Bookmark, MoreHorizontal, MessageSquare
+ GraduationCap, Handshake, Bookmark, MoreHorizontal, MessageSquare,
+ Edit3
 } from "lucide-react";
 import CreatePostModal from "@/components/CreatePostModal";
+import EditPostModal from "@/components/EditPostModal";
 import ProfileModal from "@/components/ProfileModal";
 import ApprovalMemoCard from "@/components/ApprovalMemoCard";
 import InstagramCommentModal from "@/components/InstagramCommentModal";
@@ -65,6 +67,7 @@ function InstagramPost({
  onOpenComments,
  onOpenLikes,
  onRequestDelete,
+ onRequestEdit,
  isMyActivity = false,
 }: {
  post: any;
@@ -74,6 +77,7 @@ function InstagramPost({
  onOpenComments: (post: any) => void;
  onOpenLikes?: (postId: string, title: string) => void;
  onRequestDelete?: (post: any) => void;
+ onRequestEdit?: (post: any) => void;
  isMyActivity?: boolean;
 }) {
  const { theme } = useTheme();
@@ -216,7 +220,18 @@ function InstagramPost({
  {statusCfg.label}
  </span>
 
- {isOwner && onRequestDelete && (
+ {isOwner && (
+ <div className="flex items-center gap-1">
+ {onRequestEdit && (
+ <button
+ onClick={() => onRequestEdit(post)}
+ className="p-2 text-zinc-600 dark:text-zinc-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors bg-zinc-100 dark:bg-zinc-900 rounded-full sm:bg-transparent sm:dark:bg-transparent"
+ title="Edit post"
+ >
+ <Edit3 className="h-4 w-4" />
+ </button>
+ )}
+ {onRequestDelete && (
  <button
  onClick={() => onRequestDelete(post)}
  className="p-2 text-zinc-600 dark:text-zinc-400 hover:text-rose-500 dark:hover:text-rose-400 transition-colors bg-zinc-100 dark:bg-zinc-900 rounded-full sm:bg-transparent sm:dark:bg-transparent"
@@ -224,6 +239,8 @@ function InstagramPost({
  >
  <Trash2 className="h-4 w-4" />
  </button>
+ )}
+ </div>
  )}
  </div>
  </div>
@@ -465,6 +482,7 @@ export default function HomePage() {
  const [error, setError] = useState("");
  const [activeTab, setActiveTab] = useState<"feed" | "myActivity">("feed");
  const [showCreate, setShowCreate] = useState(false);
+ const [postToEdit, setPostToEdit] = useState<any | null>(null);
  const [showProfile, setShowProfile] = useState(false);
  const [user, setUser] = useState<any>(null);
  const [token, setToken] = useState<string | null>(null);
@@ -571,6 +589,12 @@ export default function HomePage() {
 
  const handlePostCreated = (newPost: any) => {
  setPosts((prev) => [newPost, ...prev]);
+ };
+
+ const handlePostUpdated = (updatedPost: any) => {
+ setPosts((prev) =>
+ prev.map((p) => (p.id === updatedPost.id ? updatedPost : p))
+ );
  };
 
  const handleLikeToggle = (postId: string, liked: boolean, explicitCount?: number) => {
@@ -891,6 +915,7 @@ export default function HomePage() {
  onOpenComments={(p) => setActiveCommentPost(p)}
  onOpenLikes={(id, title) => setActiveLikesPost({ id, title })}
  onRequestDelete={(p) => setPostToDelete(p)}
+ onRequestEdit={(p) => setPostToEdit(p)}
  isMyActivity={activeTab === "myActivity"}
  />
  ))}
@@ -975,6 +1000,15 @@ export default function HomePage() {
  {/* Create Post Modal */}
  {showCreate && (
  <CreatePostModal onClose={() => setShowCreate(false)} onPosted={handlePostCreated} />
+ )}
+
+ {/* Edit Post Modal */}
+ {postToEdit && (
+ <EditPostModal
+ post={postToEdit}
+ onClose={() => setPostToEdit(null)}
+ onUpdated={handlePostUpdated}
+ />
  )}
 
  {/* Profile Modal */}

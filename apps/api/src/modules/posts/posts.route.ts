@@ -6,6 +6,7 @@ import { authenticate, optionalAuth } from '../../middleware/auth.middleware';
 import {
   getPosts,
   createPost,
+  updatePost,
   getPost,
   deletePost,
   toggleLike,
@@ -48,6 +49,7 @@ const router = Router();
 
 router.get('/', optionalAuth, getPosts);
 router.post('/', authenticate, upload.single('image'), createPost);
+router.put('/:id', authenticate, upload.single('image'), updatePost);
 router.get('/:id', optionalAuth, getPost);
 router.patch('/:id/status', optionalAuth, updatePostStatus);
 router.post('/:id/college/reject', optionalAuth, rejectCollegeChallenge);
