@@ -576,11 +576,11 @@ export default function HomePage() {
   }
   fetchPosts(storedToken);
 
-  // Silent Background Poller for keep-alive (30 seconds)
-  // Real-time updates are handled by WebSockets
+  // Silent Background Poller for real-time updates (5 seconds)
+  // Faster syncing without hammering the backend or causing UI flicker
   const interval = setInterval(() => {
     fetchPosts(storedToken, true);
-  }, 30000);
+  }, 5000);
 
   return () => clearInterval(interval);
   }, [fetchPosts]);
