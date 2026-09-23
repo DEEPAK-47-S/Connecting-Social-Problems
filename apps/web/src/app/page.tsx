@@ -365,32 +365,7 @@ function InstagramPost({
  </button>
  </div>
 
- {/* Bookmark Save */}
- <button
- type="button"
- onClick={() => setSaved(!saved)}
- className="flex flex-col items-center justify-center transition focus:outline-none group min-w-[36px]"
- title="Save"
- >
- <div className="h-6 w-6 flex items-center justify-center">
- <Bookmark
- className={`h-6 w-6 transition-colors ${
- saved
- ? (theme === "dark")
- ? "fill-white text-white"
- : "fill-zinc-900 text-zinc-900"
- : (theme === "dark")
- ? "text-white group-hover:text-zinc-400"
- : "text-zinc-700 group-hover:text-zinc-900"
- }`}
- />
- </div>
- <span
- className={`text-[11px] font-bold mt-1 leading-none transition-colors text-zinc-600 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-white`}
- >
- {saved ? "Saved" : "Save"}
- </span>
- </button>
+
  </div>
 
  {/* 4. Likes & Engagement Counter (Clickable to view list of people who liked) */}
