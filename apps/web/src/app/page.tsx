@@ -531,21 +531,17 @@ export default function HomePage() {
   if (res.ok) {
    let fetchedPosts = data.posts || [];
    
-   // If a user clicks a shared link (e.g., #post-ID), move that post to the top of the feed
+   // If a user clicks a shared link (e.g., #post-ID), scroll to that post without changing order
    if (!silent && typeof window !== "undefined" && window.location.hash) {
      const targetId = window.location.hash.replace("#post-", "");
      const foundIndex = fetchedPosts.findIndex((p: any) => p.id === targetId);
      
-     if (foundIndex > 0) {
-       const targetPost = fetchedPosts[foundIndex];
-       fetchedPosts.splice(foundIndex, 1);
-       fetchedPosts.unshift(targetPost);
-       
-       // Also smoothly scroll to it if they want to see it in context
+     if (foundIndex >= 0) {
+       // Smoothly scroll to it so they see it in context, keeping the original order
        setTimeout(() => {
          const el = document.getElementById(`post-${targetId}`);
          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-       }, 300);
+       }, 500);
      }
    }
    
