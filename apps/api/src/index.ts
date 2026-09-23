@@ -78,6 +78,15 @@ io.on('connection', (socket) => {
 // Export io for use in controllers
 export { io };
 
+// Global Error Handler (Prevents HTML error pages on crash)
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error('[GLOBAL ERROR]', err);
+  res.status(err.status || 500).json({
+    error: err.message || 'An unexpected server error occurred.',
+    details: err.name === 'MulterError' ? 'File upload failed.' : undefined,
+  });
+});
+
 const PORT = process.env.PORT || 4000;
 httpServer.listen(PORT, () => {
   console.log(`🚀 API server running on http://localhost:${PORT}`);
