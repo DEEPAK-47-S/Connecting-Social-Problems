@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
+import { sendOtpEmail } from '../../services/email.service';
 
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || 'socialimpact_jwt_secret_change_me';
@@ -30,6 +31,8 @@ function getRoleDisplayName(role: string): string {
       return 'Citizen';
   }
 }
+
+const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
 
 // POST /api/auth/register — Direct instant registration
 export const register = async (req: Request, res: Response) => {
@@ -88,7 +91,7 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
-// POST /api/auth/login — Direct instant login with strict portal role isolation
+// POST /api/auth/login — Validates credentials and generates OTP
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password, expectedRole, role: reqRole } = req.body;
@@ -120,16 +123,74 @@ export const login = async (req: Request, res: Response) => {
       }
     }
 
-    const token = jwt.sign(
-      { id: user.id, role: user.role, email: user.email },
-      JWT_SECRET,
-      { expiresIn: '7d' }
-    );
+    // Generate and send OTP instead of instantly logging in
+    const otpCode = generateOtp();
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 mins
 
-    console.log(`✅ [AUTH] ${user.role} logged in: ${user.email} (ID: ${user.id})`);
+    // Invalidate old OTPs
+    await prisma.otp.updateMany({
+      where: { userId: user.id, used: false },
+      data: { used: true },
+    });
+
+    await prisma.otp.create({
+      data: {
+        userId: user.id,
+        code: otpCode,
+        expiresAt,
+      },
+    });
+
+    await sendOtpEmail(user.email, otpCode);
 
     res.status(200).json({
-      message: 'Login successful!',
+      message: 'OTP sent to your email.',
+      requiresOtp: true,
+      userId: user.id,
+    });
+  } catch (err: any) {
+    console.error('[LOGIN ERROR]', err);
+    res.status(500).json({ error: 'Login failed. Please try again.' });
+  }
+};
+
+// POST /api/auth/verify-otp
+export const verifyOtp = async (req: Request, res: Response) => {
+  try {
+    const { userId, otp } = req.body;
+    if (!userId || !otp) {
+      return res.status(400).json({ error: 'User ID and OTP are required.' });
+    }
+
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) return res.status(404).json({ error: 'User not found.' });
+
+    const validOtp = await prisma.otp.findFirst({
+      where: {
+        userId,
+        code: otp,
+        used: false,
+        expiresAt: { gt: new Date() },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    if (!validOtp) {
+      return res.status(400).json({ error: 'Invalid or expired OTP.' });
+    }
+
+    // Mark as used
+    await prisma.otp.update({
+      where: { id: validOtp.id },
+      data: { used: true },
+    });
+
+    const token = jwt.sign({ id: user.id, role: user.role, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
+    
+    console.log(`✅ [AUTH] ${user.role} verified OTP and logged in: ${user.email} (ID: ${user.id})`);
+
+    res.status(200).json({
+      message: 'Login successful.',
       token,
       user: {
         id: user.id,
@@ -142,30 +203,42 @@ export const login = async (req: Request, res: Response) => {
       },
     });
   } catch (err: any) {
-    console.error('[LOGIN ERROR]', err);
-    res.status(500).json({ error: 'Login failed. Please try again.' });
-  }
-};
-
-// POST /api/auth/verify-otp (Kept for compatibility)
-export const verifyOtp = async (req: Request, res: Response) => {
-  try {
-    const { userId } = req.body;
-    const user = await prisma.user.findUnique({ where: { id: userId } });
-    if (!user) return res.status(404).json({ error: 'User not found.' });
-
-    const token = jwt.sign({ id: user.id, role: user.role, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
-    res.status(200).json({
-      message: 'Login successful.',
-      token,
-      user: { id: user.id, email: user.email, name: user.name, role: user.role, avatarUrl: user.avatarUrl },
-    });
-  } catch (err: any) {
+    console.error('[VERIFY OTP ERROR]', err);
     res.status(500).json({ error: 'Verification failed.' });
   }
 };
 
-// POST /api/auth/resend-otp (Kept for compatibility)
-export const resendOtp = async (_req: Request, res: Response) => {
-  res.status(200).json({ message: 'No OTP required.' });
+// POST /api/auth/resend-otp
+export const resendOtp = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.body;
+    if (!userId) return res.status(400).json({ error: 'User ID is required.' });
+
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) return res.status(404).json({ error: 'User not found.' });
+
+    const otpCode = generateOtp();
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+
+    // Invalidate old OTPs
+    await prisma.otp.updateMany({
+      where: { userId: user.id, used: false },
+      data: { used: true },
+    });
+
+    await prisma.otp.create({
+      data: {
+        userId: user.id,
+        code: otpCode,
+        expiresAt,
+      },
+    });
+
+    await sendOtpEmail(user.email, otpCode);
+
+    res.status(200).json({ message: 'A new OTP has been sent to your email.' });
+  } catch (err: any) {
+    console.error('[RESEND OTP ERROR]', err);
+    res.status(500).json({ error: 'Failed to resend OTP.' });
+  }
 };
