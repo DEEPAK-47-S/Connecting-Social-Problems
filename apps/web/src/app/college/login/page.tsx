@@ -67,7 +67,7 @@ export default function CollegeLoginPage() {
 
  // Registration & Form details
  const [district, setDistrict] = useState("Chennai");
- const [state, setState] = useState("Jharkhand");
+ const [state, setState] = useState("");
  const [isOtherDistrict, setIsOtherDistrict] = useState(false);
  const [collegeType, setCollegeType] = useState<TamilNaduCollege["type"]>("Engineering");
  const [selectedSkills, setSelectedSkills] = useState<string[]>(TAMIL_NADU_COLLEGES[0].skills);
@@ -335,19 +335,19 @@ export default function CollegeLoginPage() {
  };
 
  return (
- <div className={`min-h-screen flex items-center justify-center bg-background text-foreground p-4 selection:bg-indigo-500 py-12`}>
+ <div className={`min-h-screen flex items-center justify-center bg-background text-zinc-900 dark:text-white p-4 selection:bg-indigo-500 py-12`}>
  <div className="w-full max-w-lg">
  
  {/* Brand Header */}
  <div className="text-center mb-6">
  <Link
  href="/college"
- className={`inline-flex items-center gap-2 text-3xl font-black italic tracking-tight group text-foreground`}
+ className={`inline-flex items-center gap-2 text-3xl font-black italic tracking-tight group text-zinc-900 dark:text-white`}
  >
  <Image src="/logo.jpg" alt="Connecting Social Problem Logo" width={40} height={40} className="rounded-full shadow-lg group-hover:scale-105 transition-transform flex-shrink-0 object-cover" />
  <span>Connecting Social Problem</span>
  </Link>
- <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-bold text-indigo-400">
+ <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-bold text-indigo-600 dark:text-indigo-400">
  <BookOpen className="h-3.5 w-3.5" />
  <span>Tamil Nadu Colleges &amp; Universities Innovation Portal</span>
  </div>
@@ -392,7 +392,7 @@ export default function CollegeLoginPage() {
  </div>
 
  <div className="mb-6">
- <h2 className={`text-xl font-black tracking-tight text-foreground`}>
+ <h2 className={`text-xl font-black tracking-tight text-zinc-900 dark:text-white`}>
  {isLogin ? "Academic Faculty Sign In" : "Register Your University / College"}
  </h2>
  <p className={`text-xs mt-1 text-slate-600 dark:text-slate-400`}>
@@ -413,7 +413,7 @@ export default function CollegeLoginPage() {
  {/* Success Message */}
  {successMsg && (
  <div className="mb-5 p-3.5 bg-emerald-950/50 border border-emerald-900/80 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center gap-2.5">
- <CheckCircle2 className="h-4 w-4 text-emerald-400 flex-shrink-0" />
+ <CheckCircle2 className="h-4 w-4 text-emerald-500 dark:text-emerald-400 flex-shrink-0" />
  <div>{successMsg}</div>
  </div>
  )}
@@ -432,7 +432,7 @@ export default function CollegeLoginPage() {
  <div ref={dropdownRef} className="relative">
  <label className={`block text-[11px] font-bold uppercase tracking-wider mb-1.5 flex items-center justify-between text-slate-600 dark:text-slate-400`}>
  <span>College Name (Smart Autocomplete)</span>
- <span className="text-[10px] text-indigo-400 font-semibold">{allColleges.length}+ Tamil Nadu Colleges</span>
+ <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">{allColleges.length}+ Tamil Nadu Colleges</span>
  </label>
 
  <div className="relative">
@@ -444,7 +444,7 @@ export default function CollegeLoginPage() {
  onChange={handleCollegeInputChange}
  onFocus={() => setShowSuggestions(true)}
  placeholder="Type to search or enter college name..."
- className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
+ className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-zinc-900 dark:text-white`}
  />
  <ChevronDown
  className="absolute right-3.5 top-3 h-4 w-4 text-slate-500 cursor-pointer"
@@ -462,7 +462,7 @@ export default function CollegeLoginPage() {
  className="p-3 hover:bg-slate-800/80 cursor-pointer transition flex items-start justify-between gap-2"
  >
  <div>
- <p className={`text-xs font-bold flex items-center gap-1.5 text-foreground`}>
+ <p className={`text-xs font-bold flex items-center gap-1.5 text-zinc-900 dark:text-white`}>
  <span>{c.name}</span>
  {c.district && (
  <span className="text-[9px] px-1.5 py-0.2 bg-purple-500/20 text-purple-300 rounded font-semibold">
@@ -470,7 +470,7 @@ export default function CollegeLoginPage() {
  </span>
  )}
  {c.type && (
- <span className="text-[9px] px-1.5 py-0.2 bg-indigo-500/20 text-indigo-300 rounded font-semibold">
+ <span className="text-[9px] px-1.5 py-0.2 bg-indigo-500/20 text-indigo-600 dark:text-indigo-600 dark:text-indigo-300 rounded font-semibold">
  {c.type}
  </span>
  )}
@@ -480,7 +480,7 @@ export default function CollegeLoginPage() {
  </p>
  </div>
  {selectedCollege?.name === c.name && (
- <Check className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+ <Check className="h-4 w-4 text-emerald-500 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
  )}
  </div>
  ))}
@@ -491,9 +491,9 @@ export default function CollegeLoginPage() {
  setIsNewCollege(true);
  setShowSuggestions(false);
  }}
- className="p-3 bg-indigo-950/40 hover:bg-indigo-900/50 cursor-pointer transition flex items-center gap-2 text-xs font-bold text-indigo-300"
+ className="p-3 bg-indigo-50 dark:bg-indigo-950/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 cursor-pointer transition flex items-center gap-2 text-xs font-bold text-indigo-600 dark:text-indigo-300"
  >
- <Plus className="h-4 w-4 text-indigo-400" />
+ <Plus className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
  <span>Create and register new college: &quot;{collegeQuery}&quot;</span>
  </div>
  )}
@@ -504,8 +504,8 @@ export default function CollegeLoginPage() {
  {/* Detailed College Configuration */}
  <div className="p-4 rounded-2xl bg-indigo-950/30 border border-indigo-500/20 space-y-3">
  <div className="flex items-center justify-between">
- <span className="text-[11px] font-bold text-indigo-300 flex items-center gap-1.5">
- <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
+ <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-300 flex items-center gap-1.5">
+ <Sparkles className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" />
  <span>Problem Solving Skills &amp; Institution Profile</span>
  </span>
  {isNewCollege && (
@@ -524,7 +524,7 @@ export default function CollegeLoginPage() {
  <select
  value={collegeType}
  onChange={(e) => setCollegeType(e.target.value as TamilNaduCollege["type"])}
- className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-slate-800 text-xs focus:ring-2 focus:ring-indigo-500 outline-none text-foreground`}
+ className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-slate-800 text-xs focus:ring-2 focus:ring-indigo-500 outline-none text-zinc-900 dark:text-white`}
  >
  <option value="Engineering">Engineering &amp; Tech</option>
  <option value="University">State / Central University</option>
@@ -542,7 +542,7 @@ export default function CollegeLoginPage() {
  <select
  value={district}
  onChange={(e) => setDistrict(e.target.value)}
- className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-slate-800 text-xs focus:ring-2 focus:ring-indigo-500 outline-none text-foreground`}
+ className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-slate-800 text-xs focus:ring-2 focus:ring-indigo-500 outline-none text-zinc-900 dark:text-white`}
  >
  {getDistrictsForState(state).map((d) => (
  <option key={d} value={d}>
@@ -592,12 +592,12 @@ export default function CollegeLoginPage() {
  }
  }}
  placeholder="Add custom problem skill..."
- className={`flex-1 px-3 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-slate-800 placeholder-slate-600 text-xs outline-none text-foreground`}
+ className={`flex-1 px-3 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-slate-800 placeholder-slate-600 text-xs outline-none text-zinc-900 dark:text-white`}
  />
  <button
  type="button"
  onClick={handleAddCustomSkill}
- className={`px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs font-bold rounded-lg transition text-foreground`}
+ className={`px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs font-bold rounded-lg transition text-zinc-900 dark:text-white`}
  >
  Add
  </button>
@@ -614,7 +614,7 @@ export default function CollegeLoginPage() {
  value={leadDept}
  onChange={(e) => setLeadDept(e.target.value)}
  placeholder="e.g. Dept of Electrical &amp; Water Systems Lab"
- className={`w-full px-3 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-slate-800 text-xs outline-none text-foreground`}
+ className={`w-full px-3 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-slate-800 text-xs outline-none text-zinc-900 dark:text-white`}
  />
  </div>
  </div>
@@ -631,7 +631,7 @@ export default function CollegeLoginPage() {
  required={!isLogin}
  value={facultyName}
  onChange={(e) => setFacultyName(e.target.value)}
- className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
+ className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-zinc-900 dark:text-white`}
  placeholder="e.g. Dr. K. Ramanathan, Ph.D"
  />
  </div>
@@ -655,7 +655,7 @@ export default function CollegeLoginPage() {
  required
  value={email}
  onChange={(e) => setEmail(e.target.value)}
- className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
+ className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-zinc-900 dark:text-white`}
  placeholder="Enter Username or Email"
  />
  </div>
@@ -673,7 +673,7 @@ export default function CollegeLoginPage() {
  required
  value={password}
  onChange={(e) => setPassword(e.target.value)}
- className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-foreground`}
+ className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 placeholder-slate-500 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium text-zinc-900 dark:text-white`}
  placeholder="••••••••"
  />
  <button
@@ -690,7 +690,7 @@ export default function CollegeLoginPage() {
  <button
  type="submit"
  disabled={loading}
- className={`w-full mt-2 py-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 font-bold rounded-xl hover:opacity-95 active:scale-[0.99] transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-xl shadow-indigo-500/20 text-xs uppercase tracking-wider text-foreground`}
+ className={`w-full mt-2 py-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 font-bold rounded-xl hover:opacity-95 active:scale-[0.99] transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-xl shadow-indigo-500/20 text-xs uppercase tracking-wider text-zinc-900 dark:text-white`}
  >
  {loading ? (
  <>
@@ -716,7 +716,7 @@ export default function CollegeLoginPage() {
           type="text"
           value={otp}
           onChange={(e) => setOtp(e.target.value)}
-          className="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-center text-xl tracking-[0.5em] focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all text-foreground font-mono"
+          className="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-center text-xl tracking-[0.5em] focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all text-zinc-900 dark:text-white font-mono"
           placeholder="••••••"
           maxLength={6}
           required
@@ -748,7 +748,7 @@ export default function CollegeLoginPage() {
 
  <div className="mt-6 pt-5 border-t border-slate-800 text-center text-[11px] text-slate-500">
  <span className={`flex items-center justify-center gap-1.5 text-slate-600 dark:text-slate-400`}>
- <GraduationCap className="h-3.5 w-3.5 text-indigo-400" />
+ <GraduationCap className="h-3.5 w-3.5 text-indigo-600 dark:text-indigo-400" />
  <span>Authorized Tamil Nadu Academic &amp; Research Access Only</span>
  </span>
  </div>

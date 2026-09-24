@@ -49,7 +49,7 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
   const [street, setStreet] = useState(locParts.length > 5 ? locParts[1] : "");
   const [area, setArea] = useState(locParts.length > 5 ? locParts[2] : (locParts[1] || ""));
   const [district, setDistrict] = useState(post?.district || "Chennai");
-  const [state, setState] = useState(post?.state || "Jharkhand");
+  const [state, setState] = useState(post?.state || "");
   const [isOtherDistrict, setIsOtherDistrict] = useState(false);
   
   const initialPincodeStr = locParts.find((p: string) => p.startsWith("PIN:")) || "";

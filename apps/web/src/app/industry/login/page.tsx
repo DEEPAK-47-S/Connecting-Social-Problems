@@ -75,7 +75,7 @@ export default function IndustryLoginPage() {
 
  // Registration & Form details
  const [district, setDistrict] = useState("Chennai");
- const [state, setState] = useState("Jharkhand");
+ const [state, setState] = useState("");
  const [isOtherDistrict, setIsOtherDistrict] = useState(false);
  const [sector, setSector] = useState(TAMIL_NADU_INDUSTRIES[0].sector);
  const [grantRange, setGrantRange] = useState(TAMIL_NADU_INDUSTRIES[0].grantRange || "₹25L – ₹50L");
@@ -336,19 +336,19 @@ export default function IndustryLoginPage() {
  };
 
  return (
- <div className={`min-h-screen flex items-center justify-center bg-background text-foreground p-4 selection:bg-pink-500 py-12`}>
+ <div className={`min-h-screen flex items-center justify-center bg-background text-zinc-900 dark:text-white p-4 selection:bg-pink-500 py-12`}>
  <div className="w-full max-w-lg">
  
  {/* Brand Header */}
  <div className="text-center mb-6">
  <Link
  href="/industry"
- className={`inline-flex items-center gap-2 text-3xl font-black italic tracking-tight group text-foreground`}
+ className={`inline-flex items-center gap-2 text-3xl font-black italic tracking-tight group text-zinc-900 dark:text-white`}
  >
  <Image src="/logo.jpg" alt="Connecting Social Problem Logo" width={40} height={40} className="rounded-full shadow-lg group-hover:scale-105 transition-transform flex-shrink-0 object-cover" />
  <span>Connecting Social Problem</span>
  </Link>
- <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-pink-500/10 border border-pink-500/20 text-xs font-bold text-pink-400">
+ <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-pink-500/10 border border-pink-500/20 text-xs font-bold text-pink-600 dark:text-pink-400">
  <Building2 className="h-3.5 w-3.5" />
  <span>Industry CSR &amp; Corporate Innovation Hub</span>
  </div>
@@ -393,7 +393,7 @@ export default function IndustryLoginPage() {
  </div>
 
  <div className="mb-6">
- <h2 className={`text-xl font-black tracking-tight text-foreground`}>
+ <h2 className={`text-xl font-black tracking-tight text-zinc-900 dark:text-white`}>
  {isLogin ? "Corporate Partner Sign In" : "Join as Tamil Nadu Industry Partner"}
  </h2>
  <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1">
@@ -414,7 +414,7 @@ export default function IndustryLoginPage() {
  {/* Success Message */}
  {successMsg && (
  <div className="mb-5 p-3.5 bg-emerald-950/50 border border-emerald-900/80 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center gap-2.5">
- <CheckCircle2 className="h-4 w-4 text-emerald-400 flex-shrink-0" />
+ <CheckCircle2 className="h-4 w-4 text-emerald-500 dark:text-emerald-400 flex-shrink-0" />
  <div>{successMsg}</div>
  </div>
  )}
@@ -433,7 +433,7 @@ export default function IndustryLoginPage() {
  <div ref={dropdownRef} className="relative">
  <label className="block text-[11px] font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5 flex items-center justify-between">
  <span>{state === "Jharkhand" || state === "Tamil Nadu" ? "Company / Industry Name (Autocomplete)" : "Enter Company / Industry Name"}</span>
- { (state === "Jharkhand" || state === "Tamil Nadu") && <span className="text-[10px] text-pink-400 font-semibold">{allIndustries.length}+ Companies</span>}
+ { (state === "Jharkhand" || state === "Tamil Nadu") && <span className="text-[10px] text-pink-600 dark:text-pink-400 font-semibold">{allIndustries.length}+ Companies</span>}
  </label>
 
  <div className="relative">
@@ -447,7 +447,7 @@ export default function IndustryLoginPage() {
  onChange={handleIndustryInputChange}
  onFocus={() => setShowSuggestions(true)}
  placeholder="Type to search or enter company name..."
- className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+ className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-zinc-900 dark:text-white`}
  />
  <ChevronDown
  className="absolute right-3.5 top-3 h-4 w-4 text-zinc-500 cursor-pointer"
@@ -461,24 +461,24 @@ export default function IndustryLoginPage() {
  value={industryQuery}
  onChange={(e) => { setIndustryQuery(e.target.value); setIsNewIndustry(true); }}
  placeholder="Enter your company name..."
- className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+ className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-zinc-900 dark:text-white`}
  />
  )}
  </div>
 
  {/* Live Suggestions Dropdown */}
  { (state === "Jharkhand" || state === "Tamil Nadu") && showSuggestions && suggestions.length > 0 && (
- <div className="absolute z-50 left-0 right-0 mt-1 bg-zinc-900 border border-zinc-700 rounded-2xl shadow-md max-h-56 overflow-y-auto divide-y divide-zinc-800 animate-in fade-in">
+ <div className="absolute z-50 left-0 right-0 mt-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-2xl shadow-md max-h-56 overflow-y-auto divide-y divide-zinc-100 dark:divide-zinc-800 animate-in fade-in">
  {suggestions.map((ind, i) => (
  <div
  key={i}
  onClick={() => handleSelectSuggestion(ind)}
- className="p-3 hover:bg-zinc-800/80 cursor-pointer transition flex items-start justify-between gap-2"
+ className="p-3 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 cursor-pointer transition flex items-start justify-between gap-2"
  >
  <div>
- <p className={`text-xs font-bold flex items-center gap-1.5 text-foreground`}>
+ <p className={`text-xs font-bold flex items-center gap-1.5 text-zinc-900 dark:text-white`}>
  <span>{ind.name}</span>
- <span className="text-[9px] px-1.5 py-0.2 bg-pink-500/20 text-pink-300 rounded font-semibold">
+ <span className="text-[9px] px-1.5 py-0.2 bg-pink-500/20 text-pink-600 dark:text-pink-600 dark:text-pink-300 rounded font-semibold">
  {ind.district}
  </span>
  </p>
@@ -487,7 +487,7 @@ export default function IndustryLoginPage() {
  </p>
  </div>
  {selectedIndustry?.name === ind.name && (
- <Check className="h-4 w-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+ <Check className="h-4 w-4 text-emerald-500 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
  )}
  </div>
  ))}
@@ -498,9 +498,9 @@ export default function IndustryLoginPage() {
  setIsNewIndustry(true);
  setShowSuggestions(false);
  }}
- className="p-3 bg-pink-950/40 hover:bg-pink-900/50 cursor-pointer transition flex items-center gap-2 text-xs font-bold text-pink-300"
+ className="p-3 bg-pink-50 dark:bg-pink-950/40 hover:bg-pink-100 dark:hover:bg-pink-900/50 cursor-pointer transition flex items-center gap-2 text-xs font-bold text-pink-600 dark:text-pink-300"
  >
- <Plus className="h-4 w-4 text-pink-400" />
+ <Plus className="h-4 w-4 text-pink-600 dark:text-pink-400" />
  <span>Register new enterprise: &quot;{industryQuery}&quot;</span>
  </div>
  )}
@@ -511,8 +511,8 @@ export default function IndustryLoginPage() {
  {/* Detailed Industry Configuration */}
  <div className="p-4 rounded-2xl bg-pink-950/25 border border-pink-500/20 space-y-3">
  <div className="flex items-center justify-between">
- <span className="text-[11px] font-bold text-pink-300 flex items-center gap-1.5">
- <Sparkles className="h-3.5 w-3.5 text-pink-400" />
+ <span className="text-[11px] font-bold text-pink-600 dark:text-pink-300 flex items-center gap-1.5">
+ <Sparkles className="h-3.5 w-3.5 text-pink-600 dark:text-pink-400" />
  <span>Sector, District &amp; CSR Grant Allocation</span>
  </span>
  {isNewIndustry && (
@@ -531,7 +531,7 @@ export default function IndustryLoginPage() {
  <select
  value={district}
  onChange={(e) => setDistrict(e.target.value)}
- className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none text-foreground`}
+ className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none text-zinc-900 dark:text-white`}
  >
  {getDistrictsForState(state).map((d) => (
  <option key={d} value={d}>
@@ -548,7 +548,7 @@ export default function IndustryLoginPage() {
  <select
  value={grantRange}
  onChange={(e) => setGrantRange(e.target.value)}
- className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none font-semibold text-emerald-400 text-foreground`}
+ className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none font-semibold text-emerald-500 dark:text-emerald-400 text-zinc-900 dark:text-white`}
  >
  <option value="₹10L – ₹25L">₹10L – ₹25L</option>
  <option value="₹25L – ₹50L">₹25L – ₹50L</option>
@@ -566,7 +566,7 @@ export default function IndustryLoginPage() {
  <select
  value={sector}
  onChange={(e) => setSector(e.target.value)}
- className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none text-foreground`}
+ className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none text-zinc-900 dark:text-white`}
  >
  {INDUSTRY_SECTORS.map((s) => (
  <option key={s} value={s}>
@@ -615,7 +615,7 @@ export default function IndustryLoginPage() {
  required={!isLogin}
  value={mentorLead}
  onChange={(e) => setMentorLead(e.target.value)}
- className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+ className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-zinc-900 dark:text-white`}
  placeholder="e.g. Anand Mahindra / CSR Lead"
  />
  </div>
@@ -639,7 +639,7 @@ export default function IndustryLoginPage() {
  required
  value={email}
  onChange={(e) => setEmail(e.target.value)}
- className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+ className={`w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-zinc-900 dark:text-white`}
  placeholder="Enter Username or Email"
  />
  </div>
@@ -657,7 +657,7 @@ export default function IndustryLoginPage() {
  required
  value={password}
  onChange={(e) => setPassword(e.target.value)}
- className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+ className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-zinc-900 dark:text-white`}
  placeholder="••••••••"
  />
  <button
@@ -674,7 +674,7 @@ export default function IndustryLoginPage() {
  <button
  type="submit"
  disabled={loading}
- className={`w-full mt-2 py-3 bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 font-bold rounded-xl hover:opacity-95 active:scale-[0.99] transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-xl shadow-pink-500/20 text-xs uppercase tracking-wider text-foreground`}
+ className={`w-full mt-2 py-3 bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 font-bold rounded-xl hover:opacity-95 active:scale-[0.99] transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow-xl shadow-pink-500/20 text-xs uppercase tracking-wider text-zinc-900 dark:text-white`}
  >
  {loading ? (
  <>
@@ -700,7 +700,7 @@ export default function IndustryLoginPage() {
           type="text"
           value={otp}
           onChange={(e) => setOtp(e.target.value)}
-          className="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-center text-xl tracking-[0.5em] focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all text-foreground font-mono"
+          className="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-center text-xl tracking-[0.5em] focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all text-zinc-900 dark:text-white font-mono"
           placeholder="••••••"
           maxLength={6}
           required
@@ -732,7 +732,7 @@ export default function IndustryLoginPage() {
 
  <div className="mt-6 pt-5 border-t border-zinc-800 text-center text-[11px] text-zinc-500">
  <span className="flex items-center justify-center gap-1.5 text-zinc-600 dark:text-zinc-400">
- <ShieldCheck className="h-3.5 w-3.5 text-pink-400" />
+ <ShieldCheck className="h-3.5 w-3.5 text-pink-600 dark:text-pink-400" />
  <span>Authorized Industry CSR &amp; Partner Access Only</span>
  </span>
  </div>

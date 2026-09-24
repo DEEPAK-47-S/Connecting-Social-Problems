@@ -19,7 +19,7 @@ export default function LoginPage() {
  // Form state
  const [name, setName] = useState("");
  const [district, setDistrict] = useState("Chennai");
- const [state, setState] = useState("Jharkhand");
+ const [state, setState] = useState("");
  const [isOtherDistrict, setIsOtherDistrict] = useState(false);
  const [email, setEmail] = useState("");
  const [password, setPassword] = useState("");
@@ -278,6 +278,7 @@ export default function LoginPage() {
   }}
   className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700/80 bg-zinc-50 dark:bg-zinc-800/60 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium"
   >
+  <option value="" disabled>Select State</option>
   {INDIAN_STATES.map((s) => (
     <option key={s} value={s}>{s}</option>
   ))}

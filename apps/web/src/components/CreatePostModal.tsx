@@ -48,7 +48,7 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
   const [street, setStreet] = useState("");
   const [area, setArea] = useState("");
   const [district, setDistrict] = useState("Chennai");
-  const [state, setState] = useState("Jharkhand");
+  const [state, setState] = useState("");
   const [isOtherDistrict, setIsOtherDistrict] = useState(false);
   const [pincode, setPincode] = useState("");
   

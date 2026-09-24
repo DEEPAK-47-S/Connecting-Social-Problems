@@ -42,7 +42,7 @@ export default function GovernmentLoginPage() {
  const [authorityName, setAuthorityName] = useState(PRESET_AUTHORITIES[0].name);
  const [officerName, setOfficerName] = useState("S. Ramaswamy, IAS (Municipal Commissioner)");
  const [district, setDistrict] = useState("Chennai");
- const [state, setState] = useState("Jharkhand");
+ const [state, setState] = useState("");
  const [isOtherDistrict, setIsOtherDistrict] = useState(false);
  const [email, setEmail] = useState("");
  const [password, setPassword] = useState("");
@@ -267,7 +267,8 @@ export default function GovernmentLoginPage() {
  }}
  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
  >
- {INDIAN_STATES.map((s) => (
+ <option value="" disabled>Select State</option>
+  {INDIAN_STATES.map((s) => (
     <option key={s} value={s}>{s}</option>
   ))}
  </select>

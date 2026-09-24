@@ -1,5 +1,5 @@
 export const INDIAN_STATES = [
-  "Jharkhand", // Default
+  "Jharkhand",
   "Tamil Nadu",
   "Kerala",
   "Karnataka",
