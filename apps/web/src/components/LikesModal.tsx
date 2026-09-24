@@ -131,7 +131,13 @@ export default function LikesModal({
             </div>
           ) : (
             filteredUsers.map((u) => {
-              const displayName = u.name || u.email.split("@")[0];
+              const maskEmail = (email: string) => {
+                if (!email) return "Hidden for privacy";
+                const parts = email.split("@");
+                if (parts.length !== 2) return email;
+                return parts[0].substring(0, 2) + "***@" + parts[1];
+              };
+              const displayName = u.name || (u.email ? maskEmail(u.email).split("@")[0] : "Citizen");
               const role = (u.role || "CITIZEN").toUpperCase();
 
               return (
@@ -155,7 +161,7 @@ export default function LikesModal({
                         <ShieldCheck className="h-3.5 w-3.5 text-blue-400 flex-shrink-0" />
                       </div>
                       <p className={`text-[11px] truncate text-zinc-500 dark:text-zinc-400`}>
-                        {u.companyName || u.email}
+                        {u.companyName || maskEmail(u.email)}
                       </p>
                     </div>
                   </div>
