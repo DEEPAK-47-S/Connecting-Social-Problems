@@ -27,6 +27,10 @@ import {
 } from "lucide-react";
 import { TAMIL_NADU_COLLEGES, TamilNaduCollege } from "@/data/tamilNaduColleges";
 import { TAMIL_NADU_DISTRICTS } from "@/data/tamilNaduDistricts";
+import { INDIAN_STATES } from "@/data/indianStates";
+import { getDistrictsForState } from "@/data/districts";import { getCollegesForState } from "@/data/colleges";
+
+
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
@@ -63,6 +67,8 @@ export default function CollegeLoginPage() {
 
  // Registration & Form details
  const [district, setDistrict] = useState("Chennai");
+ const [state, setState] = useState("Jharkhand");
+ const [isOtherDistrict, setIsOtherDistrict] = useState(false);
  const [collegeType, setCollegeType] = useState<TamilNaduCollege["type"]>("Engineering");
  const [selectedSkills, setSelectedSkills] = useState<string[]>(TAMIL_NADU_COLLEGES[0].skills);
  const [customSkillInput, setCustomSkillInput] = useState("");
@@ -531,14 +537,14 @@ export default function CollegeLoginPage() {
 
  <div>
  <label className={`block text-[10px] font-bold mb-1 text-slate-600 dark:text-slate-400`}>
- Tamil Nadu District
+ District
  </label>
  <select
  value={district}
  onChange={(e) => setDistrict(e.target.value)}
  className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-slate-800 text-xs focus:ring-2 focus:ring-indigo-500 outline-none text-foreground`}
  >
- {TAMIL_NADU_DISTRICTS.map((d) => (
+ {getDistrictsForState(state).map((d) => (
  <option key={d} value={d}>
  {d} District
  </option>

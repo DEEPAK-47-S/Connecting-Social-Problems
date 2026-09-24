@@ -14,6 +14,9 @@ import {
   LocateFixed
 } from "lucide-react";
 import { TAMIL_NADU_DISTRICTS } from "@/data/tamilNaduDistricts";
+import { INDIAN_STATES } from "@/data/indianStates";
+import { getDistrictsForState } from "@/data/districts";
+
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 const CATEGORIES = [
@@ -45,6 +48,8 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
   const [street, setStreet] = useState("");
   const [area, setArea] = useState("");
   const [district, setDistrict] = useState("Chennai");
+  const [state, setState] = useState("Jharkhand");
+  const [isOtherDistrict, setIsOtherDistrict] = useState(false);
   const [pincode, setPincode] = useState("");
   
   const [image, setImage] = useState<File | null>(null);
@@ -149,6 +154,7 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
       formData.append("category", category);
       formData.append("location", formattedLocation);
       formData.append("district", district);
+      formData.append("state", state);
       if (image) formData.append("image", image);
 
       const res = await fetch(`${API}/api/posts`, {
@@ -303,14 +309,14 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
 
               <div>
                 <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
-                  District (38 TN Districts)
+                  District
                 </label>
                 <select
                   value={district}
                   onChange={(e) => setDistrict(e.target.value)}
                   className="w-full px-2 py-2 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
                 >
-                  {TAMIL_NADU_DISTRICTS.map((d) => (
+                  {getDistrictsForState(state).map((d) => (
                     <option key={d} value={d}>
                       {d}
                     </option>

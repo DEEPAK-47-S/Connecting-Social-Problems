@@ -28,6 +28,9 @@ import {
 } from "lucide-react";
 import { TAMIL_NADU_INDUSTRIES, TamilNaduIndustry } from "@/data/tamilNaduIndustries";
 import { TAMIL_NADU_DISTRICTS } from "@/data/tamilNaduDistricts";
+import { INDIAN_STATES } from "@/data/indianStates";
+import { getDistrictsForState } from "@/data/districts";
+
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
@@ -72,6 +75,8 @@ export default function IndustryLoginPage() {
 
  // Registration & Form details
  const [district, setDistrict] = useState("Chennai");
+ const [state, setState] = useState("Jharkhand");
+ const [isOtherDistrict, setIsOtherDistrict] = useState(false);
  const [sector, setSector] = useState(TAMIL_NADU_INDUSTRIES[0].sector);
  const [grantRange, setGrantRange] = useState(TAMIL_NADU_INDUSTRIES[0].grantRange || "₹25L – ₹50L");
  const [selectedSpecializations, setSelectedSpecializations] = useState<string[]>(TAMIL_NADU_INDUSTRIES[0].specialization || []);
@@ -345,7 +350,7 @@ export default function IndustryLoginPage() {
  </Link>
  <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-pink-500/10 border border-pink-500/20 text-xs font-bold text-pink-400">
  <Building2 className="h-3.5 w-3.5" />
- <span>Tamil Nadu Industry CSR &amp; Corporate Innovation Hub</span>
+ <span>Industry CSR &amp; Corporate Innovation Hub</span>
  </div>
  </div>
 
@@ -424,15 +429,17 @@ export default function IndustryLoginPage() {
  {/* ======================================================== */}
  {!isLogin && (
  <>
- {/* Industry Search / Autocomplete Field */}
+  {/* Industry Search / Autocomplete Field */}
  <div ref={dropdownRef} className="relative">
  <label className="block text-[11px] font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5 flex items-center justify-between">
- <span>Company / Industry Name (Autocomplete)</span>
- <span className="text-[10px] text-pink-400 font-semibold">{allIndustries.length}+ Tamil Nadu Companies</span>
+ <span>{state === "Jharkhand" || state === "Tamil Nadu" ? "Company / Industry Name (Autocomplete)" : "Enter Company / Industry Name"}</span>
+ { (state === "Jharkhand" || state === "Tamil Nadu") && <span className="text-[10px] text-pink-400 font-semibold">{allIndustries.length}+ Companies</span>}
  </label>
 
  <div className="relative">
  <Building2 className="absolute left-3.5 top-3 h-4 w-4 text-zinc-500" />
+ {state === "Jharkhand" || state === "Tamil Nadu" ? (
+ <>
  <input
  type="text"
  required={!isLogin}
@@ -446,10 +453,21 @@ export default function IndustryLoginPage() {
  className="absolute right-3.5 top-3 h-4 w-4 text-zinc-500 cursor-pointer"
  onClick={() => setShowSuggestions(!showSuggestions)}
  />
+ </>
+ ) : (
+ <input
+ type="text"
+ required={!isLogin}
+ value={industryQuery}
+ onChange={(e) => { setIndustryQuery(e.target.value); setIsNewIndustry(true); }}
+ placeholder="Enter your company name..."
+ className={`w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-800 bg-white dark:bg-zinc-900/75 placeholder-zinc-500 focus:ring-2 focus:ring-pink-500 outline-none text-xs font-medium text-foreground`}
+ />
+ )}
  </div>
 
  {/* Live Suggestions Dropdown */}
- {showSuggestions && suggestions.length > 0 && (
+ { (state === "Jharkhand" || state === "Tamil Nadu") && showSuggestions && suggestions.length > 0 && (
  <div className="absolute z-50 left-0 right-0 mt-1 bg-zinc-900 border border-zinc-700 rounded-2xl shadow-md max-h-56 overflow-y-auto divide-y divide-zinc-800 animate-in fade-in">
  {suggestions.map((ind, i) => (
  <div
@@ -508,14 +526,14 @@ export default function IndustryLoginPage() {
  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
  <div>
  <label className="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
- Tamil Nadu District
+ District
  </label>
  <select
  value={district}
  onChange={(e) => setDistrict(e.target.value)}
  className={`w-full px-2.5 py-1.5 bg-white dark:bg-zinc-900/75 rounded-lg border border-zinc-800 text-xs focus:ring-2 focus:ring-pink-500 outline-none text-foreground`}
  >
- {TAMIL_NADU_DISTRICTS.map((d) => (
+ {getDistrictsForState(state).map((d) => (
  <option key={d} value={d}>
  {d} District
  </option>
@@ -715,7 +733,7 @@ export default function IndustryLoginPage() {
  <div className="mt-6 pt-5 border-t border-zinc-800 text-center text-[11px] text-zinc-500">
  <span className="flex items-center justify-center gap-1.5 text-zinc-600 dark:text-zinc-400">
  <ShieldCheck className="h-3.5 w-3.5 text-pink-400" />
- <span>Authorized Tamil Nadu Industry CSR &amp; Partner Access Only</span>
+ <span>Authorized Industry CSR &amp; Partner Access Only</span>
  </span>
  </div>
 

@@ -12,6 +12,9 @@ import {
   LocateFixed
 } from "lucide-react";
 import { TAMIL_NADU_DISTRICTS } from "@/data/tamilNaduDistricts";
+import { INDIAN_STATES } from "@/data/indianStates";
+import { getDistrictsForState } from "@/data/districts";
+
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 const CATEGORIES = [
@@ -46,6 +49,8 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
   const [street, setStreet] = useState(locParts.length > 5 ? locParts[1] : "");
   const [area, setArea] = useState(locParts.length > 5 ? locParts[2] : (locParts[1] || ""));
   const [district, setDistrict] = useState(post?.district || "Chennai");
+  const [state, setState] = useState(post?.state || "Jharkhand");
+  const [isOtherDistrict, setIsOtherDistrict] = useState(false);
   
   const initialPincodeStr = locParts.find((p: string) => p.startsWith("PIN:")) || "";
   const [pincode, setPincode] = useState(initialPincodeStr.replace("PIN: ", "") || "");
@@ -154,6 +159,7 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
       formData.append("category", category);
       formData.append("location", formattedLocation);
       formData.append("district", district);
+      formData.append("state", state);
       if (image) formData.append("image", image);
 
       const res = await fetch(`${API}/api/posts/${post.id}`, {
@@ -308,14 +314,14 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
 
               <div>
                 <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
-                  District (38 TN Districts)
+                  District
                 </label>
                 <select
                   value={district}
                   onChange={(e) => setDistrict(e.target.value)}
                   className="w-full px-2 py-2 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
                 >
-                  {TAMIL_NADU_DISTRICTS.map((d) => (
+                  {getDistrictsForState(state).map((d) => (
                     <option key={d} value={d}>
                       {d}
                     </option>

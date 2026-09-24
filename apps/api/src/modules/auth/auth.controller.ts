@@ -37,7 +37,7 @@ const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString()
 // POST /api/auth/register — Direct instant registration
 export const register = async (req: Request, res: Response) => {
   try {
-    const { email, password, name, role, companyName, sector } = req.body;
+    const { email, password, name, role, companyName, sector, state, district } = req.body;
     if (!email || !password) {
       return res.status(400).json({ error: 'Email and password are required.' });
     }
@@ -60,6 +60,8 @@ export const register = async (req: Request, res: Response) => {
         role: assignedRole,
         companyName: companyName?.trim() || null,
         sector: sector?.trim() || null,
+        state: state?.trim() || null,
+        district: district?.trim() || null,
         isVerified: false,
       },
     });

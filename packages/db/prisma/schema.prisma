@@ -20,6 +20,8 @@ model User {
   role        String   @default("CITIZEN") // CITIZEN, UNIVERSITY, INDUSTRY, GOVERNMENT
   companyName String?  // For Industry users
   sector      String?  // For Industry users
+  state       String?
+  district    String?
   isVerified  Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

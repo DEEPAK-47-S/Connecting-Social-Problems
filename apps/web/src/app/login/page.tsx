@@ -6,6 +6,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Loader2, Activity, Mail, Lock, User, CheckCircle2, ArrowRight, MapPin , ShieldCheck } from "lucide-react";
 import { TAMIL_NADU_DISTRICTS } from "@/data/tamilNaduDistricts";
+import { INDIAN_STATES } from "@/data/indianStates";
+import { getDistrictsForState } from "@/data/districts";
+
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
@@ -16,6 +19,8 @@ export default function LoginPage() {
  // Form state
  const [name, setName] = useState("");
  const [district, setDistrict] = useState("Chennai");
+ const [state, setState] = useState("Jharkhand");
+ const [isOtherDistrict, setIsOtherDistrict] = useState(false);
  const [email, setEmail] = useState("");
  const [password, setPassword] = useState("");
  const [showPass, setShowPass] = useState(false);
@@ -100,6 +105,7 @@ export default function LoginPage() {
  body.name = name.trim();
  body.role = "CITIZEN";
  body.district = district;
+ body.state = state;
  }
 
  const res = await fetch(`${API}${endpoint}`, {
@@ -256,10 +262,10 @@ export default function LoginPage() {
  </div>
  </div>
 
- {/* Tamil Nadu District */}
+ {/* District */}
  <div>
  <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
- Tamil Nadu District
+ District
  </label>
  <div className="relative">
  <MapPin className="absolute left-3.5 top-3.5 h-4 w-4 text-zinc-400" />
@@ -268,7 +274,7 @@ export default function LoginPage() {
  onChange={(e) => setDistrict(e.target.value)}
  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700/80 bg-zinc-50 dark:bg-zinc-800/60 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium"
  >
- {TAMIL_NADU_DISTRICTS.map((d) => (
+ {getDistrictsForState(state).map((d) => (
  <option key={d} value={d}>
  {d} District
  </option>

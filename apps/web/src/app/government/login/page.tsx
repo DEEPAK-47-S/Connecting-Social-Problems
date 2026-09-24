@@ -20,6 +20,9 @@ import {
  MapPin
 } from "lucide-react";
 import { TAMIL_NADU_DISTRICTS } from "@/data/tamilNaduDistricts";
+import { INDIAN_STATES } from "@/data/indianStates";
+import { getDistrictsForState } from "@/data/districts";
+
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
@@ -39,6 +42,8 @@ export default function GovernmentLoginPage() {
  const [authorityName, setAuthorityName] = useState(PRESET_AUTHORITIES[0].name);
  const [officerName, setOfficerName] = useState("S. Ramaswamy, IAS (Municipal Commissioner)");
  const [district, setDistrict] = useState("Chennai");
+ const [state, setState] = useState("Jharkhand");
+ const [isOtherDistrict, setIsOtherDistrict] = useState(false);
  const [email, setEmail] = useState("");
  const [password, setPassword] = useState("");
  const [showPass, setShowPass] = useState(false);
@@ -199,10 +204,11 @@ export default function GovernmentLoginPage() {
  {/* Select Municipal / Government Directorate */}
  <div>
  <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1">
- Department / Authority Division
+ {state === "Jharkhand" || state === "Tamil Nadu" ? "Department / Authority Division" : "Enter Department / Authority Name"}
  </label>
  <div className="relative">
  <Building className="absolute left-3.5 top-3 h-4 w-4 text-slate-500" />
+ {state === "Jharkhand" || state === "Tamil Nadu" ? (
  <select
  value={authorityName}
  onChange={(e) => setAuthorityName(e.target.value)}
@@ -214,6 +220,16 @@ export default function GovernmentLoginPage() {
  </option>
  ))}
  </select>
+ ) : (
+ <input
+ type="text"
+ required={!isLogin}
+ value={authorityName}
+ onChange={(e) => setAuthorityName(e.target.value)}
+ placeholder="Enter your department name..."
+ className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 text-zinc-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
+ />
+ )}
  </div>
  </div>
 
@@ -238,21 +254,62 @@ export default function GovernmentLoginPage() {
 
  <div>
  <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1">
- Tamil Nadu District
+ State
  </label>
  <div className="relative">
  <MapPin className="absolute left-3.5 top-3 h-4 w-4 text-slate-500" />
  <select
- value={district}
- onChange={(e) => setDistrict(e.target.value)}
+ value={state}
+ onChange={(e) => {
+   setState(e.target.value);
+   if (e.target.value !== "Tamil Nadu") setIsOtherDistrict(true);
+   else setIsOtherDistrict(false);
+ }}
  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
  >
- {TAMIL_NADU_DISTRICTS.map((d) => (
+ {INDIAN_STATES.map((s) => (
+    <option key={s} value={s}>{s}</option>
+  ))}
+ </select>
+ </div>
+ </div>
+
+ <div>
+ <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1">
+ District
+ </label>
+ <div className="relative">
+ <MapPin className="absolute left-3.5 top-3 h-4 w-4 text-slate-500" />
+ {getDistrictsForState(state).length > 0 && !isOtherDistrict ? (
+ <select
+ value={district}
+ onChange={(e) => {
+   if (e.target.value === "Others") {
+     setIsOtherDistrict(true);
+     setDistrict("");
+   } else {
+     setDistrict(e.target.value);
+   }
+ }}
+ className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
+ >
+ {getDistrictsForState(state).map((d) => (
  <option key={d} value={d}>
  {d} District
  </option>
  ))}
+ <option value="Others">Others (Type manually)</option>
  </select>
+ ) : (
+ <input
+ type="text"
+ required={!isLogin}
+ value={district}
+ onChange={(e) => setDistrict(e.target.value)}
+ placeholder="Enter District Name"
+ className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-800 bg-white dark:bg-zinc-900/75 text-zinc-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-teal-500 outline-none text-xs font-medium"
+ />
+ )}
  </div>
  </div>
  </div>
