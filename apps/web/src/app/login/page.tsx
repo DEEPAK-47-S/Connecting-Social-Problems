@@ -262,28 +262,70 @@ export default function LoginPage() {
  </div>
  </div>
 
- {/* District */}
- <div>
- <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
- District
- </label>
- <div className="relative">
- <MapPin className="absolute left-3.5 top-3.5 h-4 w-4 text-zinc-400" />
- <select
- value={district}
- onChange={(e) => setDistrict(e.target.value)}
- className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700/80 bg-zinc-50 dark:bg-zinc-800/60 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium"
- >
- {getDistrictsForState(state).map((d) => (
- <option key={d} value={d}>
- {d} District
- </option>
- ))}
- </select>
- </div>
- </div>
- </>
- )}
+ {/* State & District */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-2">
+  <div>
+  <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+  State
+  </label>
+  <div className="relative">
+  <MapPin className="absolute left-3.5 top-3.5 h-4 w-4 text-zinc-400" />
+  <select
+  value={state}
+  onChange={(e) => {
+    setState(e.target.value);
+    setIsOtherDistrict(false);
+  }}
+  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700/80 bg-zinc-50 dark:bg-zinc-800/60 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium"
+  >
+  {INDIAN_STATES.map((s) => (
+    <option key={s} value={s}>{s}</option>
+  ))}
+  </select>
+  </div>
+  </div>
+
+  <div>
+  <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+  District
+  </label>
+  <div className="relative">
+  <MapPin className="absolute left-3.5 top-3.5 h-4 w-4 text-zinc-400" />
+  {getDistrictsForState(state).length > 0 && !isOtherDistrict ? (
+  <select
+  value={district}
+  onChange={(e) => {
+    if (e.target.value === "Others") {
+      setIsOtherDistrict(true);
+      setDistrict("");
+    } else {
+      setDistrict(e.target.value);
+    }
+  }}
+  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700/80 bg-zinc-50 dark:bg-zinc-800/60 text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium"
+  >
+  {getDistrictsForState(state).map((d) => (
+  <option key={d} value={d}>
+  {d} District
+  </option>
+  ))}
+  <option value="Others">Others (Type manually)</option>
+  </select>
+  ) : (
+  <input
+  type="text"
+  required={!isLogin}
+  value={district}
+  onChange={(e) => setDistrict(e.target.value)}
+  placeholder="Enter District Name"
+  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700/80 bg-zinc-50 dark:bg-zinc-800/60 text-zinc-900 dark:text-white placeholder-zinc-400 focus:ring-2 focus:ring-indigo-500 outline-none text-xs font-medium"
+  />
+  )}
+  </div>
+  </div>
+  </div>
+  </>
+  )}
 
  {/* ======================================================== */}
  {/* CORE CREDENTIALS (Email & Password - Shown in Both Modes) */}
