@@ -148,7 +148,7 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
         area.trim(),
         `${district} District`,
         pincode.trim() ? `PIN: ${pincode.trim()}` : "",
-        "Tamil Nadu"
+        state
       ].filter(Boolean);
 
       const formattedLocation = locationParts.join(", ");
@@ -253,7 +253,7 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
             <div className="flex items-center justify-between gap-1.5">
               <div className="flex items-center gap-1.5 text-xs font-bold text-indigo-700 dark:text-indigo-300">
                 <Navigation className="h-4 w-4 text-indigo-500" />
-                <span>Accurate Ground Location Details (Tamil Nadu)</span>
+                <span>Accurate Ground Location Details</span>
               </div>
               <button
                 type="button"
@@ -296,8 +296,66 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
               </div>
             </div>
 
-            {/* Area, District, Pincode */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            {/* State, District, Area, Pincode */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-5">
+              
+              <div>
+                <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
+                  State *
+                </label>
+                <select
+                  required
+                  value={state}
+                  onChange={(e) => {
+                    setState(e.target.value);
+                    setIsOtherDistrict(false);
+                  }}
+                  className="w-full px-2 py-2 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
+                >
+                  <option value="" disabled>Select State</option>
+                  {INDIAN_STATES.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
+                  District *
+                </label>
+                {getDistrictsForState(state).length > 0 && !isOtherDistrict ? (
+                <select
+                  required
+                  value={district}
+                  onChange={(e) => {
+                    if (e.target.value === "Others") {
+                      setIsOtherDistrict(true);
+                      setDistrict("");
+                    } else {
+                      setDistrict(e.target.value);
+                    }
+                  }}
+                  className="w-full px-2 py-2 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
+                >
+                  {getDistrictsForState(state).map((d) => (
+                    <option key={d} value={d}>
+                      {d}
+                    </option>
+                  ))}
+                  <option value="Others">Others (Type manually)</option>
+                </select>
+                ) : (
+                <input
+                  type="text"
+                  required
+                  value={district}
+                  onChange={(e) => setDistrict(e.target.value)}
+                  placeholder="Enter District Name"
+                  className="w-full px-3 py-2 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-white placeholder-zinc-400 focus:ring-2 focus:ring-indigo-500 outline-none"
+                />
+                )}
+              </div>
+
               <div>
                 <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
                   Area / Locality / Ward *
@@ -314,23 +372,6 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
 
               <div>
                 <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
-                  District
-                </label>
-                <select
-                  value={district}
-                  onChange={(e) => setDistrict(e.target.value)}
-                  className="w-full px-2 py-2 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
-                >
-                  {getDistrictsForState(state).map((d) => (
-                    <option key={d} value={d}>
-                      {d}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
                   Pincode
                 </label>
                 <input
@@ -342,6 +383,7 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
                   className="w-full px-3 py-2 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-white placeholder-zinc-400 focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
               </div>
+
             </div>
           </div>
 
