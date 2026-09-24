@@ -192,7 +192,7 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
       <div className="w-full max-w-xl bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col max-h-[90vh]">
         
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-5 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50">
+        <div className="flex items-center justify-end p-5 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50">
           <div className="flex items-center gap-2.5">
             <div className="h-9 w-9 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
               <Compass className="h-5 w-5" />
@@ -274,9 +274,9 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
               </button>
             </div>
 
-            {/* Landmark & Street */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
+            {/* Accurate Ground Location Details */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
+<div>
                 <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
                   Accurate Landmark *
                 </label>
@@ -290,7 +290,7 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
                 />
               </div>
 
-              <div>
+<div>
                 <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
                   Street / Road / Door No.
                 </label>
@@ -302,12 +302,22 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
                   className="w-full px-3 py-2 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-white placeholder-zinc-400 focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
               </div>
-            </div>
 
-            {/* State, District, Area, Pincode */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-5">
-              
-              <div>
+<div>
+                <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
+                  Area / Locality / Ward *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={area}
+                  onChange={(e) => setArea(e.target.value)}
+                  placeholder="e.g. Anna Nagar / Ward 12"
+                  className="w-full px-3 py-2 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-white placeholder-zinc-400 focus:ring-2 focus:ring-indigo-500 outline-none"
+                />
+              </div>
+
+<div>
                 <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
                   State *
                 </label>
@@ -327,7 +337,7 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
                 </select>
               </div>
 
-              <div>
+<div>
                 <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
                   District *
                 </label>
@@ -364,21 +374,7 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
                 )}
               </div>
 
-              <div>
-                <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
-                  Area / Locality / Ward *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={area}
-                  onChange={(e) => setArea(e.target.value)}
-                  placeholder="e.g. Anna Nagar / Ward 12"
-                  className="w-full px-3 py-2 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-white placeholder-zinc-400 focus:ring-2 focus:ring-indigo-500 outline-none"
-                />
-              </div>
-
-              <div>
+<div>
                 <label className="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">
                   Pincode
                 </label>
@@ -394,7 +390,6 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
 
             </div>
           </div>
-
           {/* Description */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
@@ -410,6 +405,18 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
               maxLength={2000}
             />
             <p className="text-[10px] text-zinc-400 text-right mt-1">{description.length}/2000 characters</p>
+          
+            <div className="mt-3">
+              <button
+            type="button"
+            onClick={() => fileRef.current?.click()}
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
+          >
+            <ImageIcon className="h-4 w-4 text-indigo-500" />
+            <span>{image ? "Change Photo" : "Attach Site Photo"}</span>
+          </button>
+          <input ref={fileRef} type="file" accept="image/*" className="text-zinc-900 dark:text-white hidden" onChange={handleImage} />
+            </div>
           </div>
 
           {/* Image Preview */}
@@ -431,16 +438,8 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
         </form>
 
         {/* Modal Footer */}
-        <div className="flex items-center justify-between p-5 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50">
-          <button
-            type="button"
-            onClick={() => fileRef.current?.click()}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
-          >
-            <ImageIcon className="h-4 w-4 text-indigo-500" />
-            <span>{image ? "Change Photo" : "Attach Site Photo"}</span>
-          </button>
-          <input ref={fileRef} type="file" accept="image/*" className="text-zinc-900 dark:text-white hidden" onChange={handleImage} />
+        <div className="flex items-center justify-end p-5 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50">
+          
 
           <div className="flex items-center gap-2">
             <button
