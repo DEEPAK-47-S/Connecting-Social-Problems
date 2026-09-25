@@ -135,6 +135,8 @@ export default function LocationPickerMap({ onSelectLocation, onClose }: Locatio
           ) : addressDetails ? (
             <div className="text-sm text-zinc-700 dark:text-zinc-300 mb-4 line-clamp-2">
               {[
+                addressDetails.amenity || addressDetails.building || addressDetails.shop,
+                addressDetails.house_number,
                 addressDetails.road || addressDetails.street,
                 addressDetails.suburb || addressDetails.neighbourhood || addressDetails.village,
                 addressDetails.city_district || addressDetails.state_district || addressDetails.county,
@@ -151,7 +153,7 @@ export default function LocationPickerMap({ onSelectLocation, onClose }: Locatio
             onClick={handleUseLocation}
             className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition shadow-md shadow-indigo-500/20"
           >
-            Use this Location
+            Confirm Location / Search
           </button>
         </div>
       )}

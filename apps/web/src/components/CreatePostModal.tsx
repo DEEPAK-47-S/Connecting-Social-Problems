@@ -138,8 +138,15 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
     setLng(data.lng);
     const { address } = data;
     if (address) {
-      if (address.road || address.street) setStreet(address.road || address.street);
-      if (address.suburb || address.neighbourhood || address.village) setArea(address.suburb || address.neighbourhood || address.village);
+      const roadName = [address.house_number, address.road || address.street].filter(Boolean).join(", ");
+      if (roadName) setStreet(roadName);
+      
+      const areaName = address.suburb || address.neighbourhood || address.residential || address.village;
+      if (areaName) setArea(areaName);
+      
+      const landmarkName = address.amenity || address.building || address.shop || address.office || address.historic || address.tourism || address.leisure;
+      if (landmarkName) setLandmark(landmarkName);
+      
       if (address.postcode) setPincode(address.postcode);
       
       let detectedState = address.state || "";

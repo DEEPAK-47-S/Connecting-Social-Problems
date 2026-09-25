@@ -12,7 +12,7 @@ import {
  Edit3, Globe
 } from "lucide-react";
 import dynamic from "next/dynamic";
-const GlobalComplaintsMap = dynamic(() => import("@/components/GlobalComplaintsMap"), { ssr: false });
+const LocationPickerMap = dynamic(() => import("@/components/LocationPickerMap"), { ssr: false });
 import CreatePostModal from "@/components/CreatePostModal";
 import EditPostModal from "@/components/EditPostModal";
 import ProfileModal from "@/components/ProfileModal";
