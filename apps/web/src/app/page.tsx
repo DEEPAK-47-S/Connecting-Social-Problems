@@ -9,8 +9,10 @@ import {
  Search, Trash2, AlertTriangle, CheckCircle2,
  Folder, User, Sparkles, Building2, ChevronRight, RefreshCw,
  GraduationCap, Handshake, Bookmark, MoreHorizontal, MessageSquare,
- Edit3
+ Edit3, Globe
 } from "lucide-react";
+import dynamic from "next/dynamic";
+const LocationPickerMap = dynamic(() => import("@/components/LocationPickerMap"), { ssr: false });
 import CreatePostModal from "@/components/CreatePostModal";
 import EditPostModal from "@/components/EditPostModal";
 import ProfileModal from "@/components/ProfileModal";
@@ -477,6 +479,8 @@ export default function HomePage() {
  const [deleting, setDeleting] = useState(false);
  const [deleteSuccessToast, setDeleteSuccessToast] = useState("");
 
+ const [showMap, setShowMap] = useState(false);
+
  const { socket } = useSocket();
 
  useEffect(() => {
@@ -825,11 +829,17 @@ export default function HomePage() {
  {searchQuery && (
  <button
  onClick={() => setSearchQuery("")}
- className="absolute right-3 top-2.5 text-zinc-400 hover:text-zinc-600"
+ className="absolute right-10 top-2.5 text-zinc-400 hover:text-zinc-600"
  >
  <X className="h-4 w-4" />
  </button>
  )}
+ <button
+ onClick={() => setShowMap(true)}
+ className="absolute right-3 top-2.5 text-zinc-400 hover:text-indigo-500 transition"
+ >
+ <Globe className="h-4 w-4" />
+ </button>
  </div>
 
  {/* District & Category Scroll Bar */}

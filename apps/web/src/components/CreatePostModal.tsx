@@ -13,11 +13,15 @@ import {
   Navigation,
   Building,
   Compass,
-  LocateFixed
+  LocateFixed,
+  Globe
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import { TAMIL_NADU_DISTRICTS } from "@/data/tamilNaduDistricts";
 import { INDIAN_STATES } from "@/data/indianStates";
 import { getDistrictsForState } from "@/data/districts";
+
+const LocationPickerMap = dynamic(() => import("./LocationPickerMap"), { ssr: false });
 
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
@@ -60,6 +64,7 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [geoLocating, setGeoLocating] = useState(false);
+  const [showMap, setShowMap] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const handleUseMyLocation = async () => {
@@ -122,6 +127,35 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
       },
       { timeout: 10000, maximumAge: 0, enableHighAccuracy: true }
     );
+  };
+
+  const handleMapLocationSelect = (data: { lat: number; lng: number; address: any }) => {
+    const { address } = data;
+    if (address) {
+      if (address.road || address.street) setStreet(address.road || address.street);
+      if (address.suburb || address.neighbourhood || address.village) setArea(address.suburb || address.neighbourhood || address.village);
+      if (address.postcode) setPincode(address.postcode);
+      
+      let detectedState = address.state || "";
+      if (detectedState) {
+        if (detectedState.includes("Tamil Nadu")) detectedState = "Tamil Nadu";
+        setState(detectedState);
+      }
+
+      let detectedDistrict = address.city_district || address.state_district || address.county || address.city || address.town || "";
+      if (detectedDistrict) {
+        detectedDistrict = detectedDistrict.replace(/district/i, "").trim();
+        const districtList = getDistrictsForState(detectedState);
+        const matchDist = districtList.find(d => detectedDistrict.toLowerCase().includes(d.toLowerCase()) || d.toLowerCase().includes(detectedDistrict.toLowerCase()));
+        if (matchDist) setDistrict(matchDist);
+        else {
+          setIsOtherDistrict(true);
+          setDistrict(detectedDistrict);
+        }
+      }
+    } else {
+      setLandmark(`Lat: ${data.lat.toFixed(4)}, Lng: ${data.lng.toFixed(4)}`);
+    }
   };
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -271,6 +305,15 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
                 <Navigation className="h-4 w-4 text-indigo-500" />
                 <span>Accurate Ground Location Details</span>
               </div>
+              <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setShowMap(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-800 dark:bg-zinc-700 hover:bg-zinc-700 dark:hover:bg-zinc-600 text-white rounded-xl text-[11px] font-bold transition shadow-md"
+              >
+                <Globe className="h-3 w-3" />
+                <span>Search on Map</span>
+              </button>
               <button
                 type="button"
                 onClick={handleUseMyLocation}
@@ -280,6 +323,7 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
                 {geoLocating ? <Loader2 className="h-3 w-3 animate-spin" /> : <LocateFixed className="h-3 w-3" />}
                 <span>{geoLocating ? 'Detecting...' : 'Use My Location'}</span>
               </button>
+              </div>
             </div>
 
             {/* Accurate Ground Location Details */}
@@ -491,6 +535,13 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
             setCropImageSrc(null);
           }}
           onCancel={() => setCropImageSrc(null)}
+        />
+      )}
+
+      {showMap && (
+        <LocationPickerMap
+          onClose={() => setShowMap(false)}
+          onSelectLocation={handleMapLocationSelect}
         />
       )}
     </>
