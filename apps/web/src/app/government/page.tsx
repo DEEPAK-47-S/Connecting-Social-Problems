@@ -476,7 +476,7 @@ export default function GovernmentPortal() {
  <img
  src={post.imageUrl.startsWith('http') ? post.imageUrl : (post.imageUrl.startsWith('data:') ? post.imageUrl : `${API}${post.imageUrl}`)}
  alt={post.title}
- className="w-full h-36 object-cover rounded-2xl border border-slate-800"
+ className="w-full h-auto rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800"
  />
  </div>
  )}
@@ -733,7 +733,7 @@ export default function GovernmentPortal() {
  <img
  src={selectedPost.imageUrl.startsWith("data:") ? selectedPost.imageUrl : `${API}${selectedPost.imageUrl}`}
  alt={selectedPost.title}
- className="w-full max-h-72 object-cover rounded-2xl border border-slate-800"
+ className="w-full h-auto rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800"
  />
  )}
 

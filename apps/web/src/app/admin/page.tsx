@@ -331,7 +331,7 @@ export default function AdminDashboardPage() {
  {/* Header */}
  <header className={`px-4 sm:px-8 py-4 md:py-0 min-h-[4.5rem] md:h-18 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0 border-b sticky top-0 z-40 bg-white border-zinc-200 shadow-sm dark:bg-zinc-900/75 dark:border-zinc-800`}>
  <div className="flex items-center gap-3">
- <Image src="/logo.jpg" alt="Connecting Social Problem Logo" width={40} height={40} className="rounded-full shadow-lg group-hover:scale-105 transition-transform flex-shrink-0 object-cover" />
+ <Image src="/logo.jpg" alt="Connecting Social Problem Logo" width={40} height={40} className="w-full h-auto rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800" />
  <div>
  <div className="flex flex-wrap items-center gap-2">
  <span className="font-black text-base sm:text-lg tracking-tight break-words">
@@ -934,7 +934,7 @@ export default function AdminDashboardPage() {
  <img
  src={inspectPost.imageUrl.startsWith("data:") ? inspectPost.imageUrl : `${API}${inspectPost.imageUrl}`}
  alt={inspectPost.title}
- className="rounded-2xl mt-1 w-full max-h-60 object-cover border dark:border-zinc-800"
+ className="w-full h-auto rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800"
  />
  </div>
  )}

@@ -432,7 +432,7 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
           {/* Image Preview */}
           {imagePreview && (
             <div className="relative rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-700">
-              <img src={imagePreview} alt="Problem Photo" className="w-full h-auto object-contain max-h-56 bg-black/5 dark:bg-black/20" />
+              <img src={imagePreview} alt="Problem Photo" className="w-full h-auto rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800" />
               <button
                 type="button"
                 onClick={() => {

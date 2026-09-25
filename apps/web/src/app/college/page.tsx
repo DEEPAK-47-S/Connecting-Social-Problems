@@ -678,7 +678,7 @@ export default function CollegePortal() {
     <img
      src={post.imageUrl.startsWith('http') ? post.imageUrl : `${API}${post.imageUrl}`}
      alt={post.title}
-     className="w-full max-h-60 object-cover rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm"
+     className="w-full h-auto rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800"
      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
     />
    </div>
@@ -1105,7 +1105,7 @@ export default function CollegePortal() {
  <img
  src={selectedPost.imageUrl.startsWith("data:") ? selectedPost.imageUrl : `${API}${selectedPost.imageUrl}`}
  alt={selectedPost.title}
- className="w-full max-h-72 object-cover rounded-2xl border border-slate-800"
+ className="w-full h-auto rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800"
  />
  )}
 
