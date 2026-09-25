@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import ImageCropper from "./ImageCropper";
 import {
   X,
   Image as ImageIcon,
@@ -59,6 +60,7 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
   const [imagePreview, setImagePreview] = useState<string | null>(
     post?.imageUrl ? (post.imageUrl.startsWith("http") ? post.imageUrl : `${API}${post.imageUrl}`) : null
   );
+  const [cropImageSrc, setCropImageSrc] = useState<string | null>(null);
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -116,9 +118,13 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImage(file);
-      setImagePreview(URL.createObjectURL(file));
+      const reader = new FileReader();
+      reader.onload = () => {
+        setCropImageSrc(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
+    e.target.value = '';
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -180,6 +186,7 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
   };
 
   return (
+    <>
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4 animate-in fade-in duration-200">
       <div className="w-full max-w-xl bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col max-h-[90vh]">
         
@@ -455,5 +462,18 @@ export default function EditPostModal({ post, onClose, onUpdated }: Props) {
 
       </div>
     </div>
+
+      {cropImageSrc && (
+        <ImageCropper
+          imageSrc={cropImageSrc}
+          onCropComplete={(croppedFile: File, previewUrl: string) => {
+            setImage(croppedFile);
+            setImagePreview(previewUrl);
+            setCropImageSrc(null);
+          }}
+          onCancel={() => setCropImageSrc(null)}
+        />
+      )}
+    </>
   );
 }
