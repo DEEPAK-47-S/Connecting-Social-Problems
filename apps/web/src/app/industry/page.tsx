@@ -392,7 +392,7 @@ export default function IndustryPortal() {
 
   {/* Top Header */}
   <header className={`border-b sticky top-0 z-40 transition-colors border-zinc-200 bg-white text-zinc-900 shadow-sm dark:border-zinc-800 dark:bg-zinc-900/75 dark:text-white`}>
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-0 min-h-[5rem] md:h-20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-0 min-h-[5rem] md:h-20 flex flex-row items-center justify-between gap-2">
   
   <div className="flex items-center gap-3">
  <div className="h-11 w-11 rounded-2xl bg-gradient-to-tr from-pink-500 via-rose-500 to-amber-500 flex items-center justify-center shadow-lg shadow-pink-500/20">
@@ -417,7 +417,7 @@ export default function IndustryPortal() {
  </div>
 
  <div className="flex items-center gap-3">
- <ThemeToggle />
+ 
 
   {/* Dedicated Industry User Profile & Logout */}
   <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-xs shadow-inner bg-white border-zinc-300 text-zinc-900 dark:bg-zinc-900/75 dark:border-zinc-800 dark:text-white`}>

@@ -19,6 +19,7 @@ import {
   AlertCircle
 } from "lucide-react";
 import { TAMIL_NADU_DISTRICTS } from "@/data/tamilNaduDistricts";
+import ThemeToggle from "./ThemeToggle";
 
 interface ProfileModalProps {
   isOpen: boolean;
@@ -210,6 +211,15 @@ export default function ProfileModal({
               <span>Profile updated successfully!</span>
             </div>
           )}
+
+          {/* Theme Preferences */}
+          <div className="flex items-center justify-between p-3 bg-white dark:bg-zinc-900/75 rounded-xl border border-slate-300 dark:border-slate-800">
+            <div>
+              <p className="font-bold text-zinc-900 dark:text-white">Theme</p>
+              <p className="text-[10px] text-zinc-500 dark:text-zinc-400">Switch between Light and Dark mode</p>
+            </div>
+            <ThemeToggle />
+          </div>
 
           {/* Full Name / Representative */}
           <div>

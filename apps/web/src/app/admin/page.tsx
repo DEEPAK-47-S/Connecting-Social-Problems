@@ -329,12 +329,12 @@ export default function AdminDashboardPage() {
  )}
 
  {/* Header */}
- <header className={`px-4 sm:px-8 py-4 md:py-0 min-h-[4.5rem] md:h-18 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0 border-b sticky top-0 z-40 bg-white border-zinc-200 shadow-sm dark:bg-zinc-900/75 dark:border-zinc-800`}>
+ <header className={`px-4 sm:px-8 py-4 md:py-0 min-h-[4.5rem] md:h-18 flex flex-row items-center justify-between gap-2 border-b sticky top-0 z-40 bg-white border-zinc-200 shadow-sm dark:bg-zinc-900/75 dark:border-zinc-800`}>
  <div className="flex items-center gap-3">
  <Image src="/logo.jpg" alt="Connecting Social Problem Logo" width={40} height={40} className="rounded-full shadow-lg group-hover:scale-105 transition-transform flex-shrink-0 object-cover" />
  <div>
  <div className="flex flex-wrap items-center gap-2">
- <span className="font-black text-base sm:text-lg tracking-tight break-words">
+ <span className="font-black text-sm sm:text-base tracking-tight break-words leading-tight">
  Admin Moderation Portal
  </span>
  <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/30 uppercase whitespace-normal text-center">
@@ -348,7 +348,7 @@ export default function AdminDashboardPage() {
  </div>
 
  <div className="flex items-center gap-3">
- <ThemeToggle />
+ 
 
  <button
  onClick={fetchAllComplaints}

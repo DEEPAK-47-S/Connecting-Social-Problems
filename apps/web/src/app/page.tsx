@@ -713,17 +713,17 @@ export default function HomePage() {
   <header
   className={`px-4 sm:px-8 py-3 md:py-0 min-h-[4rem] md:h-16 flex items-center border-b backdrop-blur-md sticky top-0 z-40 bg-white/90 border-zinc-200 text-zinc-900 shadow-sm dark:bg-black/90 dark:border-zinc-800/80 dark:text-white`}
   >
-  <div className="max-w-xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0">
-  <Link href="/" className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 group w-full sm:w-auto">
+  <div className="max-w-xl mx-auto w-full flex flex-row items-center justify-between gap-2">
+  <Link href="/" className="flex items-center justify-start gap-2 group">
   <Image src="/logo.jpg" alt="Logo" width={36} height={36} className="rounded-full shadow-lg group-hover:scale-105 transition-transform flex-shrink-0 object-cover" />
-  <span className="font-black text-lg sm:text-xl tracking-tight italic text-center sm:text-left break-words">
+  <span className="font-black text-[15px] sm:text-lg tracking-tight italic break-words leading-tight">
   Connecting Social Problem
   </span>
   </Link>
 
  <div className="flex items-center gap-2.5">
  {/* Theme Toggle (Dark / Light) */}
- <ThemeToggle />
+ 
 
  {token && user ? (
  <>
