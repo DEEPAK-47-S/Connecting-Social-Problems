@@ -381,7 +381,7 @@ export const updatePost = async (req: AuthRequest, res: Response) => {
 // POST /api/posts — Create a new complaint
 export const createPost = async (req: AuthRequest, res: Response) => {
   try {
-    const { title, description, category, location, district, state } = req.body;
+    const { title, description, category, location, district, state, lat, lng } = req.body;
     const userId = req.user!.id;
 
     if (!title || !description) {
@@ -401,6 +401,8 @@ export const createPost = async (req: AuthRequest, res: Response) => {
         location,
         district,
         state,
+        lat: lat ? parseFloat(lat) : null,
+        lng: lng ? parseFloat(lng) : null,
         imageUrl,
         status: 'SUBMITTED',
         statusMessage: 'Complaint submitted. AI analysis will begin shortly...',

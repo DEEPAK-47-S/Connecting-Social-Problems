@@ -70,7 +70,7 @@ export default function LocationPickerMap({ onSelectLocation, onClose }: Locatio
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1&accept-language=en`);
       const data = await res.json();
       if (data && data.address) {
         setAddressDetails(data.address);

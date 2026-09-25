@@ -57,6 +57,8 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
   const [state, setState] = useState("");
   const [isOtherDistrict, setIsOtherDistrict] = useState(false);
   const [pincode, setPincode] = useState("");
+  const [lat, setLat] = useState<number | null>(null);
+  const [lng, setLng] = useState<number | null>(null);
   
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -77,6 +79,8 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
+        setLat(latitude);
+        setLng(longitude);
         try {
           const res = await fetch(
             `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=en`,
@@ -130,6 +134,8 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
   };
 
   const handleMapLocationSelect = (data: { lat: number; lng: number; address: any }) => {
+    setLat(data.lat);
+    setLng(data.lng);
     const { address } = data;
     if (address) {
       if (address.road || address.street) setStreet(address.road || address.street);
@@ -209,6 +215,8 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
       formData.append("location", formattedLocation);
       formData.append("district", district);
       formData.append("state", state);
+      if (lat !== null) formData.append("lat", String(lat));
+      if (lng !== null) formData.append("lng", String(lng));
       if (image) formData.append("image", image);
 
       const res = await fetch(`${API}/api/posts`, {

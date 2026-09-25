@@ -68,6 +68,8 @@ model Post {
   location             String?
   district             String?
   state                String?
+  lat                  Float?
+  lng                  Float?
 
   category             String   @default("General")
   status               String   @default("SUBMITTED")
