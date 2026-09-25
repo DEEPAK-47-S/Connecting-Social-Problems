@@ -5,6 +5,7 @@ import ImageCropper from "./ImageCropper";
 import {
   X,
   Image as ImageIcon,
+  Crop,
   MapPin,
   Tag,
   Loader2,
@@ -413,23 +414,33 @@ export default function CreatePostModal({ onClose, onPosted }: Props) {
             />
             <p className="text-[10px] text-zinc-400 text-right mt-1">{description.length}/2000 characters</p>
           
-            <div className="mt-3">
+            <div className="mt-3 flex items-center gap-3">
               <button
-            type="button"
-            onClick={() => fileRef.current?.click()}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
-          >
+                type="button"
+                onClick={() => fileRef.current?.click()}
+                className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
+              >
             <ImageIcon className="h-4 w-4 text-indigo-500" />
             <span>{image ? "Change Photo" : "Attach Site Photo"}</span>
           </button>
-          <input ref={fileRef} type="file" accept="image/*" className="text-zinc-900 dark:text-white hidden" onChange={handleImage} />
+              {imagePreview && (
+                <button
+                  type="button"
+                  onClick={() => setCropImageSrc(imagePreview)}
+                  className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
+                >
+                  <Crop className="h-4 w-4 text-indigo-500" />
+                  <span>Crop Current Photo</span>
+                </button>
+              )}
+              <input ref={fileRef} type="file" accept="image/*" className="text-zinc-900 dark:text-white hidden" onChange={handleImage} />
             </div>
           </div>
 
           {/* Image Preview */}
           {imagePreview && (
             <div className="relative rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-700">
-              <img src={imagePreview} alt="Problem Photo" className="w-full object-cover max-h-44" />
+              <img src={imagePreview} alt="Problem Photo" className="w-full h-auto object-contain max-h-56 bg-black/5 dark:bg-black/20" />
               <button
                 type="button"
                 onClick={() => {
