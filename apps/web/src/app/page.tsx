@@ -262,7 +262,7 @@ function InstagramPost({
  <div
  className={`w-full py-16 px-6 flex flex-col items-center justify-center text-center border-y bg-card text-card-foreground border-border`}
  >
- <Image src="/logo.jpg" alt="Logo" width={56} height={56} className="w-full h-auto rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800" />
+ <Image src="/logo.jpg" alt="Logo" width={56} height={56} className="rounded-full shadow-lg flex-shrink-0 object-cover mb-3" />
  <h4
  className={`font-extrabold text-lg max-w-md leading-snug px-4 text-zinc-900 dark:text-white`}
  >
@@ -715,7 +715,7 @@ export default function HomePage() {
   >
   <div className="max-w-xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0">
   <Link href="/" className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 group w-full sm:w-auto">
-  <Image src="/logo.jpg" alt="Logo" width={36} height={36} className="w-full h-auto rounded-xl shadow-sm border border-zinc-200 dark:border-zinc-800" />
+  <Image src="/logo.jpg" alt="Logo" width={36} height={36} className="rounded-full shadow-lg group-hover:scale-105 transition-transform flex-shrink-0 object-cover" />
   <span className="font-black text-lg sm:text-xl tracking-tight italic text-center sm:text-left break-words">
   Connecting Social Problem
   </span>
