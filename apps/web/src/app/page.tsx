@@ -490,7 +490,11 @@ export default function HomePage() {
  setPosts((prev) => prev.map((p) => (p.id === postId ? { ...p, likeCount } : p)));
  };
 
- const handleNewComment = ({ postId }: any) => {
+ const handlePostUpdated = (updatedPost: any) => {
+    setPosts((prev) => prev.map((p) => (p.id === updatedPost.id ? { ...p, ...updatedPost } : p)));
+  };
+
+  const handleNewComment = ({ postId }: any) => {
  setPosts((prev) =>
  prev.map((p) =>
  p.id === postId ? { ...p, commentCount: Math.max(0, (p.commentCount || 0) + 1) } : p
@@ -503,12 +507,14 @@ export default function HomePage() {
  );
  };
 
- socket.on("new-post", handleNewPost);
+ socket.on("post-updated", handlePostUpdated);
+    socket.on("new-post", handleNewPost);
  socket.on("post-liked", handlePostLiked);
  socket.on("new-comment", handleNewComment);
 
  return () => {
- socket.off("new-post", handleNewPost);
+ socket.off("post-updated", handlePostUpdated);
+      socket.off("new-post", handleNewPost);
  socket.off("post-liked", handlePostLiked);
  socket.off("new-comment", handleNewComment);
  };

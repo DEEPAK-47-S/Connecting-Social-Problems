@@ -662,6 +662,7 @@ export const acceptIndustryChallenge = async (req: AuthRequest, res: Response) =
 
     console.log(`✅ [INDUSTRY ACCEPT] Challenge ${postId} locked by ${cleanCompany}`);
 
+    io.emit('post-updated', updatedPost);
     res.status(200).json({
       message: `Challenge successfully adopted by ${cleanCompany}!`,
       post: updatedPost,
@@ -1068,6 +1069,7 @@ export const updatePostStatus = async (req: AuthRequest, res: Response) => {
       }
     }
 
+    io.emit('post-updated', updated);
     res.json({ message: 'Status updated successfully', post: updated });
   } catch (err) {
     console.error('[UPDATE STATUS ERROR]', err);
@@ -1078,19 +1080,23 @@ export const updatePostStatus = async (req: AuthRequest, res: Response) => {
 // --- Internal: Simulated AI Analysis Pipeline ---
 async function triggerAiAnalysis(postId: string) {
   await new Promise((r) => setTimeout(r, 2000));
-  await prisma.post.update({
+  const u1 = await prisma.post.update({
     where: { id: postId },
     data: { status: 'AI_ANALYZING', statusMessage: 'AI is analysing the problem...' },
+    include: { user: { select: { id: true, name: true, email: true, avatarUrl: true } } }
   });
+  io.emit('post-updated', u1);
   await prisma.postStatusHistory.create({
     data: { postId, status: 'AI_ANALYZING', message: 'AI analysis started.' },
   });
 
   await new Promise((r) => setTimeout(r, 4000));
-  await prisma.post.update({
+  const u2 = await prisma.post.update({
     where: { id: postId },
     data: { status: 'UNIVERSITY_MATCHING', statusMessage: 'AI is finding the best university for this problem...' },
+    include: { user: { select: { id: true, name: true, email: true, avatarUrl: true } } }
   });
+  io.emit('post-updated', u2);
   await prisma.postStatusHistory.create({
     data: {
       postId,
