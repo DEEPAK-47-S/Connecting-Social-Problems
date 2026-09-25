@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from 'react';
-import Cropper from 'react-easy-crop';
+import React, { useState, useRef } from 'react';
+import ReactCrop, { type Crop, type PixelCrop } from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
 import getCroppedImg from '../utils/cropImage';
 import { X, Check, Loader2 } from 'lucide-react';
 
@@ -10,19 +11,34 @@ interface ImageCropperProps {
 }
 
 export default function ImageCropper({ imageSrc, onCropComplete, onCancel }: ImageCropperProps) {
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
+  const [crop, setCrop] = useState<Crop>({
+    unit: '%',
+    width: 90,
+    height: 90,
+    x: 5,
+    y: 5,
+  });
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop | null>(null);
   const [isCropping, setIsCropping] = useState(false);
-
-  const onCropCompleteHandler = useCallback((croppedArea: any, croppedAreaPixels: any) => {
-    setCroppedAreaPixels(croppedAreaPixels);
-  }, []);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   const handleConfirmCrop = async () => {
+    if (!completedCrop || !imgRef.current) return;
     try {
       setIsCropping(true);
-      const croppedFile = await getCroppedImg(imageSrc, croppedAreaPixels);
+      
+      // Calculate scale since image might be rendered smaller than actual size
+      const scaleX = imgRef.current.naturalWidth / imgRef.current.width;
+      const scaleY = imgRef.current.naturalHeight / imgRef.current.height;
+
+      const pixelCrop = {
+        x: completedCrop.x * scaleX,
+        y: completedCrop.y * scaleY,
+        width: completedCrop.width * scaleX,
+        height: completedCrop.height * scaleY,
+      };
+
+      const croppedFile = await getCroppedImg(imageSrc, pixelCrop);
       if (croppedFile) {
         const previewUrl = URL.createObjectURL(croppedFile);
         onCropComplete(croppedFile, previewUrl);
@@ -36,36 +52,28 @@ export default function ImageCropper({ imageSrc, onCropComplete, onCancel }: Ima
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/90 flex flex-col items-center justify-center p-4">
-      <div className="relative w-full max-w-2xl h-[60vh] bg-zinc-900 rounded-2xl overflow-hidden shadow-2xl border border-zinc-800">
-        <Cropper
-          image={imageSrc}
+      <div className="relative w-full max-w-4xl max-h-[70vh] bg-zinc-900 rounded-t-2xl overflow-y-auto shadow-2xl border border-zinc-800 flex items-center justify-center p-4">
+        <ReactCrop
           crop={crop}
-          zoom={zoom}
-          aspect={16 / 9}
-          onCropChange={setCrop}
-          onCropComplete={onCropCompleteHandler}
-          onZoomChange={setZoom}
-          classes={{ containerClassName: 'rounded-t-2xl' }}
-        />
+          onChange={(_, percentCrop) => setCrop(percentCrop)}
+          onComplete={(c) => setCompletedCrop(c)}
+          className="max-h-[65vh]"
+        >
+          <img
+            ref={imgRef}
+            src={imageSrc}
+            alt="Crop me"
+            className="max-h-[65vh] object-contain"
+          />
+        </ReactCrop>
       </div>
       
       {/* Controls */}
-      <div className="w-full max-w-2xl bg-zinc-900 border border-t-0 border-zinc-800 rounded-b-2xl p-5 shadow-2xl flex flex-col gap-4">
-        <div>
-          <label className="text-xs font-bold text-zinc-400 mb-2 block uppercase tracking-wider">Zoom</label>
-          <input
-            type="range"
-            value={zoom}
-            min={1}
-            max={3}
-            step={0.1}
-            aria-labelledby="Zoom"
-            onChange={(e) => setZoom(Number(e.target.value))}
-            className="w-full accent-indigo-500"
-          />
-        </div>
-        
-        <div className="flex items-center justify-end gap-3 pt-2">
+      <div className="w-full max-w-4xl bg-zinc-900 border border-t-0 border-zinc-800 rounded-b-2xl p-5 shadow-2xl flex items-center justify-between">
+        <p className="text-zinc-400 text-xs">
+          Drag the corners to adjust vertical &amp; horizontal size freely.
+        </p>
+        <div className="flex items-center gap-3">
           <button
             onClick={onCancel}
             disabled={isCropping}
@@ -76,7 +84,7 @@ export default function ImageCropper({ imageSrc, onCropComplete, onCancel }: Ima
           </button>
           <button
             onClick={handleConfirmCrop}
-            disabled={isCropping}
+            disabled={isCropping || !completedCrop?.width || !completedCrop?.height}
             className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-lg shadow-indigo-500/20 disabled:opacity-50"
           >
             {isCropping ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
